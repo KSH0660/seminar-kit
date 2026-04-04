@@ -257,7 +257,7 @@ Agentic 경험 없음                DRAM 도메인 없음
 
 ## Slide 9 — Why Agentic
 
-**[진입 시]**
+**[진입 시 → 클릭 1에서 fade-out]**
 
 ```
 도메인 특화, 두 가지 길
@@ -272,7 +272,7 @@ Agentic 경험 없음                DRAM 도메인 없음
    병목 · 고비용
 ```
 
-**[클릭 1 후]**
+**[클릭 1 후 → 클릭 2에서 fade-out]**
 
 ```
 DRAM 도메인에서 Fine-tuning이 특히 안 맞는 이유
