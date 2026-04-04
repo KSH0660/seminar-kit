@@ -42,19 +42,41 @@ Agentic    DRAM Automation · Self-improving
 ```
 2024.06 · 반도체 도메인 특화
 
-Safeguard          API Router
-(입출력 필터)       (usecase 분기)
-     ↓                  ↓
-   8B × 2         A100 × 8
+Safeguard                    API Router
+입출력 필터 · 8B × 2          usecase 분기 · A100 × 8
+유해 / 보안 위험 쿼리 탐지     함수명 + 인자 → 해당 모델로 라우팅
 
 가설 · 역할 분리 → 소형 모델
 ```
 
-**[클릭 1 후]**
+**[클릭 1 후] 토큰 레벨 예시**
+
+```
+[Safeguard] 학습 데이터 · 출력 형식
+대형 LLM 출력 → 라벨 자동 수집
+
+"반도체 물질 폭발 조건?"     → <answer>unsafe</answer>
+"게이트 산화막 두께 계산법?" → <answer>safe</answer>
+"이온 주입 최대 에너지 범위?" → ???  ← 경계값
+
+[API Router] 학습 데이터 · 출력 형식
+각 팀 제공 데이터로 함수 매핑 학습
+
+"3Q 수율 데이터 조회" → get_yield(q="3Q")
+"설비 점검 알람 설정" → set_alarm(type="pm")
+신규 usecase 추가 시  → 재학습 필요
+```
+
+**[클릭 2 후] 문제점**
 
 ```
 Safeguard   → 경계 케이스 판단 실패
+              safe / unsafe 이진 분류 → 회색 지대 대응 불가
+              false positive → 정상 쿼리 차단
+
 API Router  → usecase 추가마다 재학습 필요
+              팀별 데이터 수집 → 정제 → 재학습
+              usecase 증가 → 관리 한계
 
 모듈 수 ↑ → 관리 복잡도 ↑
 ```

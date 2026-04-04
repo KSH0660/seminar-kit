@@ -337,6 +337,45 @@
   text-align: center;
 }
 
+/* === Token Example Box === */
+.token-box {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  background: #f4f5f9;
+  border-left: 3px solid var(--color-accent);
+  border-radius: 0 6px 6px 0;
+  padding: 0.25em 0.6em;
+  margin: 0.25em 0;
+  font-family: 'Noto Sans Mono', monospace;
+  font-size: 0.72em;
+}
+
+.token-box.warn {
+  border-left-color: var(--color-fail);
+  background: #fef9f9;
+}
+
+.token-in {
+  color: var(--color-text);
+  flex: 1;
+}
+
+.token-sep {
+  color: var(--color-muted);
+  flex-shrink: 0;
+}
+
+.token-out {
+  color: var(--color-accent);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.token-out.warn {
+  color: var(--color-fail);
+}
+
 /* === Print / PDF === */
 @media print {
   .reveal .slides section {
