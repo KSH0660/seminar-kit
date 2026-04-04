@@ -119,6 +119,26 @@
 
         <!-- Click 1 -->
         <div class="fragment" data-fragment-index="1">
+          <div class="journey-flow" style="font-size:0.85em; flex-wrap:wrap;">
+            <span class="journey-node">대형 추론 모델</span>
+            <span class="journey-arrow">&rarr; SFT 증류 &rarr;</span>
+            <span class="journey-node">소형 모델</span>
+            <span class="journey-arrow">&rarr; 반도체 지식 추가 &rarr;</span>
+            <span class="journey-node accent">반도체 추론 모델</span>
+          </div>
+        </div>
+
+        <!-- Click 2 -->
+        <div class="fragment" data-fragment-index="2">
+          <div class="metric-highlight">
+            <p><em>"Direct distillation from DeepSeek-R1 outperforms applying RL on it."</em></p>
+            <p class="metric-source">DeepSeek-R1 Tech Report §4.1 &middot; arXiv 2501.12948</p>
+          </div>
+          <p class="takeaway">작은 모델은 스스로 발견하는 것보다 모방이 효율적 &rarr; SFT 증류 선택</p>
+        </div>
+
+        <!-- Click 3 -->
+        <div class="fragment" data-fragment-index="3">
           <div class="flow-vertical">
             <p>R1 재현 목표</p>
             <p class="flow-arrow">&darr;</p>
@@ -128,8 +148,8 @@
           </div>
         </div>
 
-        <!-- Click 2 -->
-        <div class="fragment" data-fragment-index="2">
+        <!-- Click 4 -->
+        <div class="fragment" data-fragment-index="4">
           <div class="metric-highlight">
             <p class="metric-big">MATH 95.0 &nbsp;&middot;&nbsp; GPQA 65.0</p>
             <p class="metric-compare">&asymp; DeepSeek-R1-Distill-Llama-70B (94.5 / 65.2)</p>
