@@ -281,29 +281,24 @@
       <section data-slide-id="slide-07">
         <h2>RL &amp; 전환</h2>
 
-        <!-- Entry -->
-        <div class="flow-vertical">
-          <p><strong>SFT 완료</strong></p>
-          <p class="flow-arrow">&darr;</p>
-          <p>RL Phase</p>
-          <p>수학 &middot; 과학 &rarr; Tool Calling</p>
-        </div>
-
-        <!-- Click 1 -->
-        <div class="fragment" data-fragment-index="1">
-          <div class="two-column">
-            <div>
-              <!-- left: our plan (already shown) -->
-            </div>
-            <div class="world-context">
-              <h3>세상</h3>
-              <ul>
-                <li>Qwen3 Tool Calling 공개</li>
-                <li>Claude MCP 확산</li>
-                <li>OpenAI Agents SDK</li>
-              </ul>
-              <p class="takeaway">Tool 학습 &lt; Tool 사용</p>
-            </div>
+        <div class="two-column">
+          <!-- Left: our original plan (visible on entry) -->
+          <div>
+            <h3>우리 팀의 원래 계획</h3>
+            <p><strong>SFT 완료</strong></p>
+            <p class="flow-arrow">&darr;</p>
+            <p>RL Phase</p>
+            <p>수학 &middot; 과학 &rarr; Tool Calling</p>
+          </div>
+          <!-- Right: world context (appears on click 1) -->
+          <div class="fragment world-context" data-fragment-index="1">
+            <h3>세상</h3>
+            <ul>
+              <li>Qwen3 Tool Calling 공개</li>
+              <li>Claude MCP 확산</li>
+              <li>OpenAI Agents SDK</li>
+            </ul>
+            <p class="takeaway">Tool 학습 &lt; Tool 사용</p>
           </div>
         </div>
 
