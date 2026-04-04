@@ -447,8 +447,30 @@
           <p>&rarr; 검색 완료 후 핵심만 생성 워커로 전달</p>
         </div>
 
-        <!-- Click 1 -->
-        <div class="fragment" data-fragment-index="1">
+        <!-- Click 1 + Click 2: Skill details side by side -->
+        <div class="two-column" style="margin-top: 0.8rem;">
+          <!-- Click 1: Skill 1 Retrieval -->
+          <div class="fragment" data-fragment-index="1">
+            <h3>Skill 1 &middot; Retrieval</h3>
+            <ul>
+              <li>레거시 코드에 <strong>LLM으로 메타데이터 자동 생성</strong></li>
+              <li>모듈 &rarr; 파일 &rarr; 함수 계층 검색</li>
+              <li>&rarr; 검색 정확도 <strong class="metric-inline">91.2%</strong></li>
+            </ul>
+          </div>
+          <!-- Click 2: Skill 2 Generation -->
+          <div class="fragment" data-fragment-index="2">
+            <h3>Skill 2 &middot; Generation</h3>
+            <ul>
+              <li>EDA 실행 &rarr; 에러 직접 노출 &rarr; 자가 수정</li>
+              <li>결과 로그 1&ndash;2 GB <span class="sub-note">(웨이브폼 포함)</span></li>
+              <li>핵심 추출 &rarr; Context 적재</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Click 3: Pass Rate -->
+        <div class="fragment" data-fragment-index="3">
           <h3>Pass Rate (구조적 접근의 효과)</h3>
           <table class="fit-table results-table">
             <tr>
@@ -470,6 +492,7 @@
           </p>
         </div>
 
+        <p class="bridge">루프가 반복될수록 &mdash; 무언가가 쌓인다</p>
       </section>
 
       <!-- Slide 12: 자기주도적 지식 축적 시스템 -->
