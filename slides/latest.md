@@ -6,9 +6,9 @@
 
 ```
 2018–2020 · KAIST M.S.        GAN / MRI Synthesis / FID SOTA
-2020–2022 · VUNO              Diffusion / Self-supervised / ONNX
-2023–2024 · Samsung SAIT      Latent Diffusion / Enterprise RAG / SEC Gold
-2025–     · Samsung DS AI     LLM Training / Agentic AI / H100×128
+2020–2022 · VUNO (전문연구요원)       Diffusion / Self-supervised / ONNX
+2023–2024 · Samsung SAIT (구 종합기술원)  Latent Diffusion / Enterprise RAG / SEC Gold
+2025–     · Samsung DS AI 센터        LLM Training / Agentic AI / H100×128
 ```
 
 브릿지: 7년 — 생성 모델에서 에이전트로
