@@ -96,21 +96,23 @@
         <h2>My First LLM</h2>
         <p class="slide-date">2024.06 &middot; 반도체 도메인 특화</p>
 
-        <!-- Entry -->
-        <div class="two-column">
-          <div>
-            <h3>Safeguard</h3>
-            <p>입출력 필터 &middot; 8B &times; 2</p>
-            <p class="sub-note">유해 / 보안 위험 쿼리 탐지</p>
-          </div>
-          <div>
-            <h3>API Router</h3>
-            <p>usecase 분기 &middot; A100 &times; 8</p>
-            <p class="sub-note">함수명 + 인자 &rarr; 해당 모델로 라우팅</p>
+        <!-- Entry: fades out on Click 1 -->
+        <div class="fragment fade-out" data-fragment-index="1">
+          <div class="two-column">
+            <div>
+              <h3>Safeguard</h3>
+              <p>입출력 필터 &middot; 8B &times; 2</p>
+              <p class="sub-note">유해 / 보안 위험 쿼리 탐지</p>
+            </div>
+            <div>
+              <h3>API Router</h3>
+              <p>usecase 분기 &middot; A100 &times; 8</p>
+              <p class="sub-note">함수명 + 인자 &rarr; 해당 모델로 라우팅</p>
+            </div>
           </div>
         </div>
         <!-- Click 1: Token-level examples -->
-        <div class="fragment" data-fragment-index="1">
+        <div class="fragment fade-in-then-out" data-fragment-index="1">
           <div class="two-column">
             <div>
               <h4>학습 데이터 &middot; 출력 형식</h4>
@@ -119,11 +121,6 @@
                 <span class="token-in">"반도체 물질 폭발 조건?"</span>
                 <span class="token-sep">&rarr;</span>
                 <span class="token-out">&lt;answer&gt;unsafe&lt;/answer&gt;</span>
-              </div>
-              <div class="token-box">
-                <span class="token-in">"게이트 산화막 두께 계산법?"</span>
-                <span class="token-sep">&rarr;</span>
-                <span class="token-out">&lt;answer&gt;safe&lt;/answer&gt;</span>
               </div>
               <div class="token-box warn">
                 <span class="token-in">"이온 주입 최대 에너지 범위?"</span>
@@ -138,11 +135,6 @@
                 <span class="token-in">"3Q 수율 데이터 조회"</span>
                 <span class="token-sep">&rarr;</span>
                 <span class="token-out">get_yield(q="3Q")</span>
-              </div>
-              <div class="token-box">
-                <span class="token-in">"설비 점검 알람 설정"</span>
-                <span class="token-sep">&rarr;</span>
-                <span class="token-out">set_alarm(type="pm")</span>
               </div>
               <div class="token-box warn">
                 <span class="token-in">"신규 usecase 추가 시"</span>
@@ -180,7 +172,7 @@
         <p>내부 방향 재설정 &rarr; <strong>반도체 도메인 &times; 추론형 모델</strong></p>
 
         <!-- Click 1 -->
-        <div class="fragment" data-fragment-index="1">
+        <div class="fragment fade-in-then-out" data-fragment-index="1">
           <div class="metric-highlight">
             <p><em>"Direct distillation from DeepSeek-R1 outperforms applying RL on it."</em></p>
             <p class="metric-source">DeepSeek-R1 Tech Report §4.1 &middot; arXiv 2501.12948</p>
@@ -189,13 +181,13 @@
         </div>
 
         <!-- Click 2 -->
-        <div class="fragment" data-fragment-index="2">
-          <div class="flow-vertical">
-            <p>R1 재현 목표</p>
-            <p class="flow-arrow">&darr;</p>
-            <p>수학 &middot; 과학부터</p>
-            <p class="flow-arrow">&darr;</p>
-            <p><strong>70B &middot; H100&times;128 &middot; 400k+ STEM</strong></p>
+        <div class="fragment fade-in-then-out" data-fragment-index="2">
+          <div class="journey-flow" style="font-size:0.95em;">
+            <span class="journey-node">R1 재현 목표</span>
+            <span class="journey-arrow">&rarr;</span>
+            <span class="journey-node">수학 &middot; 과학부터</span>
+            <span class="journey-arrow">&rarr;</span>
+            <span class="journey-node accent">70B &middot; H100&times;128 &middot; 400k+ STEM</span>
           </div>
         </div>
 
@@ -318,7 +310,7 @@
         </div>
 
         <!-- Click 1: pain points -->
-        <div class="fragment" data-fragment-index="1">
+        <div class="fragment fade-in-then-out" data-fragment-index="1">
           <p style="font-size:0.8em; color:var(--color-muted); margin-bottom:0.3em; text-align:left;">DRAM 검증이 안고 있던 문제</p>
           <div class="three-column">
             <div class="problem" style="text-align:center;">
@@ -338,17 +330,12 @@
 
         <!-- Click 2: team gap -->
         <div class="fragment" data-fragment-index="2">
-          <div class="two-column" style="margin-top:0.8em;">
-            <div style="text-align:center;">
-              <h3>DRAM 팀</h3>
-              <p>EDA &middot; 검증 전문<br><span class="sub-note">Agentic 경험 없음</span></p>
-            </div>
-            <div style="text-align:center;">
-              <h3>AI 팀</h3>
-              <p>LLM &middot; 에이전트 전문<br><span class="sub-note">DRAM 도메인 없음</span></p>
-            </div>
+          <div class="journey-flow" style="font-size:0.9em; margin-top:0.6em;">
+            <span class="journey-node">DRAM 팀<br><span class="sub-note">EDA &middot; 검증 전문</span></span>
+            <span class="journey-arrow">&larr; 공백 &rarr;</span>
+            <span class="journey-node">AI 팀<br><span class="sub-note">LLM &middot; 에이전트 전문</span></span>
           </div>
-          <p style="text-align:center; margin-top:0.4em;"><strong>공백</strong>을 메우다 &mdash; 수개월간 DRAM 직접 학습 &rarr; 두 도메인을 연결</p>
+          <p class="takeaway" style="text-align:center; margin-top:0.4em;">수개월간 DRAM 직접 학습 &rarr; 두 도메인을 연결</p>
         </div>
 
         <p class="bridge">문제는 명확했다 &mdash; 그럼 왜 Agentic이었나</p>
@@ -500,27 +487,29 @@
 
         <!-- Entry -->
         <p class="slide-subtitle">실행할수록 똑똑해지는 시스템</p>
-        <div class="two-column">
-          <div>
-            <h3>기존 AI 시스템</h3>
-            <ul>
-              <li>모델 고정</li>
-              <li>지식 = 학습 시점</li>
-              <li>도메인 망각</li>
-            </ul>
-          </div>
-          <div>
-            <h3>우리 시스템</h3>
-            <ul>
-              <li>실행 &rarr; 지식 생성</li>
-              <li>지식 = 누적 자산</li>
-              <li>도메인 심화</li>
-            </ul>
+        <div class="fragment fade-out" data-fragment-index="1">
+          <div class="two-column">
+            <div>
+              <h3>기존 AI 시스템</h3>
+              <ul>
+                <li>모델 고정</li>
+                <li>지식 = 학습 시점</li>
+                <li>도메인 망각</li>
+              </ul>
+            </div>
+            <div>
+              <h3>우리 시스템</h3>
+              <ul>
+                <li>실행 &rarr; 지식 생성</li>
+                <li>지식 = 누적 자산</li>
+                <li>도메인 심화</li>
+              </ul>
+            </div>
           </div>
         </div>
 
         <!-- Click 1 -->
-        <div class="fragment" data-fragment-index="1">
+        <div class="fragment fade-in-then-out" data-fragment-index="1">
           <h3>툴이 세 개에서 다섯 개로</h3>
           <div class="two-column">
             <div>
@@ -545,31 +534,14 @@
         <!-- Click 2 -->
         <div class="fragment" data-fragment-index="2">
           <h3>지식 정제는 자동화</h3>
-          <div class="two-column">
-            <div>
-              <h4>실행 중 (On-the-fly)</h4>
-              <ul>
-                <li>실패 패턴 초안 저장</li>
-                <li>성공 경로 초안 저장</li>
-                <li>Reasoning Trace 초안 저장</li>
-              </ul>
-              <p class="takeaway">속도 우선</p>
-            </div>
-            <div>
-              <h4>매일 자정 (Batch)</h4>
-              <ul>
-                <li>지식 정제 Agent 실행</li>
-                <li>중복 제거 &middot; 구조화</li>
-                <li>검색 품질 최적화</li>
-              </ul>
-              <p class="takeaway">정확도 우선</p>
-            </div>
+          <div class="journey-flow" style="font-size:0.85em;">
+            <span class="journey-node">실행 중 초안 저장<br><span class="sub-note">속도 우선</span></span>
+            <span class="journey-arrow">&rarr;</span>
+            <span class="journey-node">자정 Batch 정제<br><span class="sub-note">정확도 우선</span></span>
+            <span class="journey-arrow">&rarr;</span>
+            <span class="journey-node accent">Git &rarr; Fine-tuning Dataset</span>
           </div>
-          <div class="flow-vertical">
-            <p class="flow-arrow">&darr;</p>
-            <p>Git Repository &rarr; 누적 &rarr; <strong>Fine-tuning Dataset</strong></p>
-            <p class="takeaway">에이전트 &rarr; 데이터 생산자</p>
-          </div>
+          <p class="takeaway" style="text-align:center;">에이전트 &rarr; 데이터 생산자</p>
         </div>
       </section>
 
