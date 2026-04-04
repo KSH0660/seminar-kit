@@ -309,51 +309,46 @@
       <section data-slide-id="slide-08">
         <h2>The Problem</h2>
 
-        <!-- Entry -->
-        <div class="flow-vertical">
-          <p>Agentic AI 기술 성숙</p>
-          <p class="flow-arrow">&darr;</p>
-          <p>어디에 먼저 쓸까?</p>
-          <p class="flow-arrow">&darr;</p>
-          <p><strong>DRAM 검증</strong> &larr; 첫 번째 타깃</p>
-          <p class="sub-note">(레거시 코드 수십 년치 축적)</p>
+        <!-- Entry: horizontal flow -->
+        <div class="journey-flow" style="font-size:1em; margin-bottom:0.6em;">
+          <span class="journey-node">Agentic AI 패러다임 전환</span>
+          <span class="journey-arrow">&rarr;</span>
+          <span class="journey-node accent">DRAM 검증</span>
+          <span style="font-size:0.8em; color:var(--color-muted);">첫 번째 타깃 &middot; 레거시 코드 수십 년치 축적</span>
         </div>
 
-        <!-- Click 1 -->
+        <!-- Click 1: pain points -->
         <div class="fragment" data-fragment-index="1">
+          <p style="font-size:0.8em; color:var(--color-muted); margin-bottom:0.3em; text-align:left;">DRAM 검증이 안고 있던 문제</p>
           <div class="three-column">
-            <div>
+            <div class="problem" style="text-align:center;">
               <h3>수동 작성</h3>
               <p>케이스당 수 일</p>
             </div>
-            <div>
+            <div class="problem" style="text-align:center;">
               <h3>재사용 불가</h3>
               <p>과거 코드 누적만 될 뿐</p>
             </div>
-            <div>
+            <div class="problem" style="text-align:center;">
               <h3>툴 장벽</h3>
               <p>EDA 직접 실행 자동화 불가</p>
             </div>
           </div>
         </div>
 
-        <!-- Click 2 -->
+        <!-- Click 2: team gap -->
         <div class="fragment" data-fragment-index="2">
-          <div class="two-column">
-            <div>
+          <div class="two-column" style="margin-top:0.8em;">
+            <div style="text-align:center;">
               <h3>DRAM 팀</h3>
-              <p>EDA &middot; 검증 전문<br>Agentic 경험 없음</p>
+              <p>EDA &middot; 검증 전문<br><span class="sub-note">Agentic 경험 없음</span></p>
             </div>
-            <div>
+            <div style="text-align:center;">
               <h3>AI 팀</h3>
-              <p>LLM &middot; 에이전트 전문<br>DRAM 도메인 없음</p>
+              <p>LLM &middot; 에이전트 전문<br><span class="sub-note">DRAM 도메인 없음</span></p>
             </div>
           </div>
-          <div class="flow-vertical">
-            <p class="flow-arrow">&darr;</p>
-            <p><strong>공백이 있었다</strong></p>
-            <p>수개월간 DRAM 직접 학습 &rarr; 두 도메인을 연결할 수 있는 위치</p>
-          </div>
+          <p style="text-align:center; margin-top:0.4em;"><strong>공백</strong>을 메우다 &mdash; 수개월간 DRAM 직접 학습 &rarr; 두 도메인을 연결</p>
         </div>
 
         <p class="bridge">문제는 명확했다 &mdash; 그럼 왜 Agentic이었나</p>
