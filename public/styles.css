@@ -1,0 +1,349 @@
+/* === Fonts === */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Sans+Mono:wght@400;700&display=swap');
+
+:root {
+  --color-text: #1a1a2e;
+  --color-accent: #1428a0;
+  --color-accent-light: #e8ebf7;
+  --color-muted: #6b7280;
+  --color-border: #d1d5db;
+  --color-success: #059669;
+  --color-fail: #dc2626;
+  --color-bg: #ffffff;
+}
+
+/* === Base Overrides === */
+.reveal {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 28px;
+  color: var(--color-text);
+}
+
+.reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 700;
+  color: var(--color-text);
+  text-transform: none;
+}
+
+.reveal h2 {
+  font-size: 1.6em;
+  margin-bottom: 0.6em;
+  border-bottom: 3px solid var(--color-accent);
+  padding-bottom: 0.2em;
+  display: inline-block;
+}
+
+.reveal h3 {
+  font-size: 1.1em;
+  color: var(--color-accent);
+  margin-bottom: 0.3em;
+}
+
+.reveal h4 {
+  font-size: 0.95em;
+  color: var(--color-accent);
+  margin-bottom: 0.2em;
+}
+
+.reveal p {
+  line-height: 1.6;
+  margin: 0.3em 0;
+}
+
+.reveal ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.reveal ul li {
+  padding: 0.15em 0;
+  padding-left: 1.2em;
+  position: relative;
+}
+
+.reveal ul li::before {
+  content: '\25B8';
+  color: var(--color-accent);
+  position: absolute;
+  left: 0;
+}
+
+/* === Timeline === */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin: 1em 0;
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 140px 180px 1fr;
+  gap: 0.5em;
+  align-items: baseline;
+  padding: 0.4em 0.6em;
+  border-left: 3px solid var(--color-accent);
+  background: var(--color-accent-light);
+  border-radius: 0 6px 6px 0;
+}
+
+.timeline-period {
+  font-weight: 500;
+  font-size: 0.85em;
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.timeline-org {
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.timeline-desc {
+  font-size: 0.85em;
+  color: var(--color-muted);
+}
+
+/* === Journey Flow === */
+.journey-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  margin: 1em 0;
+  font-size: 1.2em;
+}
+
+.journey-node {
+  background: var(--color-accent-light);
+  padding: 0.3em 0.8em;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+.journey-node.accent {
+  background: var(--color-accent);
+  color: white;
+}
+
+.journey-arrow {
+  color: var(--color-muted);
+  font-size: 1.2em;
+}
+
+.journey-details {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.8em;
+  margin-top: 1em;
+  font-size: 0.8em;
+}
+
+.journey-detail-item {
+  text-align: center;
+  padding: 0.5em;
+  border-top: 2px solid var(--color-accent);
+}
+
+/* === Two Column Layout === */
+.two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5em;
+  margin: 0.8em 0;
+  text-align: left;
+}
+
+.three-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1em;
+  margin: 0.8em 0;
+  text-align: left;
+}
+
+/* === Vertical Flow === */
+.flow-vertical {
+  text-align: center;
+  margin: 0.8em 0;
+}
+
+.flow-arrow {
+  font-size: 1.3em;
+  color: var(--color-accent);
+  margin: 0.1em 0;
+}
+
+/* === Metrics === */
+.metric-highlight {
+  background: var(--color-accent-light);
+  border-left: 4px solid var(--color-accent);
+  padding: 0.6em 1em;
+  border-radius: 0 8px 8px 0;
+  margin: 0.8em 0;
+}
+
+.metric-big {
+  font-size: 1.4em;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.metric-compare {
+  font-size: 0.85em;
+  color: var(--color-muted);
+}
+
+.metric-source {
+  font-size: 0.7em;
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+.metric-inline {
+  font-size: 0.9em;
+  margin-top: 0.3em;
+}
+
+.metric-cell {
+  font-weight: 700;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.metric-cell.accent {
+  color: var(--color-accent);
+}
+
+/* === Tables === */
+.fit-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85em;
+  margin: 0.5em 0;
+}
+
+.fit-table th,
+.fit-table td {
+  padding: 0.4em 0.6em;
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+}
+
+.fit-table th {
+  background: var(--color-accent-light);
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.highlight-row td {
+  background: var(--color-accent-light);
+}
+
+.results-table td:first-child {
+  width: 70%;
+}
+
+/* === Misc === */
+.bridge {
+  font-size: 0.75em;
+  color: var(--color-muted);
+  font-style: italic;
+  margin-top: 1em;
+  text-align: right;
+}
+
+.slide-date {
+  font-size: 0.85em;
+  color: var(--color-muted);
+  margin-bottom: 0.5em;
+}
+
+.slide-subtitle {
+  font-size: 1em;
+  color: var(--color-muted);
+  margin-bottom: 0.8em;
+}
+
+.takeaway {
+  font-weight: 700;
+  color: var(--color-accent);
+  font-size: 0.9em;
+  margin-top: 0.3em;
+}
+
+.sub-note {
+  font-size: 0.8em;
+  color: var(--color-muted);
+}
+
+.footnote {
+  font-size: 0.65em;
+  color: var(--color-muted);
+  margin-top: 0.5em;
+}
+
+.fail-mark {
+  color: var(--color-fail);
+  font-weight: 700;
+  margin-left: 0.3em;
+}
+
+.problem {
+  border: 1px solid var(--color-fail);
+  border-radius: 8px;
+  padding: 0.5em;
+  background: #fef2f2;
+}
+
+.world-context {
+  background: var(--color-accent-light);
+  padding: 0.5em 0.8em;
+  border-radius: 8px;
+}
+
+.checklist li {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+}
+
+/* === Architecture Diagram === */
+.architecture-diagram {
+  margin: 0.8em 0;
+}
+
+.arch-orchestrator {
+  background: var(--color-accent);
+  color: white;
+  padding: 0.5em 1.5em;
+  border-radius: 8px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0.5em;
+}
+
+.arch-skills {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+}
+
+.arch-skill {
+  border: 2px solid var(--color-accent);
+  border-radius: 8px;
+  padding: 0.6em;
+  text-align: center;
+}
+
+/* === Print / PDF === */
+@media print {
+  .reveal .slides section {
+    page-break-after: always;
+  }
+
+  .bridge {
+    display: none;
+  }
+}
