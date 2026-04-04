@@ -88,6 +88,11 @@
   border-radius: 0 6px 6px 0;
 }
 
+.timeline-item--current {
+  border-left-width: 5px;
+  background: #d0d6f0;
+}
+
 .timeline-period {
   font-weight: 500;
   font-size: 0.85em;
@@ -374,6 +379,39 @@
 
 .token-out.warn {
   color: var(--color-fail);
+}
+
+/* === Intro Topic Cards === */
+.intro-topics {
+  margin-top: 1em;
+}
+
+.intro-topic-item {
+  border: 2px solid var(--color-accent);
+  border-radius: 8px;
+  padding: 0.6em 1em;
+  text-align: left;
+}
+
+.intro-topic-label {
+  font-size: 0.75em;
+  font-weight: 700;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.2em;
+}
+
+.intro-topic-title {
+  font-size: 1.1em;
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-bottom: 0.2em;
+}
+
+.intro-topic-detail {
+  font-size: 0.78em;
+  color: var(--color-muted);
 }
 
 /* === Print / PDF === */
