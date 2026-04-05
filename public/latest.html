@@ -96,34 +96,30 @@
         <h2>Turning Point</h2>
         <p class="slide-date">2025.01 &middot; DeepSeek R1</p>
 
-        <!-- Entry -->
-        <p>내부 방향 재설정 &rarr; <strong>반도체 도메인 &times; 추론형 모델</strong></p>
+        <!-- Entry: 최종 목표 — always visible -->
+        <p>최종 목표 &rarr; <strong>반도체 도메인 &times; 추론형 모델</strong></p>
+        <p class="sub-note">역할별 소형 특화 모델(Safeguard &middot; API Router) &rarr; 단일 대형 추론 모델로 통합</p>
 
-        <!-- Click 1 -->
+        <!-- Click 1: 전략 — 수학·과학이 반도체의 힌트 -->
         <div class="fragment" data-fragment-index="1">
-          <div class="metric-highlight">
-            <p><em>"Direct distillation from DeepSeek-R1 outperforms applying RL on it."</em></p>
-            <p class="metric-source">DeepSeek-R1 Tech Report §4.1 &middot; arXiv 2501.12948</p>
+          <div class="journey-flow" style="font-size:0.9em;">
+            <span class="journey-node">반도체 추론 모델</span>
+            <span class="journey-arrow">&larr;</span>
+            <span class="journey-node">수학 &middot; 과학 추론 모델 먼저<br><span class="sub-note">만드는 법을 알면 힌트 획득</span></span>
+            <span class="journey-arrow">&larr;</span>
+            <span class="journey-node accent">R1 노하우 취득<br><span class="sub-note" style="color:rgba(255,255,255,0.8);">데이터 &middot; 학습 방법론</span></span>
           </div>
-          <p class="takeaway">작은 모델은 스스로 발견하는 것보다 모방이 효율적 &rarr; SFT 증류 선택</p>
+          <p class="takeaway">R1이 수학 &middot; 과학 추론을 어떻게 했는가 &rarr; 직접 재현하며 노하우를 얻어낸다</p>
         </div>
-        <!-- Click 2 -->
+
+        <!-- Click 2: 목표 수치 설정 -->
         <div class="fragment" data-fragment-index="2">
-          <div class="journey-flow" style="font-size:0.95em;">
-            <span class="journey-node">R1 재현 목표</span>
-            <span class="journey-arrow">&rarr;</span>
-            <span class="journey-node">수학 &middot; 과학부터</span>
-            <span class="journey-arrow">&rarr;</span>
-            <span class="journey-node accent">70B &middot; H100&times;128 &middot; 400k+ STEM</span>
-          </div>
-        </div>
-        <!-- Click 3 -->
-        <div class="fragment" data-fragment-index="3">
           <div class="metric-highlight">
-            <p class="metric-big">MATH 95.0 &nbsp;&middot;&nbsp; GPQA 65.0</p>
-            <p class="metric-compare">&asymp; DeepSeek-R1-Distill-Llama-70B (94.5 / 65.2)</p>
+            <p class="metric-big">목표 &nbsp; MATH ~95 &nbsp;&middot;&nbsp; GPQA ~65</p>
+            <p class="metric-compare">&asymp; DeepSeek-R1-Distill-Llama-70B 수준</p>
             <p class="metric-source">DeepSeek-R1 Tech Report &middot; arXiv 2501.12948</p>
           </div>
+          <p class="takeaway" style="text-align:center;">70B &middot; H100&times;128 &middot; 400k+ STEM</p>
         </div>
 
       </section>
