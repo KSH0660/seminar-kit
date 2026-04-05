@@ -94,69 +94,65 @@
         <h2>My First LLM</h2>
         <p class="slide-date">2024.06 &middot; 반도체 도메인 특화</p>
 
-        <div class="r-stack">
-          <!-- Entry: fades out on Click 1 -->
-          <div class="fragment fade-out" data-fragment-index="1">
-            <div class="two-column">
-              <div>
-                <h3>Safeguard</h3>
-                <p>입출력 필터 &middot; 8B &times; 2</p>
-                <p class="sub-note">유해 / 보안 위험 쿼리 탐지</p>
+        <!-- Entry: always visible -->
+        <div class="two-column">
+          <div>
+            <h3>Safeguard</h3>
+            <p>입출력 필터 &middot; 8B &times; 2</p>
+            <p class="sub-note">유해 / 보안 위험 쿼리 탐지</p>
+          </div>
+          <div>
+            <h3>API Router</h3>
+            <p>usecase 분기 &middot; A100 &times; 8</p>
+            <p class="sub-note">함수명 + 인자 &rarr; 해당 모델로 라우팅</p>
+          </div>
+        </div>
+        <!-- Click 1: Token-level examples -->
+        <div class="fragment" data-fragment-index="1">
+          <div class="two-column">
+            <div>
+              <h4>학습 데이터 &middot; 출력 형식</h4>
+              <p class="sub-note">대형 LLM 출력 &rarr; 라벨 자동 수집</p>
+              <div class="token-box">
+                <span class="token-in">"반도체 물질 폭발 조건?"</span>
+                <span class="token-sep">&rarr;</span>
+                <span class="token-out">&lt;answer&gt;unsafe&lt;/answer&gt;</span>
               </div>
-              <div>
-                <h3>API Router</h3>
-                <p>usecase 분기 &middot; A100 &times; 8</p>
-                <p class="sub-note">함수명 + 인자 &rarr; 해당 모델로 라우팅</p>
+              <div class="token-box warn">
+                <span class="token-in">"이온 주입 최대 에너지 범위?"</span>
+                <span class="token-sep">&rarr;</span>
+                <span class="token-out warn">???</span>
+              </div>
+            </div>
+            <div>
+              <h4>학습 데이터 &middot; 출력 형식</h4>
+              <p class="sub-note">각 팀 제공 데이터로 함수 매핑 학습</p>
+              <div class="token-box">
+                <span class="token-in">"3Q 수율 데이터 조회"</span>
+                <span class="token-sep">&rarr;</span>
+                <span class="token-out">get_yield(q="3Q")</span>
+              </div>
+              <div class="token-box warn">
+                <span class="token-in">"신규 usecase 추가 시"</span>
+                <span class="token-sep">&rarr;</span>
+                <span class="token-out warn">재학습 필요</span>
               </div>
             </div>
           </div>
-          <!-- Click 1: Token-level examples -->
-          <div class="fragment fade-in-then-out" data-fragment-index="1">
-            <div class="two-column">
-              <div>
-                <h4>학습 데이터 &middot; 출력 형식</h4>
-                <p class="sub-note">대형 LLM 출력 &rarr; 라벨 자동 수집</p>
-                <div class="token-box">
-                  <span class="token-in">"반도체 물질 폭발 조건?"</span>
-                  <span class="token-sep">&rarr;</span>
-                  <span class="token-out">&lt;answer&gt;unsafe&lt;/answer&gt;</span>
-                </div>
-                <div class="token-box warn">
-                  <span class="token-in">"이온 주입 최대 에너지 범위?"</span>
-                  <span class="token-sep">&rarr;</span>
-                  <span class="token-out warn">???</span>
-                </div>
-              </div>
-              <div>
-                <h4>학습 데이터 &middot; 출력 형식</h4>
-                <p class="sub-note">각 팀 제공 데이터로 함수 매핑 학습</p>
-                <div class="token-box">
-                  <span class="token-in">"3Q 수율 데이터 조회"</span>
-                  <span class="token-sep">&rarr;</span>
-                  <span class="token-out">get_yield(q="3Q")</span>
-                </div>
-                <div class="token-box warn">
-                  <span class="token-in">"신규 usecase 추가 시"</span>
-                  <span class="token-sep">&rarr;</span>
-                  <span class="token-out warn">재학습 필요</span>
-                </div>
-              </div>
+        </div>
+        <!-- Click 2: Problems -->
+        <div class="fragment" data-fragment-index="2">
+          <div class="two-column problem">
+            <div>
+              <p><strong>Safeguard</strong> &rarr; 경계 케이스 판단 실패</p>
+              <p class="sub-note">safe / unsafe 이진 분류 &rarr; 회색 지대 대응 불가<br>false positive &rarr; 정상 쿼리 차단</p>
+            </div>
+            <div>
+              <p><strong>API Router</strong> &rarr; usecase 추가마다 재학습 필요</p>
+              <p class="sub-note">팀별 데이터 수집 &rarr; 정제 &rarr; 재학습<br>usecase 증가 &rarr; 관리 한계</p>
             </div>
           </div>
-          <!-- Click 2: Problems -->
-          <div class="fragment" data-fragment-index="2">
-            <div class="two-column problem">
-              <div>
-                <p><strong>Safeguard</strong> &rarr; 경계 케이스 판단 실패</p>
-                <p class="sub-note">safe / unsafe 이진 분류 &rarr; 회색 지대 대응 불가<br>false positive &rarr; 정상 쿼리 차단</p>
-              </div>
-              <div>
-                <p><strong>API Router</strong> &rarr; usecase 추가마다 재학습 필요</p>
-                <p class="sub-note">팀별 데이터 수집 &rarr; 정제 &rarr; 재학습<br>usecase 증가 &rarr; 관리 한계</p>
-              </div>
-            </div>
-            <p class="takeaway">모듈 수 &uarr; &rarr; 관리 복잡도 &uarr;</p>
-          </div>
+          <p class="takeaway">모듈 수 &uarr; &rarr; 관리 복잡도 &uarr;</p>
         </div>
 
       </section>
@@ -169,32 +165,30 @@
         <!-- Entry -->
         <p>내부 방향 재설정 &rarr; <strong>반도체 도메인 &times; 추론형 모델</strong></p>
 
-        <div class="r-stack">
-          <!-- Click 1 -->
-          <div class="fragment fade-in-then-out" data-fragment-index="1">
-            <div class="metric-highlight">
-              <p><em>"Direct distillation from DeepSeek-R1 outperforms applying RL on it."</em></p>
-              <p class="metric-source">DeepSeek-R1 Tech Report §4.1 &middot; arXiv 2501.12948</p>
-            </div>
-            <p class="takeaway">작은 모델은 스스로 발견하는 것보다 모방이 효율적 &rarr; SFT 증류 선택</p>
+        <!-- Click 1 -->
+        <div class="fragment" data-fragment-index="1">
+          <div class="metric-highlight">
+            <p><em>"Direct distillation from DeepSeek-R1 outperforms applying RL on it."</em></p>
+            <p class="metric-source">DeepSeek-R1 Tech Report §4.1 &middot; arXiv 2501.12948</p>
           </div>
-          <!-- Click 2 -->
-          <div class="fragment fade-in-then-out" data-fragment-index="2">
-            <div class="journey-flow" style="font-size:0.95em;">
-              <span class="journey-node">R1 재현 목표</span>
-              <span class="journey-arrow">&rarr;</span>
-              <span class="journey-node">수학 &middot; 과학부터</span>
-              <span class="journey-arrow">&rarr;</span>
-              <span class="journey-node accent">70B &middot; H100&times;128 &middot; 400k+ STEM</span>
-            </div>
+          <p class="takeaway">작은 모델은 스스로 발견하는 것보다 모방이 효율적 &rarr; SFT 증류 선택</p>
+        </div>
+        <!-- Click 2 -->
+        <div class="fragment" data-fragment-index="2">
+          <div class="journey-flow" style="font-size:0.95em;">
+            <span class="journey-node">R1 재현 목표</span>
+            <span class="journey-arrow">&rarr;</span>
+            <span class="journey-node">수학 &middot; 과학부터</span>
+            <span class="journey-arrow">&rarr;</span>
+            <span class="journey-node accent">70B &middot; H100&times;128 &middot; 400k+ STEM</span>
           </div>
-          <!-- Click 3 -->
-          <div class="fragment" data-fragment-index="3">
-            <div class="metric-highlight">
-              <p class="metric-big">MATH 95.0 &nbsp;&middot;&nbsp; GPQA 65.0</p>
-              <p class="metric-compare">&asymp; DeepSeek-R1-Distill-Llama-70B (94.5 / 65.2)</p>
-              <p class="metric-source">DeepSeek-R1 Tech Report &middot; arXiv 2501.12948</p>
-            </div>
+        </div>
+        <!-- Click 3 -->
+        <div class="fragment" data-fragment-index="3">
+          <div class="metric-highlight">
+            <p class="metric-big">MATH 95.0 &nbsp;&middot;&nbsp; GPQA 65.0</p>
+            <p class="metric-compare">&asymp; DeepSeek-R1-Distill-Llama-70B (94.5 / 65.2)</p>
+            <p class="metric-source">DeepSeek-R1 Tech Report &middot; arXiv 2501.12948</p>
           </div>
         </div>
 
@@ -303,34 +297,32 @@
           <span style="font-size:0.8em; color:var(--color-muted);">첫 번째 타깃 &middot; 레거시 코드 수십 년치 축적</span>
         </div>
 
-        <div class="r-stack">
-          <!-- Click 1: pain points -->
-          <div class="fragment fade-in-then-out" data-fragment-index="1">
-            <p style="font-size:0.8em; color:var(--color-muted); margin-bottom:0.3em; text-align:left;">DRAM 검증이 안고 있던 문제</p>
-            <div class="three-column">
-              <div class="problem" style="text-align:center;">
-                <h3>수동 작성</h3>
-                <p>케이스당 수 일</p>
-              </div>
-              <div class="problem" style="text-align:center;">
-                <h3>재사용 불가</h3>
-                <p>과거 코드 누적만 될 뿐</p>
-              </div>
-              <div class="problem" style="text-align:center;">
-                <h3>툴 장벽</h3>
-                <p>EDA 직접 실행 자동화 불가</p>
-              </div>
+        <!-- Click 1: pain points -->
+        <div class="fragment" data-fragment-index="1">
+          <p style="font-size:0.8em; color:var(--color-muted); margin-bottom:0.3em; text-align:left;">DRAM 검증이 안고 있던 문제</p>
+          <div class="three-column">
+            <div class="problem" style="text-align:center;">
+              <h3>수동 작성</h3>
+              <p>케이스당 수 일</p>
+            </div>
+            <div class="problem" style="text-align:center;">
+              <h3>재사용 불가</h3>
+              <p>과거 코드 누적만 될 뿐</p>
+            </div>
+            <div class="problem" style="text-align:center;">
+              <h3>툴 장벽</h3>
+              <p>EDA 직접 실행 자동화 불가</p>
             </div>
           </div>
-          <!-- Click 2: team gap -->
-          <div class="fragment" data-fragment-index="2">
-            <div class="journey-flow" style="font-size:0.9em; margin-top:0.6em;">
-              <span class="journey-node">DRAM 팀<br><span class="sub-note">EDA &middot; 검증 전문</span></span>
-              <span class="journey-arrow">&larr; 공백 &rarr;</span>
-              <span class="journey-node">AI 팀<br><span class="sub-note">LLM &middot; 에이전트 전문</span></span>
-            </div>
-            <p class="takeaway" style="text-align:center; margin-top:0.4em;">수개월간 DRAM 직접 학습 &rarr; 두 도메인을 연결</p>
+        </div>
+        <!-- Click 2: team gap -->
+        <div class="fragment" data-fragment-index="2">
+          <div class="journey-flow" style="font-size:0.9em; margin-top:0.6em;">
+            <span class="journey-node">DRAM 팀<br><span class="sub-note">EDA &middot; 검증 전문</span></span>
+            <span class="journey-arrow">&larr; 공백 &rarr;</span>
+            <span class="journey-node">AI 팀<br><span class="sub-note">LLM &middot; 에이전트 전문</span></span>
           </div>
+          <p class="takeaway" style="text-align:center; margin-top:0.4em;">수개월간 DRAM 직접 학습 &rarr; 두 도메인을 연결</p>
         </div>
 
       </section>
@@ -339,60 +331,56 @@
       <section data-slide-id="slide-09">
         <h2>Why Agentic</h2>
 
-        <div class="r-stack">
-          <!-- Entry: fades out on Click 1 -->
-          <div class="fragment fade-out" data-fragment-index="1">
-            <p style="font-size:0.85em; color:var(--color-muted); margin-bottom:0.4em;">도메인 특화, 두 가지 길</p>
-            <div class="two-column">
-              <div>
-                <h3>모델 파인튜닝</h3>
-                <ul>
-                  <li>데이터 수집</li>
-                  <li>정제 &middot; 학습</li>
-                  <li>긴 시계열</li>
-                  <li>제품마다 반복</li>
-                </ul>
-                <p class="takeaway">&rarr; 병목 &middot; 고비용</p>
-              </div>
-              <div>
-                <h3>Agentic AI</h3>
-                <ul>
-                  <li>강력한 Frontier 모델</li>
-                  <li>툴 실행 &middot; 결과 확인</li>
-                  <li>자가 수정 루프</li>
-                </ul>
-              </div>
+        <!-- Entry: always visible -->
+        <p style="font-size:0.85em; color:var(--color-muted); margin-bottom:0.4em;">도메인 특화, 두 가지 길</p>
+        <div class="two-column">
+          <div>
+            <h3>모델 파인튜닝</h3>
+            <ul>
+              <li>데이터 수집</li>
+              <li>정제 &middot; 학습</li>
+              <li>긴 시계열</li>
+              <li>제품마다 반복</li>
+            </ul>
+            <p class="takeaway">&rarr; 병목 &middot; 고비용</p>
+          </div>
+          <div>
+            <h3>Agentic AI</h3>
+            <ul>
+              <li>강력한 Frontier 모델</li>
+              <li>툴 실행 &middot; 결과 확인</li>
+              <li>자가 수정 루프</li>
+            </ul>
+          </div>
+        </div>
+        <!-- Click 1 -->
+        <div class="fragment" data-fragment-index="1">
+          <h3>DRAM 도메인에서 Fine-tuning이 특히 안 맞는 이유</h3>
+          <div class="three-column">
+            <div>
+              <h4>레거시 코드</h4>
+              <p>정답 라벨 없음<br>패턴이 아니라 의미를 알아야</p>
+            </div>
+            <div>
+              <h4>제품 사이클</h4>
+              <p>매 세대 스펙 변경<br>&rarr; 학습 데이터 금방 outdated</p>
+            </div>
+            <div>
+              <h4>EDA 툴</h4>
+              <p>실행 결과가 정답<br>모델이 직접 실행해야 앎</p>
             </div>
           </div>
-          <!-- Click 1: fades in then out -->
-          <div class="fragment fade-in-then-out" data-fragment-index="1">
-            <h3>DRAM 도메인에서 Fine-tuning이 특히 안 맞는 이유</h3>
-            <div class="three-column">
-              <div>
-                <h4>레거시 코드</h4>
-                <p>정답 라벨 없음<br>패턴이 아니라 의미를 알아야</p>
-              </div>
-              <div>
-                <h4>제품 사이클</h4>
-                <p>매 세대 스펙 변경<br>&rarr; 학습 데이터 금방 outdated</p>
-              </div>
-              <div>
-                <h4>EDA 툴</h4>
-                <p>실행 결과가 정답<br>모델이 직접 실행해야 앎</p>
-              </div>
-            </div>
-          </div>
-          <!-- Click 2 -->
-          <div class="fragment" data-fragment-index="2">
-            <h3>Agentic이 이 조건에 정확히 맞는다</h3>
-            <table class="fit-table">
-              <tr><th>조건</th><th>Agentic의 대응</th></tr>
-              <tr><td>정답 라벨 없음</td><td>시뮬레이터가 정답을 준다</td></tr>
-              <tr><td>스펙 변경</td><td>컨텍스트로 흡수, 재학습 불필요</td></tr>
-              <tr><td>EDA 툴 실행 필요</td><td>툴 호출이 곧 스킬</td></tr>
-              <tr><td>자가 수정 필요</td><td>Feedback Loop가 내장</td></tr>
-            </table>
-          </div>
+        </div>
+        <!-- Click 2 -->
+        <div class="fragment" data-fragment-index="2">
+          <h3>Agentic이 이 조건에 정확히 맞는다</h3>
+          <table class="fit-table">
+            <tr><th>조건</th><th>Agentic의 대응</th></tr>
+            <tr><td>정답 라벨 없음</td><td>시뮬레이터가 정답을 준다</td></tr>
+            <tr><td>스펙 변경</td><td>컨텍스트로 흡수, 재학습 불필요</td></tr>
+            <tr><td>EDA 툴 실행 필요</td><td>툴 호출이 곧 스킬</td></tr>
+            <tr><td>자가 수정 필요</td><td>Feedback Loop가 내장</td></tr>
+          </table>
         </div>
 
       </section>
@@ -499,63 +487,59 @@
       <section data-slide-id="slide-12">
         <h2>자기주도적 지식 축적 시스템</h2>
 
-        <div class="r-stack">
-          <!-- Entry: 기존 vs 우리 시스템 비교 -->
-          <div class="fragment fade-out" data-fragment-index="1">
-            <p class="slide-subtitle">실행할수록 똑똑해지는 시스템</p>
-            <div class="two-column">
-              <div>
-                <h3>기존 AI 시스템</h3>
-                <ul>
-                  <li>모델 고정</li>
-                  <li>지식 = 학습 시점</li>
-                  <li>도메인 망각</li>
-                </ul>
-              </div>
-              <div>
-                <h3>우리 시스템</h3>
-                <ul>
-                  <li>실행 &rarr; 지식 생성</li>
-                  <li>지식 = 누적 자산</li>
-                  <li>도메인 심화</li>
-                </ul>
-              </div>
+        <!-- Entry: 기존 vs 우리 시스템 비교 -->
+        <p class="slide-subtitle">실행할수록 똑똑해지는 시스템</p>
+        <div class="two-column">
+          <div>
+            <h3>기존 AI 시스템</h3>
+            <ul>
+              <li>모델 고정</li>
+              <li>지식 = 학습 시점</li>
+              <li>도메인 망각</li>
+            </ul>
+          </div>
+          <div>
+            <h3>우리 시스템</h3>
+            <ul>
+              <li>실행 &rarr; 지식 생성</li>
+              <li>지식 = 누적 자산</li>
+              <li>도메인 심화</li>
+            </ul>
+          </div>
+        </div>
+        <!-- Click 1: 툴 확장 -->
+        <div class="fragment" data-fragment-index="1">
+          <h3>툴이 세 개에서 다섯 개로</h3>
+          <div class="two-column">
+            <div>
+              <h4>기본 툴</h4>
+              <ul>
+                <li>파일 R/W</li>
+                <li>EDA (Xcelium)</li>
+                <li>터미널</li>
+              </ul>
+            </div>
+            <div>
+              <h4>지식 툴</h4>
+              <ul>
+                <li>Knowledge 초안 저장</li>
+                <li>Knowledge 조회 (RAG)</li>
+              </ul>
             </div>
           </div>
-          <!-- Click 1: 툴 확장 -->
-          <div class="fragment fade-in-then-out" data-fragment-index="1">
-            <h3>툴이 세 개에서 다섯 개로</h3>
-            <div class="two-column">
-              <div>
-                <h4>기본 툴</h4>
-                <ul>
-                  <li>파일 R/W</li>
-                  <li>EDA (Xcelium)</li>
-                  <li>터미널</li>
-                </ul>
-              </div>
-              <div>
-                <h4>지식 툴</h4>
-                <ul>
-                  <li>Knowledge 초안 저장</li>
-                  <li>Knowledge 조회 (RAG)</li>
-                </ul>
-              </div>
-            </div>
-            <p>Orchestrator가 동일한 방식으로 호출 &rarr; 에이전트 입장에서 지식도 "툴"</p>
+          <p>Orchestrator가 동일한 방식으로 호출 &rarr; 에이전트 입장에서 지식도 "툴"</p>
+        </div>
+        <!-- Click 2: 지식 정제 파이프라인 -->
+        <div class="fragment" data-fragment-index="2">
+          <h3>지식 정제는 자동화</h3>
+          <div class="journey-flow" style="font-size:0.85em;">
+            <span class="journey-node">실행 중 초안 저장<br><span class="sub-note">속도 우선</span></span>
+            <span class="journey-arrow">&rarr;</span>
+            <span class="journey-node">자정 Batch 정제<br><span class="sub-note">정확도 우선</span></span>
+            <span class="journey-arrow">&rarr;</span>
+            <span class="journey-node accent">Git &rarr; Fine-tuning Dataset</span>
           </div>
-          <!-- Click 2: 지식 정제 파이프라인 -->
-          <div class="fragment" data-fragment-index="2">
-            <h3>지식 정제는 자동화</h3>
-            <div class="journey-flow" style="font-size:0.85em;">
-              <span class="journey-node">실행 중 초안 저장<br><span class="sub-note">속도 우선</span></span>
-              <span class="journey-arrow">&rarr;</span>
-              <span class="journey-node">자정 Batch 정제<br><span class="sub-note">정확도 우선</span></span>
-              <span class="journey-arrow">&rarr;</span>
-              <span class="journey-node accent">Git &rarr; Fine-tuning Dataset</span>
-            </div>
-            <p class="takeaway" style="text-align:center;">에이전트 &rarr; 데이터 생산자</p>
-          </div>
+          <p class="takeaway" style="text-align:center;">에이전트 &rarr; 데이터 생산자</p>
         </div>
       </section>
 
@@ -567,7 +551,7 @@
     Reveal.initialize({
       hash: true,
       width: 1280,
-      height: 720,
+      height: 1080,
       margin: 0.05,
       transition: 'none',
       pdfSeparateFragments: false,
