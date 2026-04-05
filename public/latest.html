@@ -75,68 +75,19 @@
       <!-- Slide 3: My First LLM -->
       <section data-slide-id="slide-03">
         <h2>My First LLM</h2>
-        <p class="slide-date">2024.06 &middot; 반도체 도메인 특화</p>
+        <p class="slide-date">2024.06 &middot; 반도체 도메인 특화 &middot; 작은 LLM 학습부터 시작</p>
 
-        <!-- Entry: always visible -->
         <div class="two-column">
           <div>
             <h3>Safeguard</h3>
-            <p>입출력 필터 &middot; 8B &times; 2</p>
-            <p class="sub-note">유해 / 보안 위험 쿼리 탐지</p>
+            <p class="sub-note">입출력 필터 &middot; 유해 / 보안 위험 쿼리 탐지</p>
           </div>
           <div>
             <h3>API Router</h3>
-            <p>usecase 분기 &middot; A100 &times; 8</p>
-            <p class="sub-note">함수명 + 인자 &rarr; 해당 모델로 라우팅</p>
+            <p class="sub-note">usecase 분기 &middot; 함수명 + 인자 &rarr; 해당 모델로 라우팅</p>
           </div>
         </div>
-        <!-- Click 1: Token-level examples -->
-        <div class="fragment" data-fragment-index="1">
-          <div class="two-column">
-            <div>
-              <h4>학습 데이터 &middot; 출력 형식</h4>
-              <p class="sub-note">대형 LLM 출력 &rarr; 라벨 자동 수집</p>
-              <div class="token-box">
-                <span class="token-in">"반도체 물질 폭발 조건?"</span>
-                <span class="token-sep">&rarr;</span>
-                <span class="token-out">&lt;answer&gt;unsafe&lt;/answer&gt;</span>
-              </div>
-              <div class="token-box warn">
-                <span class="token-in">"이온 주입 최대 에너지 범위?"</span>
-                <span class="token-sep">&rarr;</span>
-                <span class="token-out warn">???</span>
-              </div>
-            </div>
-            <div>
-              <h4>학습 데이터 &middot; 출력 형식</h4>
-              <p class="sub-note">각 팀 제공 데이터로 함수 매핑 학습</p>
-              <div class="token-box">
-                <span class="token-in">"3Q 수율 데이터 조회"</span>
-                <span class="token-sep">&rarr;</span>
-                <span class="token-out">get_yield(q="3Q")</span>
-              </div>
-              <div class="token-box warn">
-                <span class="token-in">"신규 usecase 추가 시"</span>
-                <span class="token-sep">&rarr;</span>
-                <span class="token-out warn">재학습 필요</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Click 2: Problems -->
-        <div class="fragment" data-fragment-index="2">
-          <div class="two-column problem">
-            <div>
-              <p><strong>Safeguard</strong> &rarr; 경계 케이스 판단 실패</p>
-              <p class="sub-note">safe / unsafe 이진 분류 &rarr; 회색 지대 대응 불가<br>false positive &rarr; 정상 쿼리 차단</p>
-            </div>
-            <div>
-              <p><strong>API Router</strong> &rarr; usecase 추가마다 재학습 필요</p>
-              <p class="sub-note">팀별 데이터 수집 &rarr; 정제 &rarr; 재학습<br>usecase 증가 &rarr; 관리 한계</p>
-            </div>
-          </div>
-          <p class="takeaway">모듈 수 &uarr; &rarr; 관리 복잡도 &uarr;</p>
-        </div>
+        <p class="takeaway">공통 &middot; 8B 스케일 &nbsp;|&nbsp; A100 &times; 8</p>
 
       </section>
 
