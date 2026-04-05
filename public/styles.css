@@ -46,6 +46,26 @@
   margin-bottom: 0.2em;
 }
 
+/* === Slide Layout: top-align === */
+.reveal .slides section {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  text-align: left;
+  height: 100%;
+  padding-top: 2em;
+  box-sizing: border-box;
+}
+
+/* Title slide: keep centered */
+.reveal .slides section[data-slide-id="slide-00"] {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-top: 0;
+}
+
 .reveal p {
   line-height: 1.6;
   margin: 0.3em 0;
