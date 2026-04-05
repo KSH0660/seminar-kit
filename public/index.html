@@ -69,9 +69,53 @@
       color: #1428a0;
       border: 2px solid #1428a0;
     }
+
+    .theme-toggle {
+      position: fixed;
+      top: 1em;
+      right: 1em;
+      z-index: 100;
+      background: #e8ebf7;
+      border: 1px solid #d1d5db;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2em;
+      line-height: 1;
+      transition: background 0.2s;
+      padding: 0;
+    }
+    .theme-toggle:hover { background: #d1d5db; }
+
+    @media (prefers-color-scheme: dark) {
+      body:not(.light) {
+        background: #0f172a;
+        color: #e2e8f0;
+      }
+      body:not(.light) .subtitle { color: #94a3b8; }
+      body:not(.light) .btn-primary { background: #6b8cff; color: #0f172a; }
+      body:not(.light) .btn-secondary { background: #1e2a4a; color: #6b8cff; border-color: #6b8cff; }
+      body:not(.light) .theme-toggle { background: #1e2a4a; border-color: #374151; }
+      body:not(.light) .theme-toggle:hover { background: #374151; }
+    }
+
+    body.dark {
+      background: #0f172a;
+      color: #e2e8f0;
+    }
+    body.dark .subtitle { color: #94a3b8; }
+    body.dark .btn-primary { background: #6b8cff; color: #0f172a; }
+    body.dark .btn-secondary { background: #1e2a4a; color: #6b8cff; border-color: #6b8cff; }
+    body.dark .theme-toggle { background: #1e2a4a; border-color: #374151; }
+    body.dark .theme-toggle:hover { background: #374151; }
   </style>
 </head>
 <body>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
   <div class="container">
     <h1>Generative AI에서 Agentic AI로</h1>
     <p class="subtitle">세미나 발표 자료</p>
@@ -80,5 +124,36 @@
       <a href="latest.pdf" class="btn-secondary">PDF 다운로드</a>
     </div>
   </div>
+  <script>
+    (function() {
+      var btn = document.getElementById('themeToggle');
+      var body = document.body;
+
+      function getSystemTheme() {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+
+      function applyTheme(theme) {
+        body.classList.remove('dark', 'light');
+        if (theme !== 'system') body.classList.add(theme);
+        var effective = theme === 'system' ? getSystemTheme() : theme;
+        btn.textContent = effective === 'dark' ? '\u2600' : '\u263E';
+      }
+
+      var saved = localStorage.getItem('theme');
+      applyTheme(saved || 'system');
+
+      btn.addEventListener('click', function() {
+        var isDark = body.classList.contains('dark') || (!body.classList.contains('light') && getSystemTheme() === 'dark');
+        var next = isDark ? 'light' : 'dark';
+        localStorage.setItem('theme', next);
+        applyTheme(next);
+      });
+
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
+        if (!localStorage.getItem('theme')) applyTheme('system');
+      });
+    })();
+  </script>
 </body>
 </html>
