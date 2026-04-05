@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
   <div class="reveal">
     <div class="slides">
 
@@ -558,6 +559,40 @@
       center: true,
       slideNumber: 'c/t',
     });
+
+    // Theme toggle
+    (function() {
+      var btn = document.getElementById('themeToggle');
+      var root = document.documentElement;
+
+      function getSystemTheme() {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+
+      function applyTheme(theme) {
+        if (theme === 'system') {
+          root.removeAttribute('data-theme');
+        } else {
+          root.setAttribute('data-theme', theme);
+        }
+        btn.textContent = (theme === 'dark' || (theme === 'system' && getSystemTheme() === 'dark')) ? '\u2600' : '\u263E';
+      }
+
+      var saved = localStorage.getItem('theme');
+      applyTheme(saved || 'system');
+
+      btn.addEventListener('click', function() {
+        var current = root.getAttribute('data-theme');
+        var effective = current || getSystemTheme();
+        var next = effective === 'dark' ? 'light' : 'dark';
+        localStorage.setItem('theme', next);
+        applyTheme(next);
+      });
+
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
+        if (!localStorage.getItem('theme')) applyTheme('system');
+      });
+    })();
   </script>
 </body>
 </html>

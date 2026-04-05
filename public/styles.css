@@ -419,8 +419,116 @@
   width: 100%;
 }
 
+/* === Dark Mode === */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-text: #e2e8f0;
+    --color-accent: #6b8cff;
+    --color-accent-light: #1e2a4a;
+    --color-muted: #94a3b8;
+    --color-border: #374151;
+    --color-success: #34d399;
+    --color-fail: #f87171;
+    --color-bg: #0f172a;
+  }
+}
+
+:root[data-theme="dark"] {
+  --color-text: #e2e8f0;
+  --color-accent: #6b8cff;
+  --color-accent-light: #1e2a4a;
+  --color-muted: #94a3b8;
+  --color-border: #374151;
+  --color-success: #34d399;
+  --color-fail: #f87171;
+  --color-bg: #0f172a;
+}
+
+/* Dark mode overrides for hardcoded colors */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .reveal,
+  :root:not([data-theme="light"]) body {
+    background: var(--color-bg);
+  }
+  :root:not([data-theme="light"]) .reveal .slide-background {
+    background: var(--color-bg);
+  }
+  :root:not([data-theme="light"]) .timeline-item--current {
+    background: #2a3560;
+  }
+  :root:not([data-theme="light"]) .problem {
+    background: #3b1c1c;
+  }
+  :root:not([data-theme="light"]) .token-box {
+    background: #1a1f35;
+  }
+  :root:not([data-theme="light"]) .token-box.warn {
+    background: #2d1a1a;
+  }
+  :root:not([data-theme="light"]) .journey-node.accent {
+    color: #0f172a;
+  }
+  :root:not([data-theme="light"]) .arch-orchestrator {
+    color: #0f172a;
+  }
+}
+
+:root[data-theme="dark"] .reveal,
+:root[data-theme="dark"] body {
+  background: var(--color-bg);
+}
+:root[data-theme="dark"] .reveal .slide-background {
+  background: var(--color-bg);
+}
+:root[data-theme="dark"] .timeline-item--current {
+  background: #2a3560;
+}
+:root[data-theme="dark"] .problem {
+  background: #3b1c1c;
+}
+:root[data-theme="dark"] .token-box {
+  background: #1a1f35;
+}
+:root[data-theme="dark"] .token-box.warn {
+  background: #2d1a1a;
+}
+:root[data-theme="dark"] .journey-node.accent {
+  color: #0f172a;
+}
+:root[data-theme="dark"] .arch-orchestrator {
+  color: #0f172a;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  z-index: 100;
+  background: var(--color-accent-light);
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  line-height: 1;
+  transition: background 0.2s, border-color 0.2s;
+  padding: 0;
+}
+
+.theme-toggle:hover {
+  background: var(--color-border);
+}
+
 /* === Print / PDF === */
 @media print {
+  .theme-toggle {
+    display: none;
+  }
   .reveal .slides section {
     page-break-after: always;
   }
