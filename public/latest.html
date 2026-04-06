@@ -432,23 +432,23 @@
         <p class="bridge">루프가 반복될수록 &mdash; 무언가가 쌓인다</p>
       </section>
 
-      <!-- Slide 12: 자기주도적 지식 축적 시스템 -->
-      <section data-slide-id="slide-12">
+      <!-- Slide 12a: 자기주도적 지식 축적 시스템 — 비교 + 툴 확장 -->
+      <section data-slide-id="slide-12a">
         <h2>자기주도적 지식 축적 시스템</h2>
-
-        <!-- Entry: 기존 vs 우리 시스템 비교 -->
         <p class="slide-subtitle">실행할수록 똑똑해지는 시스템</p>
+
+        <!-- Entry: 색상 코딩된 비교 패널 -->
         <div class="two-column">
-          <div>
-            <h3>기존 AI 시스템</h3>
+          <div class="problem">
+            <h3 style="color:var(--color-fail);">기존 AI 시스템</h3>
             <ul>
               <li>모델 고정</li>
               <li>지식 = 학습 시점</li>
               <li>도메인 망각</li>
             </ul>
           </div>
-          <div>
-            <h3>우리 시스템</h3>
+          <div class="success-box">
+            <h3 style="color:var(--color-success);">우리 시스템</h3>
             <ul>
               <li>실행 &rarr; 지식 생성</li>
               <li>지식 = 누적 자산</li>
@@ -456,39 +456,47 @@
             </ul>
           </div>
         </div>
+
         <!-- Click 1: 툴 확장 -->
         <div class="fragment" data-fragment-index="1">
-          <h3>툴이 세 개에서 다섯 개로</h3>
+          <h3>툴 3개 &rarr; 5개</h3>
           <div class="two-column">
-            <div>
+            <div class="arch-skill">
               <h4>기본 툴</h4>
-              <ul>
-                <li>파일 R/W</li>
-                <li>EDA (Xcelium)</li>
-                <li>터미널</li>
-              </ul>
+              <p class="sub-note">파일 R/W &middot; EDA &middot; 터미널</p>
             </div>
-            <div>
-              <h4>지식 툴</h4>
-              <ul>
-                <li>Knowledge 초안 저장</li>
-                <li>Knowledge 조회 (RAG)</li>
-              </ul>
+            <div class="arch-skill" style="border-color:var(--color-success);">
+              <h4 style="color:var(--color-success);">+ 지식 툴</h4>
+              <p class="sub-note">Knowledge 저장 &middot; Knowledge 조회</p>
             </div>
           </div>
-          <p>Orchestrator가 동일한 방식으로 호출 &rarr; 에이전트 입장에서 지식도 "툴"</p>
+          <p class="takeaway">에이전트 입장에서 지식도 "툴" &mdash; Orchestrator가 동일하게 호출</p>
         </div>
-        <!-- Click 2: 지식 정제 파이프라인 -->
-        <div class="fragment" data-fragment-index="2">
-          <h3>지식 정제는 자동화</h3>
-          <div class="journey-flow" style="font-size:0.85em;">
-            <span class="journey-node">실행 중 초안 저장<br><span class="sub-note">속도 우선</span></span>
-            <span class="journey-arrow">&rarr;</span>
-            <span class="journey-node">자정 Batch 정제<br><span class="sub-note">정확도 우선</span></span>
-            <span class="journey-arrow">&rarr;</span>
-            <span class="journey-node accent">Git &rarr; Fine-tuning Dataset</span>
+
+        <p class="bridge">지식이 쌓인다면 &mdash; 정제는 어떻게?</p>
+      </section>
+
+      <!-- Slide 12b: 지식 정제 파이프라인 -->
+      <section data-slide-id="slide-12b">
+        <h2>지식 정제 파이프라인</h2>
+        <p class="slide-subtitle">초안에서 자산까지, 자동으로</p>
+
+        <div class="journey-flow" style="font-size:1.3em; margin:1.5em 0;">
+          <span class="journey-node">실행 중 초안 저장<br><span class="sub-note">속도 우선</span></span>
+          <span class="journey-arrow">&rarr;</span>
+          <span class="journey-node">자정 Batch 정제<br><span class="sub-note">정확도 우선</span></span>
+          <span class="journey-arrow">&rarr;</span>
+          <span class="journey-node accent">Git 저장<br><span class="sub-note">버전 관리</span></span>
+          <span class="journey-arrow">&rarr;</span>
+          <span class="journey-node accent">Fine-tuning Dataset</span>
+        </div>
+
+        <!-- Click 1: takeaway -->
+        <div class="fragment" data-fragment-index="1">
+          <div class="metric-highlight">
+            <span class="metric-big">에이전트 = 데이터 생산자</span><br>
+            <span class="metric-compare">실행 &rarr; 초안 &rarr; 정제 &rarr; 재학습, 사람 개입 없이 반복</span>
           </div>
-          <p class="takeaway" style="text-align:center;">에이전트 &rarr; 데이터 생산자</p>
         </div>
       </section>
 
