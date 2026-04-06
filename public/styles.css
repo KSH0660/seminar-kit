@@ -325,6 +325,13 @@
   background: #fef2f2;
 }
 
+.success-box {
+  border: 1px solid var(--color-success);
+  border-radius: 8px;
+  padding: 0.5em;
+  background: #f0fdf4;
+}
+
 .world-context {
   background: var(--color-accent-light);
   padding: 0.5em 0.8em;
@@ -555,6 +562,9 @@
   :root:not([data-theme="light"]) .problem {
     background: #3b1c1c;
   }
+  :root:not([data-theme="light"]) .success-box {
+    background: #1a2e1a;
+  }
   :root:not([data-theme="light"]) .token-box {
     background: #1a1f35;
   }
@@ -581,6 +591,9 @@
 }
 :root[data-theme="dark"] .problem {
   background: #3b1c1c;
+}
+:root[data-theme="dark"] .success-box {
+  background: #1a2e1a;
 }
 :root[data-theme="dark"] .token-box {
   background: #1a1f35;
