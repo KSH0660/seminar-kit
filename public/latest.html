@@ -351,22 +351,47 @@
         </div>
         <p>직접 빌드 &middot; LangGraph &middot; 파일 R/W &middot; 터미널 &middot; Cadence Xcelium</p>
 
-        <!-- Click 1 -->
+        <!-- Click 1: 전체 구조도 -->
         <div class="fragment" data-fragment-index="1">
           <div class="architecture-diagram">
-            <div class="arch-orchestrator">Orchestrator (Planner)</div>
+            <div class="arch-orchestrator">
+              <div class="arch-orchestrator-label">Orchestrator</div>
+              <div class="arch-orchestrator-inner">
+                <div class="arch-role">Planner<br><span style="font-size:0.8em;opacity:0.85">계획 수립</span></div>
+                <span class="arch-role-arrow">&rarr;</span>
+                <div class="arch-role">Supervisor<br><span style="font-size:0.8em;opacity:0.85">위임 &middot; 검토</span></div>
+              </div>
+            </div>
+            <div class="arch-flow-arrows">
+              <span>&darr; 위임</span>
+              <span>&uarr; 검토</span>
+            </div>
             <div class="arch-skills">
               <div class="arch-skill">
-                <h4>Skill 1: Retrieval</h4>
+                <h4>Worker 1: Retrieval</h4>
                 <p>레거시 코드 검색<br>Hierarchical RAG</p>
                 <p class="metric-inline">검색 정확도 <strong>91.2%</strong></p>
               </div>
               <div class="arch-skill">
-                <h4>Skill 2: Generation</h4>
+                <h4>Worker 2: Generation</h4>
                 <p>벡터 코드 생성<br>FSM Verifier &middot; Xcelium</p>
                 <p class="metric-inline">Syntax Pass Rate <strong>99.7%</strong></p>
               </div>
             </div>
+          </div>
+        </div>
+
+        <!-- Click 2: Dynamic Skill Loading -->
+        <div class="fragment" data-fragment-index="2">
+          <div class="dynamic-skill-section">
+            <h3>Dynamic Skill Loading</h3>
+            <p style="font-size:0.8em;margin-bottom:0.4em;">Worker는 범용 실행 환경 &mdash; Supervisor가 위임하는 <strong>업무 성격에 맞는 Skill이 자동 로딩</strong></p>
+            <div class="skill-loading-flow">
+              <div class="skill-loading-box">&ldquo;검색하라&rdquo;<br><strong>Retrieval Skill</strong><br><span style="font-size:0.9em;">RAG &middot; 메타데이터</span></div>
+              <div class="skill-loading-arrow">&vert;</div>
+              <div class="skill-loading-box">&ldquo;생성하라&rdquo;<br><strong>Generation Skill</strong><br><span style="font-size:0.9em;">FSM Verifier &middot; EDA</span></div>
+            </div>
+            <p style="font-size:0.75em;color:var(--color-muted);margin-top:0.3em;">&rarr; 컨텍스트 간섭 제거 + 각 Worker가 전문가 수준으로 동작</p>
           </div>
         </div>
 
@@ -379,9 +404,9 @@
         <!-- Entry -->
         <p>두 태스크를 하나의 컨텍스트에 &rarr; 간섭 &middot; 정확도 하락</p>
         <div class="flow-vertical">
-          <p><strong>Orchestrator</strong></p>
-          <p>&rarr; 컨텍스트 분리</p>
-          <p>&rarr; 검색 완료 후 핵심만 생성 워커로 전달</p>
+          <p><strong>Supervisor</strong>가 컨텍스트 분리</p>
+          <p>&rarr; Retrieval Worker 완료 &rarr; 결과 <strong>검토</strong></p>
+          <p>&rarr; 핵심만 추출하여 Generation Worker에게 전달</p>
         </div>
 
         <!-- Click 1 + Click 2: Skill details side by side -->
