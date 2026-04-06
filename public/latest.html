@@ -111,89 +111,93 @@
         <h2>Turning Point</h2>
         <p class="slide-date">2025.01 &middot; DeepSeek R1</p>
 
-        <!-- Entry: 최종 목표 — always visible -->
-        <p>최종 목표 &rarr; <strong>반도체 도메인 &times; 추론형 모델</strong></p>
-        <p class="sub-note">역할별 소형 특화 모델(Safeguard &middot; API Router) &rarr; 단일 대형 추론 모델로 통합</p>
+        <!-- Entry: R1 Insights -->
+        <h3>R1 Insights</h3>
+        <ul>
+          <li><strong>Insight 1</strong> &mdash; 뛰어난 모델 base에 명확한 reward를 설계해주면, 스스로 exploration을 한다</li>
+          <li><strong>Insight 2</strong> &mdash; 비교적 작은 모델 base에는 스스로 exploration보다는 뛰어난 모델의 CoT를 입히는게 효과적이다</li>
+        </ul>
 
-        <!-- Click 1: 전략 — 수학·과학이 반도체의 힌트 -->
+        <!-- Click 1: 우리 상황 & 계획 -->
         <div class="fragment" data-fragment-index="1">
+          <h3>우리 상황 &amp; 계획</h3>
+          <ul>
+            <li>사내에서 반도체 특화 추론 모델을 만들어야 함</li>
+            <li>H/W 리소스 상 비교적 작은 base 모델을 써야 하는 상황</li>
+          </ul>
           <div class="journey-flow" style="font-size:0.9em;">
-            <span class="journey-node">반도체 추론 모델</span>
-            <span class="journey-arrow">&larr;</span>
-            <span class="journey-node">수학 &middot; 과학 추론 모델 먼저<br><span class="sub-note">만드는 법을 알면 힌트 획득</span></span>
-            <span class="journey-arrow">&larr;</span>
-            <span class="journey-node accent">R1 노하우 취득<br><span class="sub-note" style="color:rgba(255,255,255,0.8);">데이터 &middot; 학습 방법론</span></span>
+            <span class="journey-node accent">Insight 2 적용</span>
+            <span class="journey-arrow">&rarr;</span>
+            <span class="journey-node">R1으로부터 수학 &middot; 과학<br>추론데이터를 입히고</span>
+            <span class="journey-arrow">&rarr;</span>
+            <span class="journey-node">반도체 CoT를<br>만들어서 입히자</span>
           </div>
-          <p class="takeaway">R1이 수학 &middot; 과학 추론을 어떻게 했는가 &rarr; 직접 재현하며 노하우를 얻어낸다</p>
         </div>
 
-        <!-- Click 2: 목표 수치 설정 -->
+        <!-- Click 2: 목표 -->
         <div class="fragment" data-fragment-index="2">
           <div class="metric-highlight">
-            <p class="metric-big">목표 &nbsp; MATH ~95 &nbsp;&middot;&nbsp; GPQA ~65</p>
-            <p class="metric-compare">&asymp; DeepSeek-R1-Distill-Llama-70B 수준</p>
-            <p class="metric-source">DeepSeek-R1 Tech Report &middot; arXiv 2501.12948</p>
+            <p class="metric-big">Goal</p>
+            <p>우선 수학 &middot; 과학 데이터를 입히는걸 연습해보고, 반도체 도메인에 적용해보자</p>
           </div>
-          <p class="takeaway" style="text-align:center;">70B &middot; H100&times;128 &middot; 400k+ STEM</p>
+          <p class="takeaway">목표 &nbsp; MATH ~95 &nbsp;&middot;&nbsp; GPQA ~65 &nbsp;&nbsp;<span class="sub-note">&asymp; DeepSeek-R1-Distill-Llama-70B 수준</span></p>
         </div>
 
       </section>
 
-      <!-- Slide 5: 1차 시도 -->
+      <!-- Slide 5: 1차 시도 → 정제 & 결과 -->
       <section data-slide-id="slide-05">
-        <h2>1차 시도</h2>
+        <h2>1차 시도 &rarr; 정제 &amp; 결과</h2>
 
-        <!-- Entry -->
+        <!-- Entry: 1차 시도 -->
+        <p class="sub-note">1차 시도</p>
         <div class="two-column">
           <div>
             <h3>데이터</h3>
             <ul class="checklist">
-              <li>2M+ 혼합 <span class="fragment fail-mark" data-fragment-index="1">&cross;</span></li>
-              <li>다양한 출처 수집 <span class="fragment fail-mark" data-fragment-index="1">&cross;</span></li>
-              <li>낮은 검증 기준 <span class="fragment fail-mark" data-fragment-index="1">&cross;</span></li>
-              <li>양 우선 <span class="fragment fail-mark" data-fragment-index="1">&cross;</span></li>
+              <li>2M+ 혼합 <span class="fail-mark">&cross;</span></li>
+              <li>다양한 출처 수집 <span class="fail-mark">&cross;</span></li>
+              <li>낮은 검증 기준 <span class="fail-mark">&cross;</span></li>
+              <li>양 우선 <span class="fail-mark">&cross;</span></li>
             </ul>
           </div>
           <div>
             <h3>학습</h3>
             <ul class="checklist">
-              <li>전 구간 단일 런 <span class="fragment fail-mark" data-fragment-index="1">&cross;</span></li>
-              <li>32k 토큰 고정 <span class="fragment fail-mark" data-fragment-index="1">&cross;</span></li>
-              <li>배치 사이즈 고정 <span class="fragment fail-mark" data-fragment-index="1">&cross;</span></li>
+              <li>전 구간 단일 런 <span class="fail-mark">&cross;</span></li>
+              <li>32k 토큰 고정 <span class="fail-mark">&cross;</span></li>
+              <li>배치 사이즈 고정 <span class="fail-mark">&cross;</span></li>
             </ul>
           </div>
         </div>
 
-      </section>
-
-      <!-- Slide 6: 정제 & 결과 -->
-      <section data-slide-id="slide-06">
-        <h2>정제 &amp; 결과</h2>
-
-        <!-- Entry -->
-        <div class="two-column">
-          <div>
-            <h3>데이터</h3>
-            <ul>
-              <li>correctness == True</li>
-              <li>verifier == 1.0</li>
-              <li>verifiable question</li>
-              <li><strong>200k 정제</strong></li>
-            </ul>
-            <p class="takeaway">데이터 &gt; 모델</p>
-          </div>
-          <div>
-            <h3>학습</h3>
-            <ul>
-              <li>Round 1 &nbsp; 8k / batch S</li>
-              <li>Round 2 &nbsp; 16k / batch M</li>
-              <li>Round 3 &nbsp; 32k / batch L</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Click 1 -->
+        <!-- Click 1: 정제 -->
         <div class="fragment" data-fragment-index="1">
+          <p class="sub-note" style="margin-top:0.6em;">정제</p>
+          <div class="two-column">
+            <div>
+              <h3>데이터</h3>
+              <ul>
+                <li>correctness == True</li>
+                <li>verifier == 1.0</li>
+                <li>verifiable question</li>
+                <li><strong>200k 정제</strong></li>
+              </ul>
+              <p class="takeaway">데이터 &gt; 모델</p>
+            </div>
+            <div>
+              <h3>학습</h3>
+              <ul>
+                <li>Round 1 &nbsp; 8k / batch S</li>
+                <li>Round 2 &nbsp; 16k / batch M</li>
+                <li>Round 3 &nbsp; 32k / batch L</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Click 2: 결과 -->
+        <div class="fragment" data-fragment-index="2">
           <div class="metric-highlight">
             <p class="metric-big">MATH 95.0 &nbsp;&middot;&nbsp; GPQA 65.0</p>
             <p>수능 2025 수학 &nbsp; 85점</p>
