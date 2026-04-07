@@ -633,9 +633,83 @@
   background: var(--color-border);
 }
 
+/* === Section Progress Bar === */
+.section-progress {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  height: 28px;
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-border);
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  user-select: none;
+  pointer-events: none;
+}
+
+.section-progress__segment {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.section-progress__segment[data-section="intro"]        { flex: 2; }
+.section-progress__segment[data-section="chat"]         { flex: 1; }
+.section-progress__segment[data-section="reasoning"]    { flex: 2; }
+.section-progress__segment[data-section="tool-calling"] { flex: 7; }
+
+.section-progress__segment + .section-progress__segment {
+  border-left: 1px solid var(--color-border);
+}
+
+.section-progress__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--color-accent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.section-progress__label {
+  position: relative;
+  z-index: 1;
+  color: var(--color-muted);
+  letter-spacing: 0.04em;
+  transition: color 0.3s ease, font-weight 0.3s ease;
+}
+
+.section-progress__segment.is-completed .section-progress__fill {
+  opacity: 0.15;
+}
+.section-progress__segment.is-completed .section-progress__label {
+  color: var(--color-accent);
+}
+
+.section-progress__segment.is-active .section-progress__fill {
+  opacity: 0.25;
+}
+.section-progress__segment.is-active .section-progress__label {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+/* Lift slide number above progress bar */
+.reveal .slide-number {
+  bottom: 34px;
+  right: 8px;
+}
+
 /* === Print / PDF === */
 @media print {
-  .theme-toggle {
+  .theme-toggle,
+  .section-progress {
     display: none;
   }
   .reveal .slides section {
