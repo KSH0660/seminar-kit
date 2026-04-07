@@ -15,8 +15,8 @@ export default {
     {
       id: 'slide-00',
       type: 'title',
-      title: 'LLM을 학습하고<br>Agentic AI를 설계하다',
-      subtitle: '2026 &middot; Samsung DS AI 센터',
+      title: 'Generative AI에서<br>Agentic AI로',
+      subtitle: '하나의 공식으로 이해하는 AI의 진화 &middot; 2026 &middot; Samsung DS AI 센터',
     },
 
     // Slide 1: Introduction
@@ -45,27 +45,53 @@ export default {
           ],
         },
         {
-          type: 'two-column',
+          type: 'html',
           fragment: 2,
-          className: 'intro-topics',
-          columnClassName: 'intro-topic-item',
-          columns: [
-            { html: '<p class="intro-topic-label">Topic 1</p><p class="intro-topic-title">LLM 학습</p>' },
-            { html: '<p class="intro-topic-label">Topic 2</p><p class="intro-topic-title">Agentic AI 설계</p>' },
-          ],
+          html: '<p class="takeaway" style="text-align:center; font-size:1.05em;">세 번의 전환점을 직접 겪었습니다</p>',
         },
       ],
     },
 
-    // Slide 3: My First LLM
+    // Slide 2: The Formula
     {
-      id: 'slide-03',
+      id: 'slide-02',
       type: 'standard',
-      title: 'My First LLM',
+      title: 'The Formula',
       content: [
         {
           type: 'html',
-          html: '<p class="slide-date">2024.06 &middot; 반도체 도메인 특화 &middot; 작은 LLM 학습부터 시작</p>',
+          html: '<p class="formula-big">P(next_token | previous_tokens)</p><p class="sub-note" style="text-align:center;">ChatGPT, 코드 생성, 번역, 요약 &mdash; 전부 이 하나의 메커니즘</p>',
+        },
+        {
+          type: 'html',
+          fragment: 1,
+          html: `<p style="font-size:0.85em; color:var(--color-muted); margin-bottom:0.3em;">역할 분화의 시작 &mdash; Special Tokens</p>
+<div class="token-box" style="justify-content:center; font-size:0.85em;">
+  <span class="token-special">&lt;system&gt;</span>
+  <span class="token-special">&lt;user&gt;</span>
+  <span class="token-sep">&rarr;</span>
+  <span class="token-special">&lt;assistant&gt;</span>
+  <span class="token-out">generated tokens...</span>
+</div>`,
+        },
+        {
+          type: 'metric-highlight',
+          fragment: 2,
+          big: '이 공식에 특수 토큰을 추가하는 것만으로',
+          text: 'AI의 능력이 단계적으로 확장됩니다',
+        },
+      ],
+    },
+
+    // Slide 3: Era 1 — Generation
+    {
+      id: 'slide-03',
+      type: 'standard',
+      title: 'Era 1 &mdash; Generation',
+      content: [
+        {
+          type: 'html',
+          html: '<p class="slide-date">2024.06 &middot; 반도체 도메인 특화 &middot; 작은 LLM 학습</p>',
         },
         {
           type: 'two-column',
@@ -94,19 +120,20 @@ export default {
         },
         {
           type: 'html',
+          fragment: 1,
           html: `<div class="problem" style="font-size:0.82em; margin-top:0.6em;">
-  모델 관리 복잡도 증가 &rarr; <strong>지속가능하지 않다고 판단</strong>
+  모델 관리 복잡도 증가 &rarr; 각 use case = 별도 모델
 </div>
-<p class="takeaway">공통 &middot; 8B 스케일 &nbsp;|&nbsp; A100 &times; 8</p>`,
+<p class="takeaway">생성은 하지만, 생각은 하지 않는다</p>`,
         },
       ],
     },
 
-    // Slide 4: Turning Point
+    // Slide 4: Era 2 — Reasoning
     {
       id: 'slide-04',
       type: 'standard',
-      title: 'Turning Point',
+      title: 'Era 2 &mdash; Reasoning',
       content: [
         {
           type: 'html',
@@ -114,6 +141,19 @@ export default {
         },
         {
           type: 'html',
+          html: `<p style="font-size:0.85em; color:var(--color-muted); margin-bottom:0.3em;">추가된 것은 단 하나 &mdash; <code>&lt;think&gt;</code> 토큰</p>
+<div class="token-box" style="font-size:0.85em;">
+  <span class="token-in">[query]</span>
+  <span class="token-special">&lt;think&gt;</span>
+  <span class="token-out" style="flex:2;">chain of thought...</span>
+  <span class="token-special">&lt;/think&gt;</span>
+  <span class="token-sep">&rarr;</span>
+  <span class="token-out">[answer]</span>
+</div>`,
+        },
+        {
+          type: 'html',
+          fragment: 1,
           html: `<h3>R1 Insights</h3>
 <ul>
   <li><strong>Insight 1</strong> &mdash; 뛰어난 모델 base에 명확한 reward를 설계해주면, 스스로 exploration을 한다</li>
@@ -122,13 +162,8 @@ export default {
         },
         {
           type: 'html',
-          fragment: 1,
-          html: `<h3>우리 상황 &amp; 계획</h3>
-<ul>
-  <li>사내에서 반도체 특화 추론 모델을 만들어야 함</li>
-  <li>H/W 리소스 상 비교적 작은 base 모델을 써야 하는 상황</li>
-</ul>
-<div class="journey-flow" style="font-size:0.9em;">
+          fragment: 2,
+          html: `<div class="journey-flow" style="font-size:0.9em;">
   <span class="journey-node accent">Insight 2 적용</span>
   <span class="journey-arrow">&rarr;</span>
   <span class="journey-node">R1으로부터 수학 &middot; 과학<br>추론데이터를 입히고</span>
@@ -137,20 +172,17 @@ export default {
 </div>`,
         },
         {
-          type: 'metric-highlight',
-          fragment: 2,
-          big: 'Goal',
-          text: '우선 수학 &middot; 과학 데이터를 입히는걸 연습해보고, 반도체 도메인에 적용해보자',
-          after: '<p class="takeaway">목표 &nbsp; MATH ~95 &nbsp;&middot;&nbsp; GPQA ~65 &nbsp;&nbsp;<span class="sub-note">&asymp; DeepSeek-R1-Distill-Llama-70B 수준</span></p>',
+          type: 'html',
+          html: '<p class="bridge">같은 모델이 생각을 하기 시작했다 &mdash; 토큰 하나의 차이</p>',
         },
       ],
     },
 
-    // Slide 5: 1차 시도 → 정제 & 결과
+    // Slide 5: <think> 토큰 직접 입히기
     {
       id: 'slide-05',
       type: 'standard',
-      title: '1차 시도 &rarr; 정제 &amp; 결과',
+      title: '&lt;think&gt; 토큰 직접 입히기',
       content: [
         {
           type: 'html',
@@ -208,16 +240,16 @@ export default {
           fragment: 2,
           big: 'MATH 95.0 &nbsp;&middot;&nbsp; GPQA 65.0',
           text: '수능 2025 수학 &nbsp; 85점',
-          after: '<p>반도체 원서 &nbsp; 챕터별 5문항</p>',
+          after: '<p class="takeaway">&lt;think&gt; 토큰 하나를 제대로 입히는 데 &mdash; 데이터 정제와 학습 설계가 핵심</p>',
         },
       ],
     },
 
-    // Slide 7: RL & 전환
+    // Slide 6: Era 2 → 3 — 전환의 순간
     {
-      id: 'slide-07',
+      id: 'slide-06',
       type: 'standard',
-      title: 'RL &amp; 전환',
+      title: 'Era 2 &rarr; 3 &mdash; 전환의 순간',
       content: [
         {
           type: 'two-column',
@@ -242,14 +274,97 @@ export default {
             },
           ],
         },
+        {
+          type: 'html',
+          fragment: 2,
+          html: `<p style="font-size:0.85em; color:var(--color-muted); margin-bottom:0.3em; margin-top:0.6em;">추가된 것 &mdash; <code>&lt;tool_call&gt;</code> 과 <code>&lt;tool_result&gt;</code> 토큰</p>
+<div class="token-box" style="font-size:0.8em;">
+  <span class="token-special">&lt;think&gt;</span>
+  <span class="token-out">...</span>
+  <span class="token-special">&lt;/think&gt;</span>
+  <span class="token-special accent">&lt;tool_call&gt;</span>
+  <span class="token-out">func(args)</span>
+  <span class="token-special accent">&lt;/tool_call&gt;</span>
+  <span class="token-special accent">&lt;tool_result&gt;</span>
+  <span class="token-out">data</span>
+  <span class="token-special accent">&lt;/tool_result&gt;</span>
+</div>
+<p class="sub-note" style="margin-top:0.4em;">모델은 토큰을 생성할 뿐 &mdash; 런타임이 <code>&lt;tool_call&gt;</code>을 가로채 실행하고, 결과를 <code>&lt;tool_result&gt;</code>로 주입</p>`,
+        },
       ],
     },
 
-    // Slide 8: The Problem
+    // Slide 7: Three Eras, One Diagram
+    {
+      id: 'slide-07',
+      type: 'standard',
+      title: '세 개의 시대, 하나의 그림',
+      content: [
+        {
+          type: 'html',
+          html: `<div class="era-stack">
+  <div class="era-row">
+    <span class="era-label">Era 1</span>
+    <div class="era-tokens">
+      <span class="token-special">&lt;user&gt;</span>
+      <span class="token-out">query</span>
+      <span class="token-special">&lt;assistant&gt;</span>
+      <span class="token-out">answer</span>
+    </div>
+    <span class="era-desc">Generation</span>
+  </div>
+  <div class="era-row">
+    <span class="era-label">Era 2</span>
+    <div class="era-tokens">
+      <span class="token-special">&lt;user&gt;</span>
+      <span class="token-out">query</span>
+      <span class="token-special highlight-new">&lt;think&gt;</span>
+      <span class="token-out">reasoning</span>
+      <span class="token-special highlight-new">&lt;/think&gt;</span>
+      <span class="token-special">&lt;assistant&gt;</span>
+      <span class="token-out">answer</span>
+    </div>
+    <span class="era-desc">+ Reasoning</span>
+  </div>
+  <div class="era-row">
+    <span class="era-label">Era 3</span>
+    <div class="era-tokens">
+      <span class="token-special">&lt;user&gt;</span>
+      <span class="token-out">query</span>
+      <span class="token-special">&lt;think&gt;</span>
+      <span class="token-out">...</span>
+      <span class="token-special">&lt;/think&gt;</span>
+      <span class="token-special highlight-new">&lt;tool_call&gt;</span>
+      <span class="token-out">func</span>
+      <span class="token-special highlight-new">&lt;/tool_call&gt;</span>
+      <span class="token-special highlight-new">&lt;tool_result&gt;</span>
+      <span class="token-out">data</span>
+      <span class="token-special highlight-new">&lt;/tool_result&gt;</span>
+      <span class="token-special">&lt;assistant&gt;</span>
+      <span class="token-out">answer</span>
+    </div>
+    <span class="era-desc">+ Tool Use</span>
+  </div>
+</div>`,
+        },
+        {
+          type: 'metric-highlight',
+          fragment: 1,
+          big: '세 단계 모두 같은 메커니즘 &mdash; Next-Token Prediction',
+          text: '특수 토큰이 능력을 분화시켰다',
+        },
+        {
+          type: 'html',
+          html: '<p class="bridge">그렇다면 Agentic AI는? &mdash; Era 3의 토큰 루프를 반복하는 것이다</p>',
+        },
+      ],
+    },
+
+    // Slide 8: DRAM 검증 — Era 3를 실전에
     {
       id: 'slide-08',
       type: 'standard',
-      title: 'The Problem',
+      title: 'DRAM 검증 &mdash; Era 3를 실전에',
       content: [
         {
           type: 'html',
@@ -280,33 +395,11 @@ export default {
 </div>`,
         },
         {
-          type: 'html',
-          fragment: 2,
-          html: `<div class="journey-flow" style="font-size:0.9em; margin-top:0.6em;">
-  <span class="journey-node">DRAM 팀<br><span class="sub-note">EDA &middot; 검증 전문</span></span>
-  <span class="journey-arrow">&larr; 공백 &rarr;</span>
-  <span class="journey-node">AI 팀<br><span class="sub-note">LLM &middot; 에이전트 전문</span></span>
-</div>
-<p class="takeaway" style="text-align:center; margin-top:0.4em;">수개월간 DRAM 직접 학습 &rarr; 두 도메인을 연결</p>`,
-        },
-      ],
-    },
-
-    // Slide 9: Why Agentic
-    {
-      id: 'slide-09',
-      type: 'standard',
-      title: 'Why Agentic',
-      content: [
-        {
-          type: 'html',
-          html: '<p style="font-size:0.85em; color:var(--color-muted); margin-bottom:0.4em;">도메인 특화, 두 가지 길</p>',
-        },
-        {
           type: 'two-column',
+          fragment: 2,
           columns: [
             {
-              html: `<h3>모델 파인튜닝</h3>
+              html: `<h3>모델 파인튜닝 <span class="sub-note">(Era 1&middot;2)</span></h3>
 <ul>
   <li>데이터 수집</li>
   <li>정제 &middot; 학습</li>
@@ -316,7 +409,7 @@ export default {
 <p class="takeaway">&rarr; 병목 &middot; 고비용</p>`,
             },
             {
-              html: `<h3>Agentic AI</h3>
+              html: `<h3>Agentic AI <span class="sub-note">(Era 3)</span></h3>
 <ul>
   <li>강력한 Frontier 모델</li>
   <li>툴 실행 &middot; 결과 확인</li>
@@ -327,48 +420,21 @@ export default {
         },
         {
           type: 'html',
-          fragment: 1,
-          html: `<h3>DRAM 도메인에서 Fine-tuning이 특히 안 맞는 이유</h3>
-<div class="three-column">
-  <div>
-    <h4>레거시 코드</h4>
-    <p>정답 라벨 없음<br>패턴이 아니라 의미를 알아야</p>
-  </div>
-  <div>
-    <h4>제품 사이클</h4>
-    <p>매 세대 스펙 변경<br>&rarr; 학습 데이터 금방 outdated</p>
-  </div>
-  <div>
-    <h4>EDA 툴</h4>
-    <p>실행 결과가 정답<br>모델이 직접 실행해야 앎</p>
-  </div>
-</div>`,
-        },
-        {
-          type: 'table',
-          fragment: 2,
-          heading: 'Agentic이 이 조건에 정확히 맞는다',
-          className: 'fit-table',
-          headers: ['조건', 'Agentic의 대응'],
-          rows: [
-            ['정답 라벨 없음', '시뮬레이터가 정답을 준다'],
-            ['스펙 변경', '컨텍스트로 흡수, 재학습 불필요'],
-            ['EDA 툴 실행 필요', '툴 호출이 곧 스킬'],
-            ['자가 수정 필요', 'Feedback Loop가 내장'],
-          ],
+          fragment: 3,
+          html: '<p class="takeaway" style="text-align:center;">weights에 담을 수 없는 지식 &rarr; <code>&lt;tool_call&gt;</code>로 접근</p>',
         },
       ],
     },
 
-    // Slide 10: Architecture
+    // Slide 9: Architecture
     {
-      id: 'slide-10',
+      id: 'slide-09',
       type: 'standard',
       title: 'Architecture',
       content: [
         {
           type: 'html',
-          html: '<p class="lead">LangGraph와 파일 R/W &middot; EDA 툴을 결합한 Agentic Workflow를 직접 구축하기로 결정했습니다.</p>',
+          html: '<p class="lead">LangGraph &middot; 파일 R/W &middot; EDA 툴을 결합한 Agentic Workflow &mdash; 전체 시스템 = 구조화된 토큰 생성 + 피드백 루프</p>',
         },
         {
           type: 'html',
@@ -417,9 +483,9 @@ export default {
       ],
     },
 
-    // Slide 11: 컨텍스트 · 결과
+    // Slide 10: 컨텍스트 · 결과
     {
-      id: 'slide-11',
+      id: 'slide-10',
       type: 'standard',
       title: '컨텍스트 &middot; 결과',
       content: [
@@ -494,12 +560,12 @@ export default {
       ],
     },
 
-    // Slide 12a: 자기주도적 지식 축적 시스템
+    // Slide 11: Beyond Era 3
     {
-      id: 'slide-12a',
+      id: 'slide-11',
       type: 'standard',
-      title: '자기주도적 지식 축적 시스템',
-      subtitle: '실행할수록 똑똑해지는 시스템',
+      title: 'Beyond Era 3',
+      subtitle: '지식이 순환하는 시스템',
       content: [
         {
           type: 'two-column',
@@ -527,7 +593,7 @@ export default {
         {
           type: 'html',
           fragment: 1,
-          html: `<h3>툴 3개 &rarr; 5개</h3>
+          html: `<h3>지식도 <code>&lt;tool_call&gt;</code>이다</h3>
 <div class="two-column">
   <div class="arch-skill">
     <h4>기본 툴</h4>
@@ -535,27 +601,13 @@ export default {
   </div>
   <div class="arch-skill" style="border-color:var(--color-success);">
     <h4 style="color:var(--color-success);">+ 지식 툴</h4>
-    <p class="sub-note">Knowledge 저장 &middot; Knowledge 조회</p>
+    <p class="sub-note">knowledge_save() &middot; knowledge_retrieve()</p>
   </div>
-</div>
-<p class="takeaway">에이전트 입장에서 지식도 "툴" &mdash; Orchestrator가 동일하게 호출</p>`,
+</div>`,
         },
-        {
-          type: 'html',
-          html: '<p class="bridge">지식이 쌓인다면 &mdash; 정제는 어떻게?</p>',
-        },
-      ],
-    },
-
-    // Slide 12b: 지식 정제 파이프라인
-    {
-      id: 'slide-12b',
-      type: 'standard',
-      title: '지식 정제 파이프라인',
-      subtitle: '초안에서 자산까지, 자동으로',
-      content: [
         {
           type: 'journey-flow',
+          fragment: 2,
           style: 'font-size:1.3em; margin:1.5em 0;',
           nodes: [
             { text: '실행 중 초안 저장<br><span class="sub-note">속도 우선</span>' },
@@ -566,9 +618,9 @@ export default {
         },
         {
           type: 'metric-highlight',
-          fragment: 1,
+          fragment: 3,
           big: '에이전트 = 데이터 생산자',
-          compare: '실행 &rarr; 초안 &rarr; 정제 &rarr; 재학습, 사람 개입 없이 반복',
+          compare: '생성된 토큰이 학습 데이터가 되어 &mdash; 더 나은 토큰을 생성한다',
         },
       ],
     },

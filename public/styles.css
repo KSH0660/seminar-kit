@@ -445,6 +445,80 @@
   font-size: 1.2em;
 }
 
+/* === Formula === */
+.formula-big {
+  font-family: 'Noto Sans Mono', monospace;
+  font-size: 1.8em;
+  font-weight: 700;
+  color: var(--color-accent);
+  text-align: center;
+  margin: 0.6em 0 0.3em;
+  letter-spacing: -0.02em;
+}
+
+/* === Special Token Tags === */
+.token-special {
+  background: var(--color-accent);
+  color: white;
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+  font-family: 'Noto Sans Mono', monospace;
+  font-size: 0.88em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.token-special.accent {
+  background: var(--color-success);
+}
+
+.token-special.highlight-new {
+  background: var(--color-success);
+  outline: 2px solid var(--color-success);
+  outline-offset: 1px;
+}
+
+/* === Era Stack Diagram === */
+.era-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8em;
+  margin: 0.6em 0;
+}
+
+.era-row {
+  display: grid;
+  grid-template-columns: 60px 1fr 120px;
+  gap: 0.8em;
+  align-items: center;
+  background: #f4f5f9;
+  border-left: 4px solid var(--color-accent);
+  border-radius: 0 8px 8px 0;
+  padding: 0.5em 0.8em;
+}
+
+.era-label {
+  font-weight: 700;
+  font-size: 0.8em;
+  color: var(--color-accent);
+}
+
+.era-tokens {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  flex-wrap: wrap;
+  font-family: 'Noto Sans Mono', monospace;
+  font-size: 0.68em;
+}
+
+.era-desc {
+  font-size: 0.78em;
+  font-weight: 700;
+  color: var(--color-muted);
+  text-align: right;
+}
+
 /* === Token Example Box === */
 .token-box {
   display: flex;
@@ -568,6 +642,12 @@
   :root:not([data-theme="light"]) .token-box {
     background: #1a1f35;
   }
+  :root:not([data-theme="light"]) .era-row {
+    background: #1a1f35;
+  }
+  :root:not([data-theme="light"]) .token-special {
+    color: #0f172a;
+  }
   :root:not([data-theme="light"]) .token-box.warn {
     background: #2d1a1a;
   }
@@ -597,6 +677,12 @@
 }
 :root[data-theme="dark"] .token-box {
   background: #1a1f35;
+}
+:root[data-theme="dark"] .era-row {
+  background: #1a1f35;
+}
+:root[data-theme="dark"] .token-special {
+  color: #0f172a;
 }
 :root[data-theme="dark"] .token-box.warn {
   background: #2d1a1a;
