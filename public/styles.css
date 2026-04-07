@@ -704,6 +704,7 @@
 .reveal .slide-number {
   bottom: 34px;
   right: 8px;
+  pointer-events: none;
 }
 
 /* === Print / PDF === */
