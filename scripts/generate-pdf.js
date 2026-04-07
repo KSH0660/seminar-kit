@@ -1,28 +1,29 @@
-const { chromium } = require('playwright');
-const path = require('path');
+import { chromium } from 'playwright';
+import { resolve, dirname } from 'path';
+import { fileURLToPath } from 'url';
 
-(async () => {
-  const htmlPath = path.resolve(__dirname, '..', 'public', 'latest.html');
-  const pdfPath = path.resolve(__dirname, '..', 'public', 'latest.pdf');
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
-  const browser = await chromium.launch();
-  const page = await browser.newPage();
+const htmlPath = resolve(__dirname, '..', 'public', 'latest.html');
+const pdfPath = resolve(__dirname, '..', 'public', 'latest.pdf');
 
-  await page.goto(`file://${htmlPath}?print-pdf`, {
-    waitUntil: 'networkidle',
-  });
+const browser = await chromium.launch();
+const page = await browser.newPage();
 
-  // Wait for reveal.js to fully initialize and fonts to load
-  await page.waitForTimeout(3000);
+await page.goto(`file://${htmlPath}?print-pdf`, {
+  waitUntil: 'networkidle',
+});
 
-  await page.pdf({
-    path: pdfPath,
-    width: '1280px',
-    height: '720px',
-    printBackground: true,
-    preferCSSPageSize: true,
-  });
+// Wait for reveal.js to fully initialize and fonts to load
+await page.waitForTimeout(3000);
 
-  console.log(`PDF generated: ${pdfPath}`);
-  await browser.close();
-})();
+await page.pdf({
+  path: pdfPath,
+  width: '1280px',
+  height: '720px',
+  printBackground: true,
+  preferCSSPageSize: true,
+});
+
+console.log(`PDF generated: ${pdfPath}`);
+await browser.close();
