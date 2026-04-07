@@ -517,6 +517,26 @@
       </section>
 
     </div>
+
+    <!-- Section Progress Bar -->
+    <div class="section-progress" id="sectionProgress">
+      <div class="section-progress__segment" data-section="intro">
+        <div class="section-progress__fill"></div>
+        <span class="section-progress__label">Intro</span>
+      </div>
+      <div class="section-progress__segment" data-section="chat">
+        <div class="section-progress__fill"></div>
+        <span class="section-progress__label">Chat</span>
+      </div>
+      <div class="section-progress__segment" data-section="reasoning">
+        <div class="section-progress__fill"></div>
+        <span class="section-progress__label">Reasoning</span>
+      </div>
+      <div class="section-progress__segment" data-section="tool-calling">
+        <div class="section-progress__fill"></div>
+        <span class="section-progress__label">Tool Calling</span>
+      </div>
+    </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
@@ -530,6 +550,7 @@
       pdfSeparateFragments: false,
       center: false,
       slideNumber: 'c/t',
+      progress: false,
     });
 
     // Theme toggle
@@ -563,6 +584,45 @@
 
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
         if (!localStorage.getItem('theme')) applyTheme('system');
+      });
+    })();
+  </script>
+
+  <script>
+    // Section progress bar
+    (function() {
+      var SECTIONS = [
+        { name: 'intro',        slides: ['slide-00', 'slide-01'] },
+        { name: 'chat',         slides: ['slide-03'] },
+        { name: 'reasoning',    slides: ['slide-04', 'slide-05'] },
+        { name: 'tool-calling', slides: ['slide-07', 'slide-08', 'slide-09', 'slide-10', 'slide-11', 'slide-12a', 'slide-12b'] }
+      ];
+
+      var slideToSection = {};
+      SECTIONS.forEach(function(sec, idx) {
+        sec.slides.forEach(function(id) { slideToSection[id] = idx; });
+      });
+
+      var segments = document.querySelectorAll('.section-progress__segment');
+
+      function updateProgress(slideId) {
+        var currentIdx = slideToSection[slideId];
+        if (currentIdx === undefined) return;
+        segments.forEach(function(seg, i) {
+          seg.classList.remove('is-active', 'is-completed');
+          if (i === currentIdx) seg.classList.add('is-active');
+          else if (i < currentIdx) seg.classList.add('is-completed');
+        });
+      }
+
+      Reveal.on('ready', function(event) {
+        var id = event.currentSlide ? event.currentSlide.getAttribute('data-slide-id') : null;
+        if (id) updateProgress(id);
+      });
+
+      Reveal.on('slidechanged', function(event) {
+        var id = event.currentSlide.getAttribute('data-slide-id');
+        if (id) updateProgress(id);
       });
     })();
   </script>
