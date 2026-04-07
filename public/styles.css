@@ -663,7 +663,7 @@
 .section-progress__segment[data-section="intro"]        { flex: 2; }
 .section-progress__segment[data-section="chat"]         { flex: 1; }
 .section-progress__segment[data-section="reasoning"]    { flex: 2; }
-.section-progress__segment[data-section="tool-calling"] { flex: 7; }
+.section-progress__segment[data-section="tool-calling"] { flex: 6; }
 
 .section-progress__segment + .section-progress__segment {
   border-left: 1px solid var(--color-border);
