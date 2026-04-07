@@ -208,9 +208,9 @@
 
       </section>
 
-      <!-- Slide 7: RL & 전환 -->
+      <!-- Slide 7: Agentic AI로의 전환 -->
       <section data-slide-id="slide-07">
-        <h2>RL &amp; 전환</h2>
+        <h2>Agentic AI로의 전환</h2>
 
         <div class="two-column">
           <!-- Left: our original plan (visible on entry) -->
@@ -233,46 +233,63 @@
           </div>
         </div>
 
+        <!-- Click 2: DRAM target -->
+        <div class="fragment" data-fragment-index="2">
+          <div class="success-box" style="margin-top:0.6em; text-align:center;">
+            <h3>첫 번째 타깃: DRAM 테스트 코드 자동 작성</h3>
+            <p>AI의 코딩 능력 극대화 &middot; Write, Read, Refresh 등 <strong>20여 개 커맨드</strong> 조합</p>
+          </div>
+        </div>
+
       </section>
 
-      <!-- Slide 8: The Problem -->
+      <!-- Slide 8: 3대 허들 & 극복 -->
       <section data-slide-id="slide-08">
-        <h2>The Problem</h2>
+        <h2>3대 허들 &amp; 극복</h2>
 
         <!-- Entry: horizontal flow -->
         <div class="journey-flow" style="font-size:1em; margin-bottom:0.6em;">
           <span class="journey-node">Agentic AI 패러다임 전환</span>
           <span class="journey-arrow">&rarr;</span>
           <span class="journey-node accent">DRAM 검증</span>
-          <span style="font-size:0.8em; color:var(--color-muted);">첫 번째 타깃 &middot; 레거시 코드 수십 년치 축적</span>
+          <span style="font-size:0.8em; color:var(--color-muted);">현업 적용을 위해 넘어야 할 벽</span>
         </div>
 
-        <!-- Click 1: pain points -->
+        <!-- Click 1: 3대 허들 -->
         <div class="fragment" data-fragment-index="1">
-          <p style="font-size:0.8em; color:var(--color-muted); margin-bottom:0.3em; text-align:left;">DRAM 검증이 안고 있던 문제</p>
+          <p style="font-size:0.8em; color:var(--color-muted); margin-bottom:0.3em; text-align:left;">AI 도입의 3대 허들</p>
           <div class="three-column">
             <div class="problem" style="text-align:center;">
-              <h3>수동 작성</h3>
-              <p>케이스당 수 일</p>
+              <h3>방대한 레거시</h3>
+              <p>수십 년치 코드<br>정답 라벨 없음</p>
             </div>
             <div class="problem" style="text-align:center;">
-              <h3>재사용 불가</h3>
-              <p>과거 코드 누적만 될 뿐</p>
+              <h3>무거운 EDA</h3>
+              <p>실행 5분<br>로그 1&ndash;2 GB</p>
             </div>
             <div class="problem" style="text-align:center;">
-              <h3>툴 장벽</h3>
-              <p>EDA 직접 실행 자동화 불가</p>
+              <h3>도메인 단절</h3>
+              <p>DRAM 팀 &harr; AI 팀<br>지식 사일로</p>
             </div>
           </div>
         </div>
-        <!-- Click 2: team gap -->
+        <!-- Click 2: 극복 과정 -->
         <div class="fragment" data-fragment-index="2">
-          <div class="journey-flow" style="font-size:0.9em; margin-top:0.6em;">
-            <span class="journey-node">DRAM 팀<br><span class="sub-note">EDA &middot; 검증 전문</span></span>
-            <span class="journey-arrow">&larr; 공백 &rarr;</span>
-            <span class="journey-node">AI 팀<br><span class="sub-note">LLM &middot; 에이전트 전문</span></span>
+          <p style="font-size:0.8em; color:var(--color-muted); margin-bottom:0.3em; text-align:left;">극복 과정</p>
+          <div class="three-column">
+            <div class="success-box" style="text-align:center;">
+              <h3>밀착 스터디</h3>
+              <p>수개월간<br>DRAM 전문가 협업</p>
+            </div>
+            <div class="success-box" style="text-align:center;">
+              <h3>메타데이터 구축</h3>
+              <p>LLM으로<br>레거시 코드 자동 태깅</p>
+            </div>
+            <div class="success-box" style="text-align:center;">
+              <h3>경량 검증 툴</h3>
+              <p>EDA 대신<br>자체 Lightweight Tool</p>
+            </div>
           </div>
-          <p class="takeaway" style="text-align:center; margin-top:0.4em;">수개월간 DRAM 직접 학습 &rarr; 두 도메인을 연결</p>
         </div>
 
       </section>
@@ -303,31 +320,13 @@
             </ul>
           </div>
         </div>
-        <!-- Click 1 -->
+        <!-- Click 1: DRAM 도메인 조건 → Agentic의 답 -->
         <div class="fragment" data-fragment-index="1">
-          <h3>DRAM 도메인에서 Fine-tuning이 특히 안 맞는 이유</h3>
-          <div class="three-column">
-            <div>
-              <h4>레거시 코드</h4>
-              <p>정답 라벨 없음<br>패턴이 아니라 의미를 알아야</p>
-            </div>
-            <div>
-              <h4>제품 사이클</h4>
-              <p>매 세대 스펙 변경<br>&rarr; 학습 데이터 금방 outdated</p>
-            </div>
-            <div>
-              <h4>EDA 툴</h4>
-              <p>실행 결과가 정답<br>모델이 직접 실행해야 앎</p>
-            </div>
-          </div>
-        </div>
-        <!-- Click 2 -->
-        <div class="fragment" data-fragment-index="2">
-          <h3>Agentic이 이 조건에 정확히 맞는다</h3>
+          <h3>DRAM 도메인 조건 &rarr; Agentic의 답</h3>
           <table class="fit-table">
-            <tr><th>조건</th><th>Agentic의 대응</th></tr>
+            <tr><th>도메인 조건</th><th>Agentic의 대응</th></tr>
             <tr><td>정답 라벨 없음</td><td>시뮬레이터가 정답을 준다</td></tr>
-            <tr><td>스펙 변경</td><td>컨텍스트로 흡수, 재학습 불필요</td></tr>
+            <tr><td>매 세대 스펙 변경</td><td>컨텍스트로 흡수, 재학습 불필요</td></tr>
             <tr><td>EDA 툴 실행 필요</td><td>툴 호출이 곧 스킬</td></tr>
             <tr><td>자가 수정 필요</td><td>Feedback Loop가 내장</td></tr>
           </table>
@@ -339,8 +338,9 @@
       <section data-slide-id="slide-10">
         <h2>Architecture</h2>
 
-        <!-- Entry -->
-        <p class="lead">LangGraph와 파일 R/W &middot; EDA 툴을 결합한 Agentic Workflow를 직접 구축하기로 결정했습니다.</p>
+        <!-- Entry: 단일 에이전트의 한계 -->
+        <p>단일 에이전트로는 방대한 레거시를 모두 참조하며 코드를 생성하기에 <strong>컨텍스트 한도</strong>가 부족했습니다.</p>
+        <p class="takeaway">&rarr; Orchestrator &amp; 동적 스킬 기반 Worker 구조로 전면 개편</p>
 
         <!-- Click 1: 전체 구조도 -->
         <div class="fragment" data-fragment-index="1">
@@ -388,42 +388,29 @@
 
       </section>
 
-      <!-- Slide 11: 컨텍스트 · 결과 -->
+      <!-- Slide 11: 검증 결과 -->
       <section data-slide-id="slide-11">
-        <h2>컨텍스트 &middot; 결과</h2>
+        <h2>검증 결과</h2>
 
-        <!-- Entry -->
-        <p>두 태스크를 하나의 컨텍스트에 &rarr; 간섭 &middot; 정확도 하락</p>
-        <div class="flow-vertical">
-          <p><strong>Supervisor</strong>가 컨텍스트 분리</p>
-          <p>&rarr; Retrieval Worker 완료 &rarr; 결과 <strong>검토</strong></p>
-          <p>&rarr; 핵심만 추출하여 Generation Worker에게 전달</p>
-        </div>
+        <!-- Entry: 컨텍스트 분리 요약 -->
+        <p>Supervisor가 검색 &middot; 생성 컨텍스트를 분리 &rarr; <strong>간섭 제거</strong></p>
 
-        <!-- Click 1 + Click 2: Skill details side by side -->
-        <div class="two-column" style="margin-top: 0.8rem;">
-          <!-- Click 1: Skill 1 Retrieval -->
-          <div class="fragment" data-fragment-index="1">
-            <h3>Skill 1 &middot; Retrieval</h3>
-            <ul>
-              <li>레거시 코드에 <strong>LLM으로 메타데이터 자동 생성</strong></li>
-              <li>모듈 &rarr; 파일 &rarr; 함수 계층 검색</li>
-              <li>&rarr; 검색 정확도 <strong class="metric-inline">91.2%</strong></li>
-            </ul>
+        <!-- Click 1: 두 스킬 결과를 metric-highlight로 강조 -->
+        <div class="fragment two-column" data-fragment-index="1" style="margin-top:0.6em;">
+          <div class="metric-highlight">
+            <h3>Retrieval Skill</h3>
+            <p class="metric-big">Top-5 검색 정확도 91.2%</p>
+            <p class="sub-note">LLM 메타데이터 &middot; 모듈 &rarr; 파일 &rarr; 함수 계층 검색</p>
           </div>
-          <!-- Click 2: Skill 2 Generation -->
-          <div class="fragment" data-fragment-index="2">
-            <h3>Skill 2 &middot; Generation</h3>
-            <ul>
-              <li>EDA 실행 &rarr; 에러 직접 노출 &rarr; 자가 수정</li>
-              <li>결과 로그 1&ndash;2 GB <span class="sub-note">(웨이브폼 포함)</span></li>
-              <li>핵심 추출 &rarr; Context 적재</li>
-            </ul>
+          <div class="metric-highlight">
+            <h3>Generation Skill</h3>
+            <p class="metric-big">Syntax Pass Rate 99.7%</p>
+            <p class="sub-note">EDA 실행 &rarr; 에러 노출 &rarr; 자가 수정 루프</p>
           </div>
         </div>
 
-        <!-- Click 3: Pass Rate -->
-        <div class="fragment" data-fragment-index="3">
+        <!-- Click 2: Pass Rate 비교 -->
+        <div class="fragment" data-fragment-index="2">
           <h3>Pass Rate (구조적 접근의 효과)</h3>
           <table class="fit-table results-table">
             <tr>
