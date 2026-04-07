@@ -700,10 +700,12 @@
   font-weight: 700;
 }
 
-/* Lift slide number above progress bar */
+/* Center slide number above progress bar */
 .reveal .slide-number {
   bottom: 34px;
-  right: 8px;
+  right: auto;
+  left: 50%;
+  transform: translateX(-50%);
   pointer-events: none;
 }
 
