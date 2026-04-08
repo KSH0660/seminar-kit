@@ -99,7 +99,7 @@
 
 .timeline-item {
   display: grid;
-  grid-template-columns: 140px 220px 1fr;
+  grid-template-columns: 140px 440px 1fr;
   gap: 0.5em;
   align-items: baseline;
   padding: 0.4em 0.6em;
