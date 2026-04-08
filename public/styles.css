@@ -1297,6 +1297,7 @@
   }
   .reveal .slides section {
     page-break-after: always;
+    overflow: hidden;
   }
 
   .bridge {
