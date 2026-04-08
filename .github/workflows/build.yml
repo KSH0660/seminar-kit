@@ -39,6 +39,9 @@ jobs:
       - name: Generate PDF
         run: node scripts/generate-pdf.js
 
+      - name: Cache-bust PDF link
+        run: sed -i "s|latest.pdf|latest.pdf?v=$(git rev-parse --short HEAD)|" public/index.html
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
