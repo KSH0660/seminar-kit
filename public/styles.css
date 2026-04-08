@@ -842,9 +842,59 @@
   pointer-events: none;
 }
 
-/* Ensure navigation controls stay above progress bar and slide number */
-.reveal .controls {
-  z-index: 100 !important;
+/* Custom slide navigation controls */
+.slide-nav {
+  position: fixed;
+  right: 1em;
+  bottom: 40px;
+  z-index: 100;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.slide-nav__btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.08);
+  color: var(--color-text);
+  font-size: 1.2em;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, opacity 0.2s;
+  padding: 0;
+  font-family: inherit;
+}
+
+.slide-nav__btn:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.slide-nav__btn:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+:root[data-theme="dark"] .slide-nav__btn {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+:root[data-theme="dark"] .slide-nav__btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .slide-nav__btn {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  :root:not([data-theme="light"]) .slide-nav__btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.2);
+  }
 }
 
 /* === Pipeline Steps === */
@@ -1292,7 +1342,8 @@
 /* === Print / PDF === */
 @media print {
   .theme-toggle,
-  .section-progress {
+  .section-progress,
+  .slide-nav {
     display: none;
   }
   .reveal .slides section {
