@@ -702,11 +702,16 @@
 
 /* Center slide number above progress bar */
 .reveal .slide-number {
-  bottom: 34px;
-  right: auto;
-  left: 50%;
-  transform: translateX(-50%);
+  right: auto !important;
+  left: 50% !important;
+  bottom: 34px !important;
+  transform: translateX(-50%) !important;
   pointer-events: none;
+}
+
+/* Ensure navigation controls stay above progress bar and slide number */
+.reveal .controls {
+  z-index: 100 !important;
 }
 
 /* === Print / PDF === */
