@@ -475,12 +475,26 @@
       <section data-slide-id="slide-10">
         <h2>Architecture</h2>
 
-        <!-- Entry: 단일 에이전트의 한계 -->
-        <p>단일 에이전트로는 방대한 레거시를 모두 참조하며 코드를 생성하기에 <strong>컨텍스트 한도</strong>가 부족했습니다.</p>
-        <p class="takeaway">&rarr; Orchestrator &amp; 동적 스킬 기반 Worker 구조로 전면 개편</p>
+        <!-- Entry: Dynamic Skill Worker -->
+        <div class="dynamic-skill-section">
+          <h3>Dynamic Skill Worker</h3>
+          <p style="font-size:0.8em;margin-bottom:0.4em;">Worker는 범용 실행 환경 &mdash; Supervisor가 위임하는 <strong>업무 성격에 맞는 Skill이 자동 로딩</strong></p>
+          <div class="skill-loading-flow">
+            <div class="skill-loading-box">&ldquo;검색하라&rdquo;<br><strong>Retrieval Skill</strong><br><span style="font-size:0.9em;">RAG &middot; 메타데이터</span></div>
+            <div class="skill-loading-arrow">&vert;</div>
+            <div class="skill-loading-box">&ldquo;생성하라&rdquo;<br><strong>Generation Skill</strong><br><span style="font-size:0.9em;">FSM Verifier &middot; EDA</span></div>
+          </div>
+          <p style="font-size:0.75em;color:var(--color-muted);margin-top:0.3em;">&rarr; 컨텍스트 간섭 제거 + 각 Worker가 전문가 수준으로 동작</p>
+        </div>
 
-        <!-- Click 1: 전체 구조도 -->
+        <!-- Click 1: 컨텍스트 한도 문제 -->
         <div class="fragment" data-fragment-index="1">
+          <p>단일 에이전트로는 방대한 레거시를 모두 참조하며 코드를 생성하기에 <strong>컨텍스트 한도</strong>가 부족했습니다.</p>
+          <p class="takeaway">&rarr; Orchestrator &amp; 동적 스킬 기반 Worker 구조로 전면 개편</p>
+        </div>
+
+        <!-- Click 2: 오케스트레이터 및 전체 구조 -->
+        <div class="fragment" data-fragment-index="2">
           <div class="architecture-diagram">
             <div class="arch-orchestrator">
               <div class="arch-orchestrator-label">Orchestrator</div>
@@ -498,82 +512,19 @@
               <div class="arch-skill">
                 <h4>Worker 1: Retrieval</h4>
                 <p>레거시 코드 검색<br>Hierarchical RAG</p>
-                <p class="metric-inline">검색 정확도 <strong>91.2%</strong></p>
               </div>
               <div class="arch-skill">
                 <h4>Worker 2: Generation</h4>
                 <p>벡터 코드 생성<br>FSM Verifier &middot; Xcelium</p>
-                <p class="metric-inline">Syntax Pass Rate <strong>99.7%</strong></p>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Click 2: Dynamic Skill Loading -->
-        <div class="fragment" data-fragment-index="2">
-          <div class="dynamic-skill-section">
-            <h3>Dynamic Skill Loading</h3>
-            <p style="font-size:0.8em;margin-bottom:0.4em;">Worker는 범용 실행 환경 &mdash; Supervisor가 위임하는 <strong>업무 성격에 맞는 Skill이 자동 로딩</strong></p>
-            <div class="skill-loading-flow">
-              <div class="skill-loading-box">&ldquo;검색하라&rdquo;<br><strong>Retrieval Skill</strong><br><span style="font-size:0.9em;">RAG &middot; 메타데이터</span></div>
-              <div class="skill-loading-arrow">&vert;</div>
-              <div class="skill-loading-box">&ldquo;생성하라&rdquo;<br><strong>Generation Skill</strong><br><span style="font-size:0.9em;">FSM Verifier &middot; EDA</span></div>
-            </div>
-            <p style="font-size:0.75em;color:var(--color-muted);margin-top:0.3em;">&rarr; 컨텍스트 간섭 제거 + 각 Worker가 전문가 수준으로 동작</p>
-          </div>
-        </div>
-
       </section>
 
-      <!-- Slide 11: 검증 결과 -->
+      <!-- Slide 11: 스킬 파이프라인 상세 — 검색·생성 내부 동작 -->
       <section data-slide-id="slide-11">
-        <h2>검증 결과</h2>
-
-        <!-- Entry: 컨텍스트 분리 요약 -->
-        <p>Supervisor가 검색 &middot; 생성 컨텍스트를 분리 &rarr; <strong>간섭 제거</strong></p>
-
-        <!-- Click 1: 두 스킬 결과를 metric-highlight로 강조 -->
-        <div class="fragment two-column" data-fragment-index="1" style="margin-top:0.6em;">
-          <div class="metric-highlight">
-            <h3>Retrieval Skill</h3>
-            <p class="metric-big">Top-5 검색 정확도 91.2%</p>
-            <p class="sub-note">LLM 메타데이터 &middot; 모듈 &rarr; 파일 &rarr; 함수 계층 검색</p>
-          </div>
-          <div class="metric-highlight">
-            <h3>Generation Skill</h3>
-            <p class="metric-big">Syntax Pass Rate 99.7%</p>
-            <p class="sub-note">EDA 실행 &rarr; 에러 노출 &rarr; 자가 수정 루프</p>
-          </div>
-        </div>
-
-        <!-- Click 2: Pass Rate 비교 -->
-        <div class="fragment" data-fragment-index="2">
-          <h3>Pass Rate (구조적 접근의 효과)</h3>
-          <table class="fit-table results-table">
-            <tr>
-              <td>단일 LLM (GPT-4 Turbo)</td>
-              <td class="metric-cell">60.3%</td>
-            </tr>
-            <tr>
-              <td>Frontier + Agentic</td>
-              <td class="metric-cell accent">94.2%</td>
-            </tr>
-            <tr class="highlight-row">
-              <td>우리 (DRAM 도메인 특화)</td>
-              <td class="metric-cell accent"><strong>99.7%</strong></td>
-            </tr>
-          </table>
-          <p class="footnote">
-            * VerilogCoder, AAAI 2025 (RTL 코딩 벤치마크)<br>
-            * 벤치마크 상이 (VerilogEval-Human v2 vs. DRAM 내부 검증) &mdash; 델타 방향성 참고용
-          </p>
-        </div>
-
-        <p class="bridge">루프가 반복될수록 &mdash; 무언가가 쌓인다</p>
-      </section>
-
-      <!-- Slide 11b: 스킬 파이프라인 상세 — 검색·생성 내부 동작 -->
-      <section data-slide-id="slide-11b">
         <h2>스킬 파이프라인 상세</h2>
         <p class="slide-subtitle">검색과 생성, 각 스킬의 내부 동작 흐름</p>
 
@@ -649,6 +600,53 @@
         </div>
 
         <p class="bridge">정밀한 파이프라인은 결과를 만들고 &mdash; 결과는 지식이 된다</p>
+      </section>
+
+      <!-- Slide 12: 검증 결과 -->
+      <section data-slide-id="slide-12">
+        <h2>검증 결과</h2>
+
+        <!-- Entry: 컨텍스트 분리 요약 -->
+        <p>Supervisor가 검색 &middot; 생성 컨텍스트를 분리 &rarr; <strong>간섭 제거</strong></p>
+
+        <!-- Click 1: 두 스킬 결과를 metric-highlight로 강조 -->
+        <div class="fragment two-column" data-fragment-index="1" style="margin-top:0.6em;">
+          <div class="metric-highlight">
+            <h3>Retrieval Skill</h3>
+            <p class="metric-big">Top-5 검색 정확도 91.2%</p>
+            <p class="sub-note">LLM 메타데이터 &middot; 모듈 &rarr; 파일 &rarr; 함수 계층 검색</p>
+          </div>
+          <div class="metric-highlight">
+            <h3>Generation Skill</h3>
+            <p class="metric-big">Syntax Pass Rate 99.7%</p>
+            <p class="sub-note">EDA 실행 &rarr; 에러 노출 &rarr; 자가 수정 루프</p>
+          </div>
+        </div>
+
+        <!-- Click 2: Pass Rate 비교 -->
+        <div class="fragment" data-fragment-index="2">
+          <h3>Pass Rate (구조적 접근의 효과)</h3>
+          <table class="fit-table results-table">
+            <tr>
+              <td>단일 LLM (GPT-4 Turbo)</td>
+              <td class="metric-cell">60.3%</td>
+            </tr>
+            <tr>
+              <td>Frontier + Agentic</td>
+              <td class="metric-cell accent">94.2%</td>
+            </tr>
+            <tr class="highlight-row">
+              <td>우리 (DRAM 도메인 특화)</td>
+              <td class="metric-cell accent"><strong>99.7%</strong></td>
+            </tr>
+          </table>
+          <p class="footnote">
+            * VerilogCoder, AAAI 2025 (RTL 코딩 벤치마크)<br>
+            * 벤치마크 상이 (VerilogEval-Human v2 vs. DRAM 내부 검증) &mdash; 델타 방향성 참고용
+          </p>
+        </div>
+
+        <p class="bridge">루프가 반복될수록 &mdash; 무언가가 쌓인다</p>
       </section>
 
       <!-- Slide 12a: 자기주도적 지식 축적 시스템 — 비교 + 툴 확장 -->
