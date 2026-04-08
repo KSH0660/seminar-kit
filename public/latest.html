@@ -877,6 +877,14 @@
 
     </div>
 
+    <!-- Custom Slide Navigation Controls -->
+    <div class="slide-nav" id="slideNav">
+      <button class="slide-nav__btn" id="navFirst" aria-label="첫 번째 슬라이드로 이동" title="첫 번째 슬라이드">&laquo;</button>
+      <button class="slide-nav__btn" id="navPrev" aria-label="이전 슬라이드" title="이전 슬라이드">&lsaquo;</button>
+      <button class="slide-nav__btn" id="navNext" aria-label="다음 슬라이드" title="다음 슬라이드">&rsaquo;</button>
+      <button class="slide-nav__btn" id="navLast" aria-label="마지막 슬라이드로 이동" title="마지막 슬라이드">&raquo;</button>
+    </div>
+
     <!-- Section Progress Bar -->
     <div class="section-progress" id="sectionProgress">
       <div class="section-progress__segment" data-section="intro">
@@ -910,7 +918,40 @@
       center: false,
       slideNumber: 'c/t',
       progress: false,
+      controls: false,
     });
+
+    // Custom slide navigation controls
+    (function() {
+      var btnFirst = document.getElementById('navFirst');
+      var btnPrev  = document.getElementById('navPrev');
+      var btnNext  = document.getElementById('navNext');
+      var btnLast  = document.getElementById('navLast');
+
+      function getTotalSlides() {
+        return Reveal.getTotalSlides();
+      }
+
+      function updateNavState() {
+        var isFirst = Reveal.isFirstSlide();
+        var isLast  = Reveal.isLastSlide();
+        btnFirst.disabled = isFirst;
+        btnPrev.disabled  = isFirst;
+        btnNext.disabled  = isLast;
+        btnLast.disabled  = isLast;
+      }
+
+      btnFirst.addEventListener('click', function() { Reveal.slide(0); });
+      btnPrev.addEventListener('click', function() { Reveal.prev(); });
+      btnNext.addEventListener('click', function() { Reveal.next(); });
+      btnLast.addEventListener('click', function() {
+        var total = getTotalSlides();
+        Reveal.slide(total - 1);
+      });
+
+      Reveal.on('ready', updateNavState);
+      Reveal.on('slidechanged', updateNavState);
+    })();
 
     // Theme toggle
     (function() {
