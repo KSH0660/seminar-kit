@@ -18,7 +18,7 @@ const path = require('path');
   await page.pdf({
     path: pdfPath,
     width: '1280px',
-    height: '720px',
+    height: '1080px',
     printBackground: true,
     preferCSSPageSize: true,
   });
