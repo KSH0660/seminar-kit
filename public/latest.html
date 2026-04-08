@@ -475,20 +475,23 @@
       <section data-slide-id="slide-10">
         <h2>Architecture</h2>
 
-        <!-- Entry: Dynamic Skill Worker -->
-        <div class="dynamic-skill-section">
-          <h3>Dynamic Skill Worker</h3>
-          <p style="font-size:0.8em;margin-bottom:0.4em;">Worker는 범용 실행 환경 &mdash; Supervisor가 위임하는 <strong>업무 성격에 맞는 Skill이 자동 로딩</strong></p>
-          <div class="skill-loading-flow">
-            <div class="skill-loading-box">&ldquo;검색하라&rdquo;<br><strong>Retrieval Skill</strong><br><span style="font-size:0.9em;">RAG &middot; 메타데이터</span></div>
-            <div class="skill-loading-arrow">&vert;</div>
-            <div class="skill-loading-box">&ldquo;생성하라&rdquo;<br><strong>Generation Skill</strong><br><span style="font-size:0.9em;">FSM Verifier &middot; EDA</span></div>
+        <!-- Entry: 단일 에이전트 방식 도식 -->
+        <div class="single-agent-diagram">
+          <div class="single-agent-label">Single Agent</div>
+          <div class="single-agent-arrow">&darr;</div>
+          <div class="single-context-box">
+            <div class="single-context-title">Single Context Window</div>
+            <div class="single-context-tasks">
+              <div class="single-context-task">&ldquo;검색&rdquo;<br><strong>방대한 레거시</strong><br><span style="font-size:0.9em;">참조 &middot; 분석</span></div>
+              <div class="single-context-divider">+</div>
+              <div class="single-context-task">&ldquo;생성&rdquo;<br><strong>테스트 코드</strong><br><span style="font-size:0.9em;">작성 &middot; 검증</span></div>
+            </div>
+            <p class="single-context-overflow">Context Limit Exceeded</p>
           </div>
-          <p style="font-size:0.75em;color:var(--color-muted);margin-top:0.3em;">&rarr; 컨텍스트 간섭 제거 + 각 Worker가 전문가 수준으로 동작</p>
         </div>
 
-        <!-- Click 1: 컨텍스트 한도 문제 -->
-        <div class="fragment" data-fragment-index="1">
+        <!-- 컨텍스트 한도 문제 강조 -->
+        <div style="margin-top:0.5em;">
           <p>단일 에이전트로는 방대한 레거시를 모두 참조하며 코드를 생성하기에 <strong>컨텍스트 한도</strong>가 부족했습니다.</p>
           <p class="takeaway">&rarr; Orchestrator &amp; 동적 스킬 기반 Worker 구조로 전면 개편</p>
         </div>
