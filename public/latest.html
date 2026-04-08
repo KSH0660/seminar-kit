@@ -678,30 +678,23 @@
           </div>
         </div>
 
-        <!-- Click 2: Pass Rate 비교 -->
+        <!-- Click 2: Ablation Study -->
         <div class="fragment" data-fragment-index="2">
-          <h3>Pass Rate (구조적 접근의 효과)</h3>
+          <h3>Ablation Study &mdash; 우리 시스템</h3>
           <table class="fit-table results-table">
             <tr>
-              <td>단일 LLM (GPT-4 Turbo)</td>
-              <td class="metric-cell">60.3%</td>
-            </tr>
-            <tr>
-              <td>Frontier + Agentic</td>
-              <td class="metric-cell accent">94.2%</td>
+              <td>LLM Only</td>
+              <td class="metric-cell">약 60%</td>
             </tr>
             <tr class="highlight-row">
-              <td>우리 (DRAM 도메인 특화)</td>
+              <td>Agentic Workflow 적용</td>
               <td class="metric-cell accent"><strong>99.7%</strong></td>
             </tr>
           </table>
           <p class="footnote">
-            * VerilogCoder, AAAI 2025 (RTL 코딩 벤치마크)<br>
-            * 벤치마크 상이 (VerilogEval-Human v2 vs. DRAM 내부 검증) &mdash; 델타 방향성 참고용
+            ※ 유사한 성능 향상(Delta)이 외부 연구에서도 보고됨
           </p>
         </div>
-
-        <p class="bridge">루프가 반복될수록 &mdash; 무언가가 쌓인다</p>
       </section>
 
       <!-- Slide 13: 기존 에이전트의 한계 — 왜 지식 축적이 필요한가 -->
