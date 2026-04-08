@@ -73,6 +73,139 @@
 
       </section>
 
+      <!-- Slide 02a: Prefill vs Generation — Chat 토큰 흐름 -->
+      <section data-slide-id="slide-02a">
+        <h2>LLM의 토큰 흐름</h2>
+        <p class="slide-date">Prefill vs Generation &mdash; 모든 단계의 공통 원리</p>
+
+        <!-- Entry: Concept Table -->
+        <table class="fit-table" style="max-width:720px;">
+          <thead>
+            <tr>
+              <th style="width:130px;">구분</th>
+              <th>의미</th>
+              <th style="width:110px;">학습 Loss</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="tok-prefill" style="display:inline-block;">Prefill</span></td>
+              <td>시스템이 컨텍스트에 주입 &mdash; 모델이 생성하지 않음</td>
+              <td><strong>OFF</strong></td>
+            </tr>
+            <tr class="highlight-row">
+              <td><span class="tok-gen" style="display:inline-block;">Generation</span></td>
+              <td>모델이 학습을 통해 스스로 출력</td>
+              <td><strong>ON</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Click 1: Chat Token Flow -->
+        <div class="fragment" data-fragment-index="1">
+          <p class="tok-label">Stage 1 &mdash; Chat</p>
+          <div class="token-flow">
+            <span class="tok-prefill">&lt;|system|&gt;</span>
+            <span class="tok-prefill">시스템 프롬프트</span>
+            <span class="tok-prefill">&lt;|user|&gt;</span>
+            <span class="tok-prefill">사용자 질문</span>
+            <span class="tok-boundary">&lt;|assistant|&gt;</span>
+            <span class="tok-gen">자연어 답변</span>
+            <span class="tok-gen">&lt;|endoftext|&gt;</span>
+          </div>
+          <p class="sub-note" style="margin-top:0.4em;">
+            &#9654; 프레임워크가 <code>&lt;|assistant|&gt;</code>까지 주입(Prefill) &rarr; 모델이 이어서 생성(Generation)
+          </p>
+        </div>
+
+        <!-- Click 2: Takeaway -->
+        <div class="fragment" data-fragment-index="2">
+          <p class="takeaway" style="margin-top:0.8em;">
+            LLM은 본질적으로 Generation 기계 &mdash; 프레임워크가 조건(Prefill)을 세팅하고, 모델이 빈칸을 이어 쓴다
+          </p>
+        </div>
+
+        <p class="bridge">그렇다면 추론(Reasoning)과 도구 호출(Tool Calling)에서는?</p>
+      </section>
+
+      <!-- Slide 02b: Generation 영역의 확장 -->
+      <section data-slide-id="slide-02b">
+        <h2>Generation 영역의 확장</h2>
+        <p class="slide-date">Chat &rarr; Reasoning &rarr; Tool-Integrated Reasoning</p>
+
+        <!-- Entry + Click 1: Three-column token flow comparison -->
+        <div class="three-column" style="align-items:start; gap:0.8em;">
+
+          <!-- Column 1: Chat -->
+          <div>
+            <p class="tok-label">Chat</p>
+            <div class="token-flow token-flow--vertical">
+              <span class="tok-prefill">&lt;|system|&gt; ...</span>
+              <span class="tok-prefill">&lt;|user|&gt; 질문</span>
+              <span class="tok-boundary">&lt;|assistant|&gt;</span>
+              <span class="tok-gen">자연어 답변</span>
+              <span class="tok-gen">&lt;|endoftext|&gt;</span>
+            </div>
+          </div>
+
+          <!-- Column 2: Reasoning -->
+          <div class="fragment" data-fragment-index="1">
+            <p class="tok-label">Reasoning</p>
+            <div class="token-flow token-flow--vertical">
+              <span class="tok-prefill">&lt;|system|&gt; ...</span>
+              <span class="tok-prefill">&lt;|user|&gt; 질문</span>
+              <span class="tok-boundary">&lt;|assistant|&gt;</span>
+              <span class="tok-gen">&lt;|think|&gt;</span>
+              <span class="tok-gen">추론 과정 (CoT)</span>
+              <span class="tok-gen">자연어 답변</span>
+              <span class="tok-gen">&lt;|endoftext|&gt;</span>
+            </div>
+          </div>
+
+          <!-- Column 3: Tool-Integrated Reasoning -->
+          <div class="fragment" data-fragment-index="1">
+            <p class="tok-label">Tool-Integrated</p>
+            <div class="token-flow token-flow--vertical">
+              <span class="tok-prefill">&lt;|system|&gt; ...</span>
+              <span class="tok-prefill">&lt;|user|&gt; 질문</span>
+              <span class="tok-boundary">&lt;|assistant|&gt;</span>
+              <span class="tok-gen">&lt;|think|&gt;</span>
+              <span class="tok-gen">추론 과정</span>
+              <span class="tok-gen">&lt;|tool_call|&gt;</span>
+              <span class="tok-gen tok-gen--highlight">func(args)</span>
+              <span class="tok-prefill tok-prefill--injected">&lt;|observation|&gt;</span>
+              <span class="tok-prefill tok-prefill--injected">도구 실행 결과</span>
+              <span class="tok-gen">최종 답변</span>
+              <span class="tok-gen">&lt;|endoftext|&gt;</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Click 1 also reveals this insight -->
+        <div class="fragment" data-fragment-index="1">
+          <div class="metric-highlight" style="font-size:0.82em; margin-top:0.5em;">
+            <code>&lt;|think|&gt;</code>, tool_call JSON, 자연어 답변, <code>&lt;|endoftext|&gt;</code> &mdash; <strong>모두 Generation</strong> (Loss ON)
+          </div>
+        </div>
+
+        <!-- Click 2: Hallucination risk & solution -->
+        <div class="fragment" data-fragment-index="2">
+          <div class="two-column" style="margin-top:0.5em;">
+            <div class="problem" style="font-size:0.82em;">
+              <strong style="color:var(--color-fail);">Tool Call Hallucination</strong>
+              <p>함수명 &middot; 인자가 <strong>Generation 영역</strong><br>&rarr; 모델이 없는 함수를 지어낼 수 있음</p>
+            </div>
+            <div class="success-box" style="font-size:0.82em;">
+              <strong style="color:var(--color-success);">해결: SFT 데이터 품질</strong>
+              <p>정확한 함수명 &middot; 인자 쌍을<br>충분히 학습시켜 환각 억제</p>
+            </div>
+          </div>
+          <p class="takeaway" style="margin-top:0.5em;">
+            Special token이 늘어도 구조는 동일 &mdash; Prefill &rarr; <code>&lt;|assistant|&gt;</code> &rarr; Generation
+          </p>
+        </div>
+      </section>
+
       <!-- Slide 3: My First LLM -->
       <section data-slide-id="slide-03">
         <h2>My First LLM</h2>
@@ -539,7 +672,7 @@
     // Section progress bar
     (function() {
       var SECTIONS = [
-        { name: 'intro',        slides: ['slide-00', 'slide-01'] },
+        { name: 'intro',        slides: ['slide-00', 'slide-01', 'slide-02a', 'slide-02b'] },
         { name: 'chat',         slides: ['slide-03'] },
         { name: 'reasoning',    slides: ['slide-04', 'slide-05'] },
         { name: 'tool-calling', slides: ['slide-07', 'slide-08', 'slide-10', 'slide-11', 'slide-12a', 'slide-12b'] }

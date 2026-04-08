@@ -484,6 +484,88 @@
   color: var(--color-fail);
 }
 
+/* === Token Flow Diagram === */
+.token-flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3em;
+  background: #f4f5f9;
+  border-radius: 8px;
+  padding: 0.5em 0.7em;
+  margin: 0.4em 0;
+  font-family: 'Noto Sans Mono', monospace;
+  font-size: 0.68em;
+  line-height: 1.6;
+}
+
+.token-flow--vertical {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.15em;
+}
+
+.tok-prefill {
+  background: var(--color-border);
+  color: var(--color-muted);
+  padding: 0.15em 0.5em;
+  border-radius: 4px;
+  font-size: 0.95em;
+}
+
+.tok-prefill--injected {
+  border: 1.5px dashed var(--color-muted);
+  background: transparent;
+}
+
+.tok-gen {
+  background: var(--color-accent-light);
+  color: var(--color-accent);
+  font-weight: 700;
+  padding: 0.15em 0.5em;
+  border-radius: 4px;
+  font-size: 0.95em;
+}
+
+.tok-gen--highlight {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+}
+
+.tok-boundary {
+  background: var(--color-accent);
+  color: white;
+  font-weight: 700;
+  padding: 0.15em 0.5em;
+  border-radius: 4px;
+  font-size: 0.95em;
+}
+
+.token-flow--vertical .tok-boundary {
+  position: relative;
+}
+
+.token-flow--vertical .tok-boundary::after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: -0.7em;
+  right: -0.7em;
+  bottom: -0.1em;
+  height: 2px;
+  background: var(--color-accent);
+  opacity: 0.4;
+}
+
+.tok-label {
+  font-size: 0.8em;
+  font-weight: 700;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.2em;
+}
+
 /* === Intro Topic Cards === */
 .intro-topics {
   margin-top: 1em;
@@ -577,6 +659,15 @@
   :root:not([data-theme="light"]) .arch-orchestrator {
     color: #0f172a;
   }
+  :root:not([data-theme="light"]) .token-flow {
+    background: #1a1f35;
+  }
+  :root:not([data-theme="light"]) .tok-prefill {
+    background: #2a2f45;
+  }
+  :root:not([data-theme="light"]) .tok-boundary {
+    color: #0f172a;
+  }
 }
 
 :root[data-theme="dark"] .reveal,
@@ -605,6 +696,15 @@
   color: #0f172a;
 }
 :root[data-theme="dark"] .arch-orchestrator {
+  color: #0f172a;
+}
+:root[data-theme="dark"] .token-flow {
+  background: #1a1f35;
+}
+:root[data-theme="dark"] .tok-prefill {
+  background: #2a2f45;
+}
+:root[data-theme="dark"] .tok-boundary {
   color: #0f172a;
 }
 
@@ -660,7 +760,7 @@
   transition: opacity 0.3s ease;
 }
 
-.section-progress__segment[data-section="intro"]        { flex: 2; }
+.section-progress__segment[data-section="intro"]        { flex: 4; }
 .section-progress__segment[data-section="chat"]         { flex: 1; }
 .section-progress__segment[data-section="reasoning"]    { flex: 2; }
 .section-progress__segment[data-section="tool-calling"] { flex: 6; }
