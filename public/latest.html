@@ -268,8 +268,8 @@
         </ul>
 
         <!-- Click 1: 우리 상황 & 계획 -->
-        <div class="fragment" data-fragment-index="1">
-          <h3>우리 상황 &amp; 계획</h3>
+        <div class="fragment" data-fragment-index="1" style="border-top:2px solid var(--color-border); margin-top:0.5em; padding-top:0.5em;">
+          <h3 style="color:var(--color-success);">우리 상황 &amp; 계획</h3>
           <ul>
             <li>사내에서 반도체 특화 추론 모델을 만들어야 함</li>
             <li>H/W 리소스 상 비교적 작은 base 모델을 써야 하는 상황</li>
@@ -299,48 +299,50 @@
         <h2>1차 시도 &rarr; 정제 &amp; 결과</h2>
 
         <!-- Entry: 1차 시도 -->
-        <p class="sub-note">1차 시도</p>
-        <div class="two-column">
-          <div>
-            <h3>데이터</h3>
-            <ul class="checklist">
-              <li>2M+ 혼합 <span class="fail-mark">&cross;</span></li>
-              <li>다양한 출처 수집 <span class="fail-mark">&cross;</span></li>
-              <li>낮은 검증 기준 <span class="fail-mark">&cross;</span></li>
-              <li>양 우선 <span class="fail-mark">&cross;</span></li>
-            </ul>
-          </div>
-          <div>
-            <h3>학습</h3>
-            <ul class="checklist">
-              <li>전 구간 단일 런 <span class="fail-mark">&cross;</span></li>
-              <li>32k 토큰 고정 <span class="fail-mark">&cross;</span></li>
-              <li>배치 사이즈 고정 <span class="fail-mark">&cross;</span></li>
-            </ul>
+        <div class="problem" style="border-left:3px solid var(--color-fail); border-top:none; border-right:none; border-bottom:none; padding:0.3em 0.6em; border-radius:0 6px 6px 0;">
+          <div class="two-column" style="margin:0;">
+            <div>
+              <h3>데이터</h3>
+              <ul class="checklist">
+                <li>2M+ 혼합 <span class="fail-mark">&cross;</span></li>
+                <li>다양한 출처 수집 <span class="fail-mark">&cross;</span></li>
+                <li>낮은 검증 기준 <span class="fail-mark">&cross;</span></li>
+                <li>양 우선 <span class="fail-mark">&cross;</span></li>
+              </ul>
+            </div>
+            <div>
+              <h3>학습</h3>
+              <ul class="checklist">
+                <li>전 구간 단일 런 <span class="fail-mark">&cross;</span></li>
+                <li>32k 토큰 고정 <span class="fail-mark">&cross;</span></li>
+                <li>배치 사이즈 고정 <span class="fail-mark">&cross;</span></li>
+              </ul>
+            </div>
           </div>
         </div>
 
         <!-- Click 1: 정제 -->
         <div class="fragment" data-fragment-index="1">
-          <p class="sub-note" style="margin-top:0.6em;">정제</p>
-          <div class="two-column">
-            <div>
-              <h3>데이터</h3>
-              <ul>
-                <li>correctness == True</li>
-                <li>verifier == 1.0</li>
-                <li>verifiable question</li>
-                <li><strong>200k 정제</strong></li>
-              </ul>
-              <p class="takeaway">데이터 &gt; 모델</p>
-            </div>
-            <div>
-              <h3>학습</h3>
-              <ul>
-                <li>Round 1 &nbsp; 8k / batch S</li>
-                <li>Round 2 &nbsp; 16k / batch M</li>
-                <li>Round 3 &nbsp; 32k / batch L</li>
-              </ul>
+          <div style="text-align:center; color:var(--color-muted); font-size:0.9em; margin:0.3em 0;">&darr;</div>
+          <div class="success-box" style="border-left:3px solid var(--color-success); border-top:none; border-right:none; border-bottom:none; padding:0.3em 0.6em; border-radius:0 6px 6px 0;">
+            <div class="two-column" style="margin:0;">
+              <div>
+                <h3>데이터</h3>
+                <ul>
+                  <li>correctness == True</li>
+                  <li>verifier == 1.0</li>
+                  <li>verifiable question</li>
+                  <li><strong>200k 정제</strong></li>
+                </ul>
+              </div>
+              <div>
+                <h3>학습</h3>
+                <ul>
+                  <li>Round 1 &nbsp; 4k / batch S</li>
+                  <li>Round 2 &nbsp; 8k / batch M</li>
+                  <li>Round 3 &nbsp; 16k / batch L</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
