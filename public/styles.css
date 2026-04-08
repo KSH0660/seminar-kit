@@ -1247,10 +1247,10 @@
 }
 
 /* === Pivot Flow (Slide 09) === */
-.pivot-flow {
+.pivot-top {
   display: grid;
-  grid-template-columns: 1fr auto 1fr auto 1.2fr;
-  gap: 0.4em;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0.5em;
   align-items: start;
   margin-top: 0.3em;
 }
@@ -1296,6 +1296,14 @@
   color: var(--color-accent);
   font-weight: 700;
   padding-top: 1.5em;
+}
+
+.pivot-bottom-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8em;
+  align-items: start;
+  margin-top: 0.3em;
 }
 
 .pivot-target {
