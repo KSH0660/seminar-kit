@@ -570,6 +570,85 @@
         <p class="bridge">루프가 반복될수록 &mdash; 무언가가 쌓인다</p>
       </section>
 
+      <!-- Slide 11b: 스킬 파이프라인 상세 — 검색·생성 내부 동작 -->
+      <section data-slide-id="slide-11b">
+        <h2>스킬 파이프라인 상세</h2>
+        <p class="slide-subtitle">검색과 생성, 각 스킬의 내부 동작 흐름</p>
+
+        <!-- Entry: 두 스킬 파이프라인 비교 -->
+        <div class="two-column" style="font-size:0.82em;">
+          <div class="arch-skill" style="text-align:left;">
+            <h4>Search Skill</h4>
+            <div class="pipeline-steps">
+              <div class="pipeline-step">
+                <span class="pipeline-step-num">1</span>
+                <div><strong>카테고리 분류</strong><br><span class="sub-note">레거시 자료 카테고리 우선 선택</span></div>
+              </div>
+              <div class="pipeline-step-arrow">&darr;</div>
+              <div class="pipeline-step">
+                <span class="pipeline-step-num">2</span>
+                <div><strong>메타데이터 필터링</strong><br><span class="sub-note">파일 메타데이터 분석 &rarr; 3~10개 1차 후보 추출</span></div>
+              </div>
+              <div class="pipeline-step-arrow">&darr;</div>
+              <div class="pipeline-step">
+                <span class="pipeline-step-num">3</span>
+                <div><strong>심층 분석 &middot; 선정</strong><br><span class="sub-note">본문 직접 읽기 &rarr; 최종 1~3개 핵심 자료</span></div>
+              </div>
+              <div class="pipeline-step-arrow">&darr;</div>
+              <div class="pipeline-step">
+                <span class="pipeline-step-num">4</span>
+                <div><strong>보고서 생성</strong><br><span class="sub-note">검색 결과 보고서 작성</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="arch-skill" style="text-align:left;border-color:var(--color-success);">
+            <h4 style="color:var(--color-success);">Generation Skill</h4>
+            <div class="pipeline-steps">
+              <div class="pipeline-step">
+                <span class="pipeline-step-num">1</span>
+                <div><strong>계획 수립</strong><br><span class="sub-note">관련 문서 심층 읽기 + 코드 작성 계획</span></div>
+              </div>
+              <div class="pipeline-step-arrow">&darr;</div>
+              <div class="pipeline-step">
+                <span class="pipeline-step-num">2</span>
+                <div><strong>템플릿 생성</strong><br><span class="sub-note">SPD 값 기반 맞춤형 검증 코드 템플릿</span></div>
+              </div>
+              <div class="pipeline-step-arrow">&darr;</div>
+              <div class="pipeline-step">
+                <span class="pipeline-step-num">3</span>
+                <div><strong>메타데이터 작성</strong><br><span class="sub-note">테스트 타입 &middot; 개발 의도 헤더</span></div>
+              </div>
+              <div class="pipeline-step-arrow">&darr;</div>
+              <div class="pipeline-step">
+                <span class="pipeline-step-num">4</span>
+                <div><strong>본문 구현</strong><br><span class="sub-note">실제 검증 로직 작성</span></div>
+              </div>
+              <div class="pipeline-step-arrow">&darr;</div>
+              <div class="pipeline-step">
+                <span class="pipeline-step-num">5</span>
+                <div><strong>검증 (Verify)</strong><br><span class="sub-note">경량 검증기 + EDA 툴 정합성 검증</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Click 1: Lightweight Verifier 강조 -->
+        <div class="fragment" data-fragment-index="1">
+          <div class="metric-highlight" style="margin-top:0.4em;">
+            <h3 style="margin-bottom:0.2em;">자체 제작 Lightweight Verifier</h3>
+            <p style="font-size:0.85em;">내부 직접 개발한 약식 검증기로 <strong>신속한 1차 검증</strong> 수행</p>
+            <div class="two-column" style="font-size:0.82em;margin:0.3em 0 0;">
+              <div><strong>FSM Simulator</strong> <span class="sub-note">&mdash; Bank 기반 상태 머신</span></div>
+              <div><strong>Arg Checker</strong> <span class="sub-note">&mdash; DRAM 인자 유효성 검사</span></div>
+            </div>
+            <p class="sub-note" style="margin-top:0.3em;">&rarr; 느리고 무거운 EDA 툴의 iteration 루프를 효율화</p>
+          </div>
+        </div>
+
+        <p class="bridge">정밀한 파이프라인은 결과를 만들고 &mdash; 결과는 지식이 된다</p>
+      </section>
+
       <!-- Slide 12a: 자기주도적 지식 축적 시스템 — 비교 + 툴 확장 -->
       <section data-slide-id="slide-12a">
         <h2>자기주도적 지식 축적 시스템</h2>
