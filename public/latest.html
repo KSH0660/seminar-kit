@@ -217,8 +217,9 @@
       <section data-slide-id="slide-03">
         <h2>My First LLM</h2>
         <p class="slide-date">2024.06 &middot; 반도체 도메인 특화 &middot; 작은 LLM 학습부터 시작</p>
+        <p class="takeaway" style="margin-top:0.3em;">공통 &middot; 8B 스케일 &nbsp;|&nbsp; A100 &times; 8</p>
 
-        <div class="two-column">
+        <div class="two-column" style="margin-top:1.5em;">
           <div>
             <h3>Safeguard</h3>
             <p class="sub-note">입출력 필터 &middot; 유해 / 보안 위험 쿼리 탐지</p>
@@ -227,7 +228,7 @@
               <span class="token-sep">&rarr;</span>
               <span class="token-out">&lt;answer&gt;safe/unsafe&lt;/answer&gt;</span>
             </div>
-            <p class="sub-note" style="color:var(--color-fail); margin-top:0.4em;">&#9888; False positive 문제</p>
+            <p class="sub-note" style="margin-top:0.4em;">유해성 질문 3K, 일반 및 반도체 질문 11K 자체 수집 및 학습<br>(검증셋 F1 Score: 0.93)</p>
           </div>
           <div>
             <h3>API Router</h3>
@@ -237,13 +238,20 @@
               <span class="token-sep">&rarr;</span>
               <span class="token-out">uc1_rag(query=~~)</span>
             </div>
-            <p class="sub-note" style="color:var(--color-fail); margin-top:0.4em;">&#9888; Use case 확장 시 모델 재학습 필요</p>
+            <p class="sub-note" style="margin-top:0.4em;">약 6K 규모 데이터 확보 (함수 호출 정확도: 0.99)</p>
           </div>
         </div>
-        <div class="problem" style="font-size:0.82em; margin-top:0.6em;">
-          모델 관리 복잡도 증가 &rarr; <strong>지속가능하지 않다고 판단</strong>
+
+        <!-- Click 1: 한계점 -->
+        <div class="fragment" data-fragment-index="1" style="margin-top:1.5em;">
+          <div class="two-column" style="margin:0;">
+            <p class="sub-note" style="color:var(--color-fail);">&#9888; False positive 발생</p>
+            <p class="sub-note" style="color:var(--color-fail);">&#9888; 모델 재학습 필요</p>
+          </div>
+          <div class="problem" style="font-size:0.82em; margin-top:0.8em;">
+            모델 관리 복잡도 증가 &rarr; <strong>지속 가능하지 않다고 판단</strong>
+          </div>
         </div>
-        <p class="takeaway">공통 &middot; 8B 스케일 &nbsp;|&nbsp; A100 &times; 8</p>
 
       </section>
 
