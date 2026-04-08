@@ -649,20 +649,76 @@
         <p class="bridge">루프가 반복될수록 &mdash; 무언가가 쌓인다</p>
       </section>
 
+      <!-- Slide 13: 기존 에이전트의 한계 — 왜 지식 축적이 필요한가 -->
+      <section data-slide-id="slide-13">
+        <h2>왜 지식 축적이 필요한가?</h2>
+        <p class="slide-subtitle">Limitations of Stateless Agents</p>
+
+        <div class="two-column" style="margin-top:0.8em;">
+          <!-- Before -->
+          <div class="problem contrast-panel">
+            <h3 style="color:var(--color-fail);">Before &mdash; 기억 없는 에이전트</h3>
+            <div class="contrast-timeline">
+              <div class="contrast-row">
+                <span class="contrast-label">Day 1</span>
+                <span>오류 A 발생 &rarr; 시행착오 <strong>10분</strong> &rarr; 해결</span>
+              </div>
+              <div class="contrast-row">
+                <span class="contrast-label">Day 2</span>
+                <span>동일 오류 A &rarr; 시행착오 <strong>10분</strong> &rarr; 해결</span>
+              </div>
+              <div class="contrast-row contrast-row--dim">
+                <span class="contrast-label">Day N</span>
+                <span>&hellip; 동일 패턴 무한 반복</span>
+              </div>
+            </div>
+            <p class="contrast-verdict" style="color:var(--color-fail);">경험이 휘발된다 &rarr; 성장 없음</p>
+          </div>
+
+          <!-- After -->
+          <div class="fragment success-box contrast-panel" data-fragment-index="1">
+            <h3 style="color:var(--color-success);">After &mdash; 경험을 축적하는 에이전트</h3>
+            <div class="contrast-timeline">
+              <div class="contrast-row">
+                <span class="contrast-label">Day 1</span>
+                <span>오류 A 발생 &rarr; 시행착오 10분 &rarr; 해결 &amp; <strong>기록</strong></span>
+              </div>
+              <div class="contrast-row">
+                <span class="contrast-label">Day 2</span>
+                <span>동일 오류 A &rarr; 지식 참조 &rarr; <strong style="color:var(--color-success);">30초 해결</strong></span>
+              </div>
+              <div class="contrast-row">
+                <span class="contrast-label">Day N</span>
+                <span>축적된 지식으로 <strong style="color:var(--color-success);">즉시 대응</strong></span>
+              </div>
+            </div>
+            <p class="contrast-verdict" style="color:var(--color-success);">시행착오가 자산이 된다 &rarr; 지속 성장</p>
+          </div>
+        </div>
+
+        <!-- Click 2 -->
+        <p class="fragment takeaway" data-fragment-index="2" style="text-align:center; margin-top:1em; font-size:0.95em;">어제의 시행착오를 자산화하여, 내일은 더 나은 결과를 내는 시스템이 필요하다</p>
+
+        <p class="bridge">그래서 우리가 만든 시스템은 &mdash;</p>
+      </section>
+
       <!-- Slide 14: 자기 주도적 AI 지식 축적 시스템 -->
       <section data-slide-id="slide-14">
         <h2>자기 주도적 AI 지식 축적 시스템</h2>
         <p class="slide-subtitle">Self-Directed AI Knowledge Accumulation</p>
 
-        <!-- Entry: Key Message Box -->
-        <div class="key-message-box">
-          <p class="key-message-label">Core Objective</p>
-          <p class="key-message-text">AI 에이전트가 업무 중 겪은 <strong>시행착오와 학습 인사이트</strong>를 체계적으로 기록하고<br>주기적으로 정제하여 <strong>자동화된 지식 베이스</strong>를 구축 &middot; 유지</p>
+        <!-- Click 1: Key Message Box -->
+        <div class="fragment" data-fragment-index="1">
+          <div class="key-message-box">
+            <p class="key-message-label">Core Objective</p>
+            <p class="key-message-text">AI 에이전트가 업무 중 겪은 <strong>시행착오와 학습 인사이트</strong>를 체계적으로 기록하고<br>주기적으로 정제하여 <strong>자동화된 지식 베이스</strong>를 구축 &middot; 유지</p>
+          </div>
         </div>
 
         <!-- 2-Step Process Diagram -->
         <div class="process-diagram">
-          <div class="step-card">
+          <!-- Click 2: Step 1 -->
+          <div class="fragment step-card" data-fragment-index="2">
             <div class="step-card-header">
               <span class="step-number">1</span>
               <span class="step-title">실시간 초안(Draft) 기록</span>
@@ -680,9 +736,10 @@
             </div>
           </div>
 
-          <div class="process-connector">&rarr;</div>
+          <!-- Click 3: Connector + Step 2 -->
+          <div class="fragment process-connector" data-fragment-index="3">&rarr;</div>
 
-          <div class="step-card">
+          <div class="fragment step-card" data-fragment-index="3">
             <div class="step-card-header">
               <span class="step-number">2</span>
               <span class="step-title">동적 지식 구조 관리</span>
@@ -708,8 +765,8 @@
         <p class="slide-subtitle">Knowledge Refine Pipeline &amp; Expected Impact</p>
 
         <div class="two-column">
-          <!-- Left: Pipeline Flow -->
-          <div>
+          <!-- Click 1: Left — Pipeline Flow -->
+          <div class="fragment" data-fragment-index="1">
             <h3>Knowledge Refine Pipeline</h3>
             <div class="pipeline-trigger">
               <span class="pipeline-trigger-badge">CRON</span>
@@ -733,8 +790,8 @@
             </div>
           </div>
 
-          <!-- Right: Value Blocks -->
-          <div>
+          <!-- Click 2: Right — Value Blocks -->
+          <div class="fragment" data-fragment-index="2">
             <h3>시스템 도입 가치</h3>
             <div class="value-stack">
               <div class="value-block">
@@ -843,7 +900,7 @@
         { name: 'intro',        slides: ['slide-00', 'slide-01', 'slide-02a', 'slide-02b', 'slide-02c'] },
         { name: 'chat',         slides: ['slide-03'] },
         { name: 'reasoning',    slides: ['slide-04', 'slide-05'] },
-        { name: 'tool-calling', slides: ['slide-07', 'slide-08', 'slide-10', 'slide-11', 'slide-14', 'slide-15'] }
+        { name: 'tool-calling', slides: ['slide-07', 'slide-08', 'slide-10', 'slide-11', 'slide-13', 'slide-14', 'slide-15'] }
       ];
 
       var slideToSection = {};

@@ -1110,6 +1110,59 @@
   background: rgba(15,23,42,0.2);
 }
 
+/* === Contrast Panel (Slide 13: Before/After) === */
+.contrast-panel {
+  padding: 1em;
+}
+
+.contrast-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35em;
+  margin: 0.6em 0;
+}
+
+.contrast-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6em;
+  padding: 0.3em 0.5em;
+  background: rgba(0,0,0,0.03);
+  border-radius: 4px;
+  font-size: 0.82em;
+  line-height: 1.5;
+}
+
+.contrast-row--dim {
+  opacity: 0.55;
+  font-style: italic;
+}
+
+.contrast-label {
+  font-weight: 700;
+  font-size: 0.85em;
+  color: var(--color-muted);
+  flex-shrink: 0;
+  min-width: 3.2em;
+}
+
+.contrast-verdict {
+  font-weight: 700;
+  font-size: 0.88em;
+  margin-top: 0.5em;
+  text-align: center;
+}
+
+/* Dark mode: contrast row background */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .contrast-row {
+    background: rgba(255,255,255,0.05);
+  }
+}
+:root[data-theme="dark"] .contrast-row {
+  background: rgba(255,255,255,0.05);
+}
+
 /* === Print / PDF === */
 @media print {
   .theme-toggle,
