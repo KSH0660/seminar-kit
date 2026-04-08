@@ -649,70 +649,117 @@
         <p class="bridge">루프가 반복될수록 &mdash; 무언가가 쌓인다</p>
       </section>
 
-      <!-- Slide 12a: 자기주도적 지식 축적 시스템 — 비교 + 툴 확장 -->
-      <section data-slide-id="slide-12a">
-        <h2>자기주도적 지식 축적 시스템</h2>
-        <p class="slide-subtitle">실행할수록 똑똑해지는 시스템</p>
+      <!-- Slide 14: 자기 주도적 AI 지식 축적 시스템 -->
+      <section data-slide-id="slide-14">
+        <h2>자기 주도적 AI 지식 축적 시스템</h2>
+        <p class="slide-subtitle">Self-Directed AI Knowledge Accumulation</p>
 
-        <!-- Entry: 색상 코딩된 비교 패널 -->
-        <div class="two-column">
-          <div class="problem">
-            <h3 style="color:var(--color-fail);">기존 AI 시스템</h3>
-            <ul>
-              <li>모델 고정</li>
-              <li>지식 = 학습 시점</li>
-              <li>도메인 망각</li>
-            </ul>
-          </div>
-          <div class="success-box">
-            <h3 style="color:var(--color-success);">우리 시스템</h3>
-            <ul>
-              <li>실행 &rarr; 지식 생성</li>
-              <li>지식 = 누적 자산</li>
-              <li>도메인 심화</li>
-            </ul>
-          </div>
+        <!-- Entry: Key Message Box -->
+        <div class="key-message-box">
+          <p class="key-message-label">Core Objective</p>
+          <p class="key-message-text">AI 에이전트가 업무 중 겪은 <strong>시행착오와 학습 인사이트</strong>를 체계적으로 기록하고<br>주기적으로 정제하여 <strong>자동화된 지식 베이스</strong>를 구축 &middot; 유지</p>
         </div>
 
-        <!-- Click 1: 툴 확장 -->
-        <div class="fragment" data-fragment-index="1">
-          <h3>툴 3개 &rarr; 5개</h3>
-          <div class="two-column">
-            <div class="arch-skill">
-              <h4>기본 툴</h4>
-              <p class="sub-note">파일 R/W &middot; EDA &middot; 터미널</p>
+        <!-- 2-Step Process Diagram -->
+        <div class="process-diagram">
+          <div class="step-card">
+            <div class="step-card-header">
+              <span class="step-number">1</span>
+              <span class="step-title">실시간 초안(Draft) 기록</span>
             </div>
-            <div class="arch-skill" style="border-color:var(--color-success);">
-              <h4 style="color:var(--color-success);">+ 지식 툴</h4>
-              <p class="sub-note">Knowledge 저장 &middot; Knowledge 조회</p>
+            <div class="step-card-body">
+              <p>검증 &middot; 문제 해결 과정의 인사이트를<br>대/중분류 폴더 내 실시간 저장</p>
+              <div class="step-card-visual">
+                <span class="code-tag">draft_01.md</span>
+                <span class="step-card-arrow">&rarr;</span>
+                <span class="code-tag">draft_02.md</span>
+                <span class="step-card-arrow">&rarr;</span>
+                <span class="code-tag">draft_xx.md</span>
+              </div>
+              <p class="step-card-note">파일 길이 임계치 초과 시 xx 인덱스 자동 증가</p>
             </div>
           </div>
-          <p class="takeaway">에이전트 입장에서 지식도 "툴" &mdash; Orchestrator가 동일하게 호출</p>
+
+          <div class="process-connector">&rarr;</div>
+
+          <div class="step-card">
+            <div class="step-card-header">
+              <span class="step-number">2</span>
+              <span class="step-title">동적 지식 구조 관리</span>
+            </div>
+            <div class="step-card-body">
+              <p>엔지니어가 신규 카테고리(폴더)를 생성하면</p>
+              <div class="step-card-visual">
+                <span class="step-card-tag">New Category</span>
+                <span class="step-card-arrow">&rarr;</span>
+                <span class="step-card-tag accent">Tool Description 실시간 반영</span>
+              </div>
+              <p class="step-card-note">지식 트리 변경을 에이전트가 즉시 인지</p>
+            </div>
+          </div>
         </div>
 
         <p class="bridge">지식이 쌓인다면 &mdash; 정제는 어떻게?</p>
       </section>
 
-      <!-- Slide 12b: 지식 정제 파이프라인 -->
-      <section data-slide-id="slide-12b">
-        <h2>지식 정제 파이프라인</h2>
-        <p class="slide-subtitle">초안에서 자산까지, 자동으로</p>
+      <!-- Slide 15: 자동 지식 정제 파이프라인 및 기대 효과 -->
+      <section data-slide-id="slide-15">
+        <h2>자동 지식 정제 파이프라인</h2>
+        <p class="slide-subtitle">Knowledge Refine Pipeline &amp; Expected Impact</p>
 
-        <div class="journey-flow" style="font-size:1.3em; margin:1.5em 0;">
-          <span class="journey-node">실행 중 초안 저장<br><span class="sub-note">속도 우선</span></span>
-          <span class="journey-arrow">&rarr;</span>
-          <span class="journey-node">자정 Batch 정제<br><span class="sub-note">정확도 우선</span></span>
-          <span class="journey-arrow">&rarr;</span>
-          <span class="journey-node accent">Git 저장<br><span class="sub-note">버전 관리</span></span>
-          <span class="journey-arrow">&rarr;</span>
-          <span class="journey-node accent">Fine-tuning Dataset</span>
-        </div>
+        <div class="two-column">
+          <!-- Left: Pipeline Flow -->
+          <div>
+            <h3>Knowledge Refine Pipeline</h3>
+            <div class="pipeline-trigger">
+              <span class="pipeline-trigger-badge">CRON</span>
+              매일 정해진 시간에 Refine Agent 자동 구동
+            </div>
+            <div class="pipeline-steps">
+              <div class="pipeline-step">
+                <span class="pipeline-step-num">1</span>
+                <span><strong>탐색</strong> &mdash; 전체 지식 트리 내 <span class="code-tag">draft_*.md</span> 검색</span>
+              </div>
+              <div class="pipeline-step-arrow">&darr;</div>
+              <div class="pipeline-step">
+                <span class="pipeline-step-num">2</span>
+                <span><strong>가공</strong> &mdash; 기존 문서 병합 또는 신규 문서 작성<br><span class="sub-note">완료된 초안 파일은 삭제</span></span>
+              </div>
+              <div class="pipeline-step-arrow">&darr;</div>
+              <div class="pipeline-step">
+                <span class="pipeline-step-num">3</span>
+                <span><strong>동기화</strong> &mdash; 지식 트리 Readme(목차) 갱신<br><span class="sub-note">Git Push &rarr; 히스토리 추적 관리</span></span>
+              </div>
+            </div>
+          </div>
 
-        <!-- Click 1: takeaway -->
-        <div class="fragment" data-fragment-index="1">
-          <div class="metric-highlight">
-            <span class="metric-big">에이전트 = 데이터 생산자</span><br>
-            <span class="metric-compare">실행 &rarr; 초안 &rarr; 정제 &rarr; 재학습, 사람 개입 없이 반복</span>
+          <!-- Right: Value Blocks -->
+          <div>
+            <h3>시스템 도입 가치</h3>
+            <div class="value-stack">
+              <div class="value-block">
+                <span class="value-block-label">성과 측정</span>
+                <p>시행착오 빈도 분석을 통해 지식 축적이<br>실제 성능 향상으로 이어지는지 <strong>정량적 측정</strong></p>
+              </div>
+              <div class="value-block">
+                <span class="value-block-label">고품질 데이터 확보</span>
+                <p>정제된 문서를 도메인 특화 LLM<br><strong>파인튜닝 &middot; 학습 데이터</strong>로 즉시 활용</p>
+              </div>
+              <div class="value-block value-block--accent">
+                <span class="value-block-label">선순환 사이클</span>
+                <div class="cycle-grid">
+                  <span class="cycle-node">에이전트 업무</span>
+                  <span class="cycle-arrow">&rarr;</span>
+                  <span class="cycle-node">지식 축적 &middot; 정제</span>
+                  <span class="cycle-arrow">&uarr;</span>
+                  <span></span>
+                  <span class="cycle-arrow">&darr;</span>
+                  <span class="cycle-node">에이전트 적용</span>
+                  <span class="cycle-arrow">&larr;</span>
+                  <span class="cycle-node">모델 업그레이드</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -796,7 +843,7 @@
         { name: 'intro',        slides: ['slide-00', 'slide-01', 'slide-02a', 'slide-02b', 'slide-02c'] },
         { name: 'chat',         slides: ['slide-03'] },
         { name: 'reasoning',    slides: ['slide-04', 'slide-05'] },
-        { name: 'tool-calling', slides: ['slide-07', 'slide-08', 'slide-10', 'slide-11', 'slide-12a', 'slide-12b'] }
+        { name: 'tool-calling', slides: ['slide-07', 'slide-08', 'slide-10', 'slide-11', 'slide-14', 'slide-15'] }
       ];
 
       var slideToSection = {};
