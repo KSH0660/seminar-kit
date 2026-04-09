@@ -1347,6 +1347,96 @@
   color: rgba(15, 23, 42, 0.75) !important;
 }
 
+:root[data-theme="dark"] .tool-example-code {
+  background: #0d1117;
+}
+
+/* === Slide 15: Tool Interface Examples === */
+.tool-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin-top: 0.8em;
+}
+
+.tool-example {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+}
+
+.tool-example-label {
+  flex-shrink: 0;
+  font-size: 0.65em;
+  font-weight: 700;
+  color: var(--color-accent);
+  background: var(--color-accent-light);
+  padding: 0.2em 0.5em;
+  border-radius: 4px;
+  min-width: 5.5em;
+  text-align: center;
+}
+
+.tool-example-code {
+  font-family: 'Noto Sans Mono', monospace;
+  font-size: 0.55em;
+  background: #1a1a2e;
+  color: #e2e8f0;
+  padding: 0.4em 0.7em;
+  border-radius: 6px;
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+}
+
+.tool-example-code .code-str {
+  color: #86efac;
+}
+
+/* === Slide 16: Knowledge Base Result === */
+.knowledge-result {
+  margin-top: 0.6em;
+  text-align: center;
+}
+
+.knowledge-tree-row {
+  display: flex;
+  justify-content: center;
+  gap: 0.8em;
+  margin-bottom: 0.5em;
+}
+
+.tree-folder {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  font-family: 'Noto Sans Mono', monospace;
+  font-size: 0.7em;
+  font-weight: 600;
+  background: var(--color-accent-light);
+  color: var(--color-accent);
+  padding: 0.35em 0.7em;
+  border-radius: 6px;
+  border-left: 3px solid var(--color-accent);
+}
+
+.tree-folder-icon::before {
+  content: "\1F4C1";
+  font-size: 0.9em;
+  margin-right: 0.15em;
+}
+
+.knowledge-stats {
+  font-size: 0.75em;
+  color: var(--color-muted);
+  padding: 0.3em 0.8em;
+}
+
+.knowledge-stats .stats-num {
+  font-size: 1.15em;
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
 /* === Print / PDF === */
 @media print {
   .theme-toggle,
