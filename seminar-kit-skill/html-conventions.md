@@ -42,7 +42,7 @@
 ```javascript
 Reveal.initialize({
   hash: true,
-  width: 1280, height: 720,    // 16:9
+  width: 1280, height: 1080,
   margin: 0.05,
   transition: 'none',
   pdfSeparateFragments: false,  // PDF에서 fragment 합침
