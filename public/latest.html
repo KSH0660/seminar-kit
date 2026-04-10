@@ -878,6 +878,9 @@
       <button class="slide-nav__btn" id="navPrev" aria-label="이전 슬라이드" title="이전 슬라이드">&lsaquo;</button>
       <button class="slide-nav__btn" id="navNext" aria-label="다음 슬라이드" title="다음 슬라이드">&rsaquo;</button>
       <button class="slide-nav__btn" id="navLast" aria-label="마지막 슬라이드로 이동" title="마지막 슬라이드">&raquo;</button>
+      <span style="width:1px; height:20px; background:var(--color-border); opacity:0.5; margin:0 2px;"></span>
+      <button class="slide-nav__btn" id="qrBtn" aria-label="QR 코드 공유" title="QR 코드 공유" style="font-size:0.9em;">&#9783;</button>
+      <button class="slide-nav__btn" id="shortcutBtn" aria-label="키보드 단축키" title="키보드 단축키" style="font-weight:700; font-size:0.95em;">?</button>
     </div>
 
     <!-- Section Progress Bar -->
@@ -901,7 +904,38 @@
     </div>
   </div>
 
+  <!-- QR Code Modal -->
+  <div class="qr-modal" id="qrModal">
+    <div class="qr-modal__content">
+      <div class="qr-modal__title">슬라이드 공유</div>
+      <div class="qr-modal__qr" id="qrCode"></div>
+      <div class="qr-modal__url" id="qrUrl"></div>
+      <div class="qr-modal__actions">
+        <button class="qr-modal__btn qr-modal__btn--copy" id="qrCopy">URL 복사</button>
+        <a class="qr-modal__btn qr-modal__btn--pdf" href="latest.pdf">PDF</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcut Overlay -->
+  <div class="shortcut-overlay" id="shortcutOverlay">
+    <div class="shortcut-overlay__card">
+      <div class="shortcut-overlay__title">키보드 단축키</div>
+      <div class="shortcut-grid">
+        <div class="shortcut-item"><kbd>&larr;</kbd> <span>이전 슬라이드</span></div>
+        <div class="shortcut-item"><kbd>&rarr;</kbd> <span>다음 슬라이드</span></div>
+        <div class="shortcut-item"><kbd>Home</kbd> <span>첫 번째 슬라이드</span></div>
+        <div class="shortcut-item"><kbd>End</kbd> <span>마지막 슬라이드</span></div>
+        <div class="shortcut-item"><kbd>O</kbd> <span>슬라이드 개요</span></div>
+        <div class="shortcut-item"><kbd>F</kbd> <span>풀스크린</span></div>
+        <div class="shortcut-item"><kbd>Esc</kbd> <span>개요/풀스크린 종료</span></div>
+        <div class="shortcut-item"><kbd>?</kbd> <span>단축키 도움말</span></div>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
   <script>
     Reveal.initialize({
       hash: true,
@@ -1019,6 +1053,110 @@
       Reveal.on('slidechanged', function(event) {
         var id = event.currentSlide.getAttribute('data-slide-id');
         if (id) updateProgress(id);
+      });
+    })();
+  </script>
+
+  <script>
+    // QR Code sharing
+    (function() {
+      var modal = document.getElementById('qrModal');
+      var qrContainer = document.getElementById('qrCode');
+      var qrUrlEl = document.getElementById('qrUrl');
+      var qrBtn = document.getElementById('qrBtn');
+      var copyBtn = document.getElementById('qrCopy');
+      var qrInstance = null;
+      var currentUrl = '';
+
+      function getSlideUrl() {
+        var base = window.location.origin + window.location.pathname;
+        var idx = Reveal.getIndices();
+        return base + '#/' + idx.h;
+      }
+
+      function updateQR() {
+        var url = getSlideUrl();
+        if (url === currentUrl && qrInstance) return;
+        currentUrl = url;
+        qrUrlEl.textContent = url;
+        qrContainer.innerHTML = '';
+        qrInstance = new QRCode(qrContainer, {
+          text: url,
+          width: 200,
+          height: 200,
+          colorDark: '#1a1a2e',
+          colorLight: '#ffffff',
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      }
+
+      function openModal() {
+        updateQR();
+        modal.classList.add('is-open');
+      }
+
+      function closeModal() {
+        modal.classList.remove('is-open');
+      }
+
+      qrBtn.addEventListener('click', openModal);
+
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) closeModal();
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+          closeModal();
+          e.stopPropagation();
+        }
+      });
+
+      copyBtn.addEventListener('click', function() {
+        var url = getSlideUrl();
+        navigator.clipboard.writeText(url).then(function() {
+          var orig = copyBtn.textContent;
+          copyBtn.textContent = '복사됨!';
+          setTimeout(function() { copyBtn.textContent = orig; }, 1500);
+        });
+      });
+
+      Reveal.on('slidechanged', function() {
+        if (modal.classList.contains('is-open')) updateQR();
+      });
+    })();
+  </script>
+
+  <script>
+    // Keyboard shortcut overlay
+    (function() {
+      var overlay = document.getElementById('shortcutOverlay');
+      var shortcutBtn = document.getElementById('shortcutBtn');
+
+      function toggle() {
+        overlay.classList.toggle('is-open');
+      }
+
+      function close() {
+        overlay.classList.remove('is-open');
+      }
+
+      shortcutBtn.addEventListener('click', toggle);
+
+      overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) close();
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
+          close();
+          e.stopPropagation();
+          return;
+        }
+        if (e.key === '?' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+          e.preventDefault();
+          toggle();
+        }
       });
     })();
   </script>

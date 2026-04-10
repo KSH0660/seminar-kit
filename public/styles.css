@@ -1437,11 +1437,186 @@
   font-weight: 700;
 }
 
+/* === QR Code Modal === */
+.qr-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.qr-modal.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.qr-modal__content {
+  background: var(--color-bg, #ffffff);
+  border-radius: 16px;
+  padding: 2em 2.5em;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 340px;
+  width: 90%;
+}
+
+.qr-modal__title {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 1.1em;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 1em;
+}
+
+.qr-modal__qr {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1em;
+}
+
+.qr-modal__qr canvas,
+.qr-modal__qr img {
+  border-radius: 8px;
+}
+
+.qr-modal__url {
+  font-family: 'Noto Sans Mono', monospace;
+  font-size: 0.65em;
+  color: var(--color-muted);
+  word-break: break-all;
+  margin-bottom: 1em;
+  line-height: 1.5;
+}
+
+.qr-modal__actions {
+  display: flex;
+  gap: 0.6em;
+  justify-content: center;
+}
+
+.qr-modal__btn {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 0.8em;
+  font-weight: 600;
+  padding: 0.5em 1.2em;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.qr-modal__btn:hover {
+  transform: translateY(-1px);
+}
+
+.qr-modal__btn--copy {
+  background: var(--color-accent);
+  color: white;
+}
+
+.qr-modal__btn--pdf {
+  background: var(--color-accent-light);
+  color: var(--color-accent);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* === Keyboard Shortcut Overlay === */
+.shortcut-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.shortcut-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.shortcut-overlay__card {
+  background: var(--color-bg, #ffffff);
+  border-radius: 16px;
+  padding: 2em 2.5em;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 480px;
+  width: 90%;
+}
+
+.shortcut-overlay__title {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 1.1em;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 1.2em;
+  text-align: center;
+}
+
+.shortcut-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6em 1.5em;
+}
+
+.shortcut-item {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+}
+
+.shortcut-item kbd {
+  font-family: 'Noto Sans Mono', monospace;
+  font-size: 0.75em;
+  font-weight: 600;
+  background: var(--color-accent-light);
+  color: var(--color-accent);
+  padding: 0.25em 0.55em;
+  border-radius: 5px;
+  border: 1px solid var(--color-border);
+  min-width: 2em;
+  text-align: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.shortcut-item span {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 0.8em;
+  color: var(--color-text);
+}
+
+/* Dark mode overrides for QR modal */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .qr-modal__btn--copy {
+    color: #0f172a;
+  }
+}
+:root[data-theme="dark"] .qr-modal__btn--copy {
+  color: #0f172a;
+}
+
 /* === Print / PDF === */
 @media print {
   .theme-toggle,
   .section-progress,
-  .slide-nav {
+  .slide-nav,
+  .qr-modal,
+  .shortcut-overlay {
     display: none;
   }
   .reveal .slides section {
