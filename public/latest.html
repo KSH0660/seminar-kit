@@ -930,6 +930,7 @@
         <div class="shortcut-item"><kbd>F</kbd> <span>풀스크린</span></div>
         <div class="shortcut-item"><kbd>Esc</kbd> <span>개요/풀스크린 종료</span></div>
         <div class="shortcut-item"><kbd>?</kbd> <span>단축키 도움말</span></div>
+        <div class="shortcut-item"><kbd>L</kbd> <span>레이저 포인터</span></div>
       </div>
     </div>
   </div>
@@ -1156,6 +1157,46 @@
         if (e.key === '?' && !e.ctrlKey && !e.metaKey && !e.altKey) {
           e.preventDefault();
           toggle();
+        }
+      });
+    })();
+  </script>
+
+  <!-- Laser Pointer -->
+  <div class="laser-pointer" id="laserPointer"></div>
+  <script>
+    // Laser pointer toggle (L key)
+    (function() {
+      var laser = document.getElementById('laserPointer');
+      var active = false;
+
+      function activate() {
+        active = true;
+        laser.classList.add('is-active');
+        document.body.classList.add('laser-active');
+      }
+
+      function deactivate() {
+        active = false;
+        laser.classList.remove('is-active');
+        document.body.classList.remove('laser-active');
+      }
+
+      document.addEventListener('mousemove', function(e) {
+        if (!active) return;
+        laser.style.left = e.clientX + 'px';
+        laser.style.top = e.clientY + 'px';
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'l' || e.key === 'L') {
+          if (e.ctrlKey || e.metaKey || e.altKey) return;
+          var overlay = document.getElementById('shortcutOverlay');
+          var modal = document.getElementById('qrModal');
+          if ((overlay && overlay.classList.contains('is-open')) ||
+              (modal && modal.classList.contains('is-open'))) return;
+          e.preventDefault();
+          if (active) { deactivate(); } else { activate(); }
         }
       });
     })();

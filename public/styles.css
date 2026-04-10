@@ -1628,3 +1628,29 @@
     display: none;
   }
 }
+
+/* === Laser Pointer === */
+.laser-pointer {
+  position: fixed;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ff1744;
+  box-shadow:
+    0 0 8px 2px rgba(255, 23, 68, 0.8),
+    0 0 20px 6px rgba(255, 23, 68, 0.4),
+    0 0 40px 12px rgba(255, 23, 68, 0.15);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+
+.laser-pointer.is-active {
+  display: block;
+}
+
+.laser-active,
+.laser-active * {
+  cursor: none !important;
+}
