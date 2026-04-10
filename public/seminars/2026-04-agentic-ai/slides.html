@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generative AI에서 Agentic AI로</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <a href="../../index.html" class="back-to-archive" title="세미나 목록으로">&#8592; 목록</a>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- Slide 1: Title -->
+      <section data-slide-id="slide-01">
+        <h1 style="font-size:1.8em; border-bottom: 3px solid var(--color-accent); display:inline-block; padding-bottom:0.2em; margin-bottom:0.6em;">LLM을 학습하고<br>Agentic AI를 설계하다</h1>
+        <p style="color: var(--color-muted); font-size:0.85em; margin-top:1em;">김선호 &middot; 2026 &middot; Samsung DS AI 센터</p>
+      </section>
+
+      <!-- Slide 2: Introduction -->
+      <section data-slide-id="slide-02">
+        <h2>Introduction</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <span class="timeline-period">2018 &ndash; 2020</span>
+            <span class="timeline-org">KAIST M.S.</span>
+            <span class="timeline-desc">뇌 종양 영상 MRI 데이터 증강</span>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-period">2020 &ndash; 2022</span>
+            <span class="timeline-org">VUNO (전문연구요원)</span>
+            <span class="timeline-desc">다양한 의료 도메인 ML 모델 학습</span>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-period">2023 &ndash; 2024</span>
+            <span class="timeline-org">Samsung SAIT (구 종합기술원)</span>
+            <span class="timeline-desc">반도체 불량 영상 / 바이오 에피스 RAG</span>
+          </div>
+          <div class="timeline-item timeline-item--current">
+            <span class="timeline-period">2025 &ndash;</span>
+            <span class="timeline-org">Samsung DS AI 센터</span>
+            <span class="timeline-desc">LLM Training / Agentic AI</span>
+          </div>
+        </div>
+
+        <div class="fragment" data-fragment-index="1">
+          <div class="journey-flow">
+            <span class="journey-node">GAN</span>
+            <span class="journey-arrow">&rarr;</span>
+            <span class="journey-node">Diffusion</span>
+            <span class="journey-arrow">&rarr;</span>
+            <span class="journey-node">LLM</span>
+            <span class="journey-arrow">&rarr;</span>
+            <span class="journey-node accent">Agentic AI</span>
+          </div>
+        </div>
+
+        <div class="fragment" data-fragment-index="2">
+          <div class="two-column intro-topics">
+            <div class="intro-topic-item">
+              <p class="intro-topic-label">Topic 1</p>
+              <p class="intro-topic-title">LLM 학습</p>
+            </div>
+            <div class="intro-topic-item">
+              <p class="intro-topic-label">Topic 2</p>
+              <p class="intro-topic-title">Agentic AI 설계</p>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Slide 3: Prefill vs Generation — Chat 토큰 흐름 -->
+      <section data-slide-id="slide-03">
+        <h2>LLM의 토큰 흐름</h2>
+        <p class="slide-date">Prefill vs Generation &mdash; 모든 단계의 공통 원리</p>
+
+        <!-- Entry: Concept Table -->
+        <table class="fit-table" style="max-width:720px;">
+          <thead>
+            <tr>
+              <th style="width:130px;">구분</th>
+              <th>의미</th>
+              <th style="width:110px;">학습 Loss</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="tok-prefill" style="display:inline-block;">Prefill</span></td>
+              <td>시스템이 컨텍스트에 주입 &mdash; 모델이 생성하지 않음</td>
+              <td><strong>OFF</strong></td>
+            </tr>
+            <tr class="highlight-row">
+              <td><span class="tok-gen" style="display:inline-block;">Generation</span></td>
+              <td>모델이 학습을 통해 스스로 출력</td>
+              <td><strong>ON</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Click 1: Chat Token Flow -->
+        <div class="fragment" data-fragment-index="1">
+          <p class="tok-label">Stage 1 &mdash; Chat</p>
+          <div class="token-flow">
+            <span class="tok-prefill">&lt;|system|&gt;</span>
+            <span class="tok-prefill">시스템 프롬프트</span>
+            <span class="tok-prefill">&lt;|user|&gt;</span>
+            <span class="tok-prefill">사용자 질문</span>
+            <span class="tok-boundary">&lt;|assistant|&gt;</span>
+            <span class="tok-gen">자연어 답변</span>
+            <span class="tok-gen">&lt;|endoftext|&gt;</span>
+          </div>
+          <p class="sub-note" style="margin-top:0.4em;">
+            &#9654; 프레임워크가 <code>&lt;|assistant|&gt;</code>까지 주입(Prefill) &rarr; 모델이 이어서 생성(Generation)
+          </p>
+        </div>
+
+        <!-- Click 2: Takeaway -->
+        <div class="fragment" data-fragment-index="2">
+          <p class="takeaway" style="margin-top:0.8em;">
+            LLM은 본질적으로 Generation 기계 &mdash; 프레임워크가 조건(Prefill)을 세팅하고, 모델이 빈칸을 이어 쓴다
+          </p>
+        </div>
+
+        <p class="bridge">그렇다면 추론(Reasoning)과 도구 호출(Tool Calling)에서는?</p>
+      </section>
+
+      <!-- Slide 4: Generation 영역의 확장 -->
+      <section data-slide-id="slide-04">
+        <h2>Generation 영역의 확장</h2>
+        <p class="slide-date">Chat &rarr; Reasoning &rarr; Tool-Integrated Reasoning</p>
+
+        <!-- Entry + Click 1: Three-column token flow comparison -->
+        <div class="three-column" style="align-items:start; gap:0.8em;">
+
+          <!-- Column 1: Chat -->
+          <div>
+            <p class="tok-label">Chat</p>
+            <div class="token-flow token-flow--vertical">
+              <span class="tok-prefill">&lt;|system|&gt; ...</span>
+              <span class="tok-prefill">&lt;|user|&gt; 질문</span>
+              <span class="tok-boundary">&lt;|assistant|&gt;</span>
+              <span class="tok-gen">자연어 답변</span>
+              <span class="tok-gen">&lt;|endoftext|&gt;</span>
+            </div>
+          </div>
+
+          <!-- Column 2: Reasoning -->
+          <div class="fragment" data-fragment-index="1">
+            <p class="tok-label">Reasoning</p>
+            <div class="token-flow token-flow--vertical">
+              <span class="tok-prefill">&lt;|system|&gt; ...</span>
+              <span class="tok-prefill">&lt;|user|&gt; 질문</span>
+              <span class="tok-boundary">&lt;|assistant|&gt;</span>
+              <span class="tok-gen">&lt;|think|&gt;</span>
+              <span class="tok-gen">추론 과정 (CoT)</span>
+              <span class="tok-gen">자연어 답변</span>
+              <span class="tok-gen">&lt;|endoftext|&gt;</span>
+            </div>
+          </div>
+
+          <!-- Column 3: Tool-Integrated Reasoning -->
+          <div class="fragment" data-fragment-index="1">
+            <p class="tok-label">Tool-Integrated</p>
+            <div class="token-flow token-flow--vertical">
+              <span class="tok-prefill">&lt;|system|&gt; ...</span>
+              <span class="tok-prefill">&lt;|user|&gt; 질문</span>
+              <span class="tok-boundary">&lt;|assistant|&gt;</span>
+              <span class="tok-gen">&lt;|think|&gt;</span>
+              <span class="tok-gen">추론 과정</span>
+              <span class="tok-gen">&lt;|tool_call|&gt;</span>
+              <span class="tok-gen tok-gen--highlight">func(args)</span>
+              <span class="tok-prefill tok-prefill--injected">&lt;|observation|&gt;</span>
+              <span class="tok-prefill tok-prefill--injected">도구 실행 결과</span>
+              <span class="tok-gen">최종 답변</span>
+              <span class="tok-gen">&lt;|endoftext|&gt;</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Click 1 also reveals this insight -->
+        <div class="fragment" data-fragment-index="1">
+          <div class="metric-highlight" style="font-size:0.82em; margin-top:0.5em;">
+            <code>&lt;|think|&gt;</code>, tool_call JSON, 자연어 답변, <code>&lt;|endoftext|&gt;</code> &mdash; <strong>모두 Generation</strong> (Loss ON)
+          </div>
+        </div>
+
+        <!-- Click 2: Takeaway -->
+        <div class="fragment" data-fragment-index="2">
+          <p class="takeaway" style="margin-top:0.5em;">
+            Special token이 늘어도 구조는 동일 &mdash; Prefill &rarr; <code>&lt;|assistant|&gt;</code> &rarr; Generation
+          </p>
+        </div>
+      </section>
+
+      <!-- Slide 5: Bridge — 발표 흐름 안내 -->
+      <section data-slide-id="slide-05">
+        <h2>발표 흐름</h2>
+        <p class="slide-date">앞으로의 이야기</p>
+
+        <div class="journey-flow" style="font-size:1.3em; margin:2em 0;">
+          <span class="journey-node">Chat</span>
+          <span class="journey-arrow">&rarr;</span>
+          <span class="journey-node">Reasoning</span>
+          <span class="journey-arrow">&rarr;</span>
+          <span class="journey-node accent">Tool-Integrated<br>Reasoning</span>
+        </div>
+
+        <p class="takeaway" style="text-align:center; margin-top:1em;">
+          Generation 영역이 확장되는 흐름을 따라가며,<br>각 단계에서의 학습과 설계 경험을 공유합니다
+        </p>
+      </section>
+
+      <!-- Slide 6: My First LLM -->
+      <section data-slide-id="slide-06">
+        <h2>My First LLM</h2>
+        <p class="slide-date">2024.06 &middot; 반도체 도메인 특화 &middot; 작은 LLM 학습부터 시작</p>
+        <p class="takeaway" style="margin-top:0.3em;">공통 &middot; 8B 스케일 &nbsp;|&nbsp; A100 &times; 8</p>
+
+        <div class="two-column" style="margin-top:1.5em;">
+          <div>
+            <h3>Safeguard</h3>
+            <p class="sub-note">입출력 필터 &middot; 유해 / 보안 위험 쿼리 탐지</p>
+            <div class="token-box">
+              <span class="token-in">query</span>
+              <span class="token-sep">&rarr;</span>
+              <span class="token-out">&lt;answer&gt;safe/unsafe&lt;/answer&gt;</span>
+            </div>
+            <p class="sub-note" style="margin-top:0.4em;">유해성 질문 3K, 일반 및 반도체 질문 11K 자체 수집 및 학습<br>(검증셋 F1 Score: 0.93)</p>
+          </div>
+          <div>
+            <h3>API Router</h3>
+            <p class="sub-note">usecase 분기 &middot; 함수명 + 인자 &rarr; 해당 모델로 라우팅</p>
+            <div class="token-box">
+              <span class="token-in">query</span>
+              <span class="token-sep">&rarr;</span>
+              <span class="token-out">uc1_rag(query=~~)</span>
+            </div>
+            <p class="sub-note" style="margin-top:0.4em;">약 6K 규모 데이터 확보 (함수 호출 정확도: 0.99)</p>
+          </div>
+        </div>
+
+        <!-- Click 1: 한계점 -->
+        <div class="fragment" data-fragment-index="1" style="margin-top:1.5em;">
+          <div class="two-column" style="margin:0;">
+            <p class="sub-note" style="color:var(--color-fail);">&#9888; False positive 발생: 정상 쿼리가 차단되어 현업 불만 발생</p>
+            <p class="sub-note" style="color:var(--color-fail);">&#9888; 모델 재학습 필요</p>
+          </div>
+          <div class="problem" style="font-size:0.82em; margin-top:0.8em;">
+            모델 관리 복잡도 증가 &rarr; <strong>지속 가능하지 않다고 판단</strong>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Slide 7: Turning Point -->
+      <section data-slide-id="slide-07">
+        <h2>Turning Point</h2>
+        <p class="slide-date">2025.01 &middot; DeepSeek R1</p>
+
+        <!-- Entry: R1 Insights -->
+        <h3>R1 Insights</h3>
+        <ul>
+          <li><strong>Insight 1</strong> &mdash; 뛰어난 모델 base에 명확한 reward를 설계해주면, 스스로 exploration을 한다</li>
+          <li><strong>Insight 2</strong> &mdash; 비교적 작은 모델 base에는 스스로 exploration보다는 뛰어난 모델의 CoT를 입히는게 효과적이다</li>
+        </ul>
+
+        <!-- Click 1: 우리 상황 & 계획 -->
+        <div class="fragment" data-fragment-index="1" style="border-top:2px solid var(--color-border); margin-top:0.5em; padding-top:0.5em;">
+          <h3 style="color:var(--color-success);">우리 상황 &amp; 계획</h3>
+          <ul>
+            <li>사내에서 반도체 특화 추론 모델을 만들어야 함</li>
+            <li>H/W 리소스 상 비교적 작은 base 모델을 써야 하는 상황</li>
+          </ul>
+          <div class="journey-flow" style="font-size:0.9em;">
+            <span class="journey-node accent">Insight 2 적용</span>
+            <span class="journey-arrow">&rarr;</span>
+            <span class="journey-node">R1으로부터 수학 &middot; 과학<br>추론데이터를 입히고</span>
+            <span class="journey-arrow">&rarr;</span>
+            <span class="journey-node">반도체 CoT를<br>만들어서 입히자</span>
+          </div>
+        </div>
+
+        <!-- Click 2: 목표 -->
+        <div class="fragment" data-fragment-index="2">
+          <div class="metric-highlight">
+            <p class="metric-big">Goal</p>
+            <p>우선 수학 &middot; 과학 데이터를 입히는걸 연습해보고, 반도체 도메인에 적용해보자</p>
+          </div>
+          <p class="takeaway">목표 &nbsp; MATH ~95 &nbsp;&middot;&nbsp; GPQA ~65 &nbsp;&nbsp;<span class="sub-note">&asymp; DeepSeek-R1-Distill-Llama-70B 수준</span></p>
+        </div>
+
+      </section>
+
+      <!-- Slide 8: 1차 시도 → 정제 & 결과 -->
+      <section data-slide-id="slide-08">
+        <h2>1차 시도 &rarr; 정제 &amp; 결과</h2>
+
+        <!-- Entry: 1차 시도 -->
+        <div class="problem" style="border-left:3px solid var(--color-fail); border-top:none; border-right:none; border-bottom:none; padding:0.3em 0.6em; border-radius:0 6px 6px 0;">
+          <div class="two-column" style="margin:0;">
+            <div>
+              <h3>데이터</h3>
+              <ul class="checklist">
+                <li>2M+ 혼합 <span class="fail-mark">&cross;</span></li>
+                <li>다양한 출처 수집 <span class="fail-mark">&cross;</span></li>
+                <li>낮은 검증 기준 <span class="fail-mark">&cross;</span></li>
+                <li>양 우선 <span class="fail-mark">&cross;</span></li>
+              </ul>
+            </div>
+            <div>
+              <h3>학습</h3>
+              <ul class="checklist">
+                <li>전 구간 단일 런 <span class="fail-mark">&cross;</span></li>
+                <li>32k 토큰 고정 <span class="fail-mark">&cross;</span></li>
+                <li>배치 사이즈 고정 <span class="fail-mark">&cross;</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Click 1: 정제 -->
+        <div class="fragment" data-fragment-index="1">
+          <div style="text-align:center; color:var(--color-muted); font-size:0.9em; margin:0.3em 0;">&darr;</div>
+          <div class="success-box" style="border-left:3px solid var(--color-success); border-top:none; border-right:none; border-bottom:none; padding:0.3em 0.6em; border-radius:0 6px 6px 0;">
+            <div class="two-column" style="margin:0;">
+              <div>
+                <h3>데이터</h3>
+                <ul>
+                  <li>correctness == True</li>
+                  <li>verifier == 1.0</li>
+                  <li>verifiable question</li>
+                  <li><strong>200k 정제</strong></li>
+                </ul>
+              </div>
+              <div>
+                <h3>학습</h3>
+                <ul>
+                  <li>Round 1 &nbsp; 4k / batch S</li>
+                  <li>Round 2 &nbsp; 8k / batch M</li>
+                  <li>Round 3 &nbsp; 16k / batch L</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Click 2: 결과 -->
+        <div class="fragment" data-fragment-index="2">
+          <div class="metric-highlight">
+            <table style="width:100%; border-collapse:collapse; font-size:0.85em; margin:0 auto;">
+              <thead>
+                <tr style="border-bottom:2px solid rgba(255,255,255,0.3);">
+                  <th style="text-align:left; padding:0.3em 0.5em;">Curriculum</th>
+                  <th style="text-align:center; padding:0.3em 0.5em;">MATH 500</th>
+                  <th style="text-align:center; padding:0.3em 0.5em;">AIME 2024</th>
+                  <th style="text-align:center; padding:0.3em 0.5em;">GPQA Diamond</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding:0.3em 0.5em;">1st (~4k, epoch 2)</td>
+                  <td style="text-align:center; padding:0.3em 0.5em;">90.4</td>
+                  <td style="text-align:center; padding:0.3em 0.5em;">35.56</td>
+                  <td style="text-align:center; padding:0.3em 0.5em;">55.05</td>
+                </tr>
+                <tr>
+                  <td style="padding:0.3em 0.5em;">2nd (~8k, epoch 1)</td>
+                  <td style="text-align:center; padding:0.3em 0.5em;">91.6</td>
+                  <td style="text-align:center; padding:0.3em 0.5em;">45.56</td>
+                  <td style="text-align:center; padding:0.3em 0.5em;">52.53</td>
+                </tr>
+                <tr>
+                  <td style="padding:0.3em 0.5em;"><strong>3rd (~16k, epoch 1)</strong></td>
+                  <td style="text-align:center; padding:0.3em 0.5em;"><strong>95.4</strong></td>
+                  <td style="text-align:center; padding:0.3em 0.5em;"><strong>50.0</strong></td>
+                  <td style="text-align:center; padding:0.3em 0.5em;"><strong>55.05</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <p class="footnote" style="margin-top:0.6em; text-align:center;">※ GPQA는 도메인 지식 의존도가 높아 추론 학습만으로는 천장이 있음</p>
+
+      </section>
+
+      <!-- Slide 9: 전략적 선회 -->
+      <section data-slide-id="slide-09">
+        <h2>Agentic AI로의 전략적 선회</h2>
+        <p class="slide-subtitle">모델 &lsquo;학습&rsquo;에서 &lsquo;활용&rsquo;으로</p>
+
+        <!-- Row 1: Plan + Reality (side by side) -->
+        <div class="pivot-top">
+          <!-- Entry: The Plan (always visible) -->
+          <div>
+            <div class="pivot-box pivot-box--plan">
+              <h3>1. 기존의 접근 <span class="sub-note">(The Plan)</span></h3>
+              <ul>
+                <li>목표: <strong>SFT/RL</strong> 기반 자체 모델 고도화</li>
+                <li class="sub-note" style="font-size:0.85em;">수학/과학 도메인 &rarr; Tool Calling 자체 학습</li>
+                <li>한계: <strong>긴 개발 시간</strong> 소요</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Click 1: Arrow + The Reality -->
+          <div class="fragment fade-in pivot-arrow-col" data-fragment-index="1">&rarr;</div>
+
+          <div class="fragment fade-in" data-fragment-index="1">
+            <div class="pivot-box pivot-box--reality">
+              <h3>2. 직면한 현실 <span class="sub-note">(The Reality)</span></h3>
+              <ul>
+                <li>외부 (속도): Agent 생태계 폭발적 성장</li>
+                <li class="sub-note" style="font-size:0.85em;">Tool &lsquo;학습&rsquo; &rarr; <strong>프레임워크 활용</strong>이 대세화</li>
+                <li>내부 (효율): <strong>실질적인 ROI</strong> 요구</li>
+                <li class="sub-note" style="font-size:0.85em;">긴 연구 &lt; 현업에 즉시 기여할 임팩트</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Click 2: The Pivot (full width below) -->
+        <div class="fragment fade-up" data-fragment-index="2" style="margin-top:1.5em;">
+          <div class="pivot-box pivot-box--pivot">
+            <h3>3. 전략적 피벗 <span class="sub-note">(The Pivot)</span></h3>
+            <div class="pivot-bottom-row">
+              <p>새로운 방향: <strong>Agentic AI</strong> 도입을 통한 현업 문제 직접 해결</p>
+              <div class="pivot-target">
+                <p style="font-weight:700;">&blacktriangleright; 첫 번째 타깃: <strong>DRAM 테스트 코드</strong> 자동 작성</p>
+                <p class="sub-note" style="color:rgba(255,255,255,0.85);">AI가 가장 잘하는 &lsquo;코딩&rsquo; 역량 투영</p>
+                <p class="sub-note" style="color:rgba(255,255,255,0.85);">JEDEC 기반 20여 개 커맨드(Write, Read, Refresh 등)의 최적 조합 탐색</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 10: 3대 허들 & 극복 -->
+      <section data-slide-id="slide-10">
+        <h2>3대 허들 &amp; 극복</h2>
+
+        <!-- Entry: horizontal flow -->
+        <div class="journey-flow" style="font-size:1em; margin-bottom:0.6em;">
+          <span class="journey-node">Agentic AI 패러다임 전환</span>
+          <span class="journey-arrow">&rarr;</span>
+          <span class="journey-node accent">DRAM 검증</span>
+          <span style="font-size:0.8em; color:var(--color-muted);">현업 적용을 위해 넘어야 할 벽</span>
+        </div>
+
+        <!-- Click 1: 3대 허들 -->
+        <div class="fragment" data-fragment-index="1">
+          <p style="font-size:0.8em; color:var(--color-muted); margin-bottom:0.3em; text-align:left;">AI 도입의 3대 허들</p>
+          <div class="three-column">
+            <div class="problem" style="text-align:center;">
+              <h3>방대한 레거시</h3>
+              <p>수십 년치 코드<br>정답 라벨 없음</p>
+            </div>
+            <div class="problem" style="text-align:center;">
+              <h3>무거운 EDA</h3>
+              <p>실행 5분<br>로그 1&ndash;2 GB</p>
+            </div>
+            <div class="problem" style="text-align:center;">
+              <h3>도메인 단절</h3>
+              <p>DRAM 팀 &harr; AI 팀<br>지식 사일로</p>
+            </div>
+          </div>
+        </div>
+        <!-- Click 2: 극복 과정 -->
+        <div class="fragment" data-fragment-index="2">
+          <p style="font-size:0.8em; color:var(--color-muted); margin-bottom:0.3em; text-align:left;">극복 과정</p>
+          <div class="three-column">
+            <div class="success-box" style="text-align:center;">
+              <h3>밀착 스터디</h3>
+              <p>수개월간<br>DRAM 전문가 협업</p>
+            </div>
+            <div class="success-box" style="text-align:center;">
+              <h3>메타데이터 구축</h3>
+              <p>LLM으로<br>레거시 코드 자동 태깅</p>
+            </div>
+            <div class="success-box" style="text-align:center;">
+              <h3>경량 검증 툴</h3>
+              <p>EDA 대신<br>자체 Lightweight Tool</p>
+            </div>
+          </div>
+        </div>
+
+
+      </section>
+
+      <!-- Slide 11: Architecture -->
+      <section data-slide-id="slide-11">
+        <h2>Architecture</h2>
+
+        <!-- Entry: 단일 에이전트 방식 도식 -->
+        <div class="single-agent-diagram">
+          <div class="single-agent-label">Single Agent</div>
+          <div class="single-agent-arrow">&darr;</div>
+          <div class="single-context-box">
+            <div class="single-context-title">Single Context Window</div>
+            <div class="single-context-tasks">
+              <div class="single-context-task">&ldquo;검색&rdquo;<br><strong>방대한 레거시</strong><br><span style="font-size:0.9em;">참조 &middot; 분석</span></div>
+              <div class="single-context-divider">+</div>
+              <div class="single-context-task">&ldquo;생성&rdquo;<br><strong>테스트 코드</strong><br><span style="font-size:0.9em;">작성 &middot; 검증</span></div>
+            </div>
+            <p class="single-context-overflow">Context Limit Exceeded</p>
+          </div>
+        </div>
+
+        <!-- 컨텍스트 한도 문제 강조 -->
+        <div style="margin-top:0.5em;">
+          <p>단일 에이전트로는 방대한 레거시를 모두 참조하며 코드를 생성하기에 <strong>컨텍스트 한도</strong>가 부족했습니다.</p>
+          <p class="takeaway">&rarr; Orchestrator &amp; 동적 스킬 기반 Worker 구조로 전면 개편</p>
+        </div>
+
+        <!-- Click 2: 오케스트레이터 및 전체 구조 -->
+        <div class="fragment" data-fragment-index="2">
+          <div class="architecture-diagram">
+            <div class="arch-orchestrator">
+              <div class="arch-orchestrator-label">Orchestrator</div>
+              <div class="arch-orchestrator-inner">
+                <div class="arch-role">Planner<br><span style="font-size:0.8em;opacity:0.85">계획 수립</span></div>
+                <span class="arch-role-arrow">&rarr;</span>
+                <div class="arch-role">Supervisor<br><span style="font-size:0.8em;opacity:0.85">위임 &middot; 검토</span></div>
+              </div>
+            </div>
+            <div class="arch-flow-arrows">
+              <span>&darr; 위임</span>
+              <span>&uarr; 검토</span>
+            </div>
+            <div class="arch-skills">
+              <div class="arch-skill">
+                <h4>Worker 1: Retrieval</h4>
+                <p>레거시 코드 검색<br>Hierarchical RAG</p>
+              </div>
+              <div class="arch-skill">
+                <h4>Worker 2: Generation</h4>
+                <p>벡터 코드 생성<br>FSM Verifier &middot; Xcelium</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Slide 12: 스킬 파이프라인 상세 — 검색·생성 내부 동작 -->
+      <section data-slide-id="slide-12">
+        <h2>스킬 파이프라인 상세</h2>
+        <p class="slide-subtitle">검색과 생성, 각 스킬의 내부 동작 흐름</p>
+
+        <!-- Entry: 두 스킬 파이프라인 비교 -->
+        <div class="two-column" style="font-size:0.82em;">
+          <div class="arch-skill" style="text-align:left;">
+            <h4>Search Skill</h4>
+            <div class="pipeline-steps">
+              <div class="pipeline-step">
+                <span class="pipeline-step-num">1</span>
+                <div><strong>카테고리 분류</strong><br><span class="sub-note">레거시 자료 카테고리 우선 선택</span></div>
+              </div>
+              <div class="pipeline-step-arrow">&darr;</div>
+              <div class="pipeline-step">
+                <span class="pipeline-step-num">2</span>
+                <div><strong>메타데이터 필터링</strong><br><span class="sub-note">파일 메타데이터 분석 &rarr; 3~10개 1차 후보 추출</span></div>
+              </div>
+              <div class="pipeline-step-arrow">&darr;</div>
+              <div class="pipeline-step">
+                <span class="pipeline-step-num">3</span>
+                <div><strong>심층 분석 &middot; 선정</strong><br><span class="sub-note">본문 직접 읽기 &rarr; 최종 1~3개 핵심 자료</span></div>
+              </div>
+              <div class="pipeline-step-arrow">&darr;</div>
+              <div class="pipeline-step">
+                <span class="pipeline-step-num">4</span>
+                <div><strong>보고서 생성</strong><br><span class="sub-note">검색 결과 보고서 작성</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="arch-skill" style="text-align:left;border-color:var(--color-success);">
+            <h4 style="color:var(--color-success);">Generation Skill</h4>
+            <div class="pipeline-steps">
+              <div class="pipeline-step">
+                <span class="pipeline-step-num">1</span>
+                <div><strong>계획 수립</strong><br><span class="sub-note">관련 문서 심층 읽기 + 코드 작성 계획</span></div>
+              </div>
+              <div class="pipeline-step-arrow">&darr;</div>
+              <div class="pipeline-step">
+                <span class="pipeline-step-num">2</span>
+                <div><strong>템플릿 생성</strong><br><span class="sub-note">SPD 값 기반 맞춤형 검증 코드 템플릿</span></div>
+              </div>
+              <div class="pipeline-step-arrow">&darr;</div>
+              <div class="pipeline-step">
+                <span class="pipeline-step-num">3</span>
+                <div><strong>메타데이터 작성</strong><br><span class="sub-note">테스트 타입 &middot; 개발 의도 헤더</span></div>
+              </div>
+              <div class="pipeline-step-arrow">&darr;</div>
+              <div class="pipeline-step">
+                <span class="pipeline-step-num">4</span>
+                <div><strong>본문 구현</strong><br><span class="sub-note">실제 검증 로직 작성</span></div>
+              </div>
+              <div class="pipeline-step-arrow">&darr;</div>
+              <div class="pipeline-step">
+                <span class="pipeline-step-num">5</span>
+                <div><strong>검증 (Verify)</strong><br><span class="sub-note">경량 검증기 + EDA 툴 정합성 검증</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Click 1: Lightweight Verifier 강조 -->
+        <div class="fragment" data-fragment-index="1">
+          <div class="metric-highlight" style="margin-top:0.4em;">
+            <h3 style="margin-bottom:0.2em;">자체 제작 Lightweight Verifier</h3>
+            <p style="font-size:0.85em;">내부 직접 개발한 약식 검증기로 <strong>신속한 1차 검증</strong> 수행</p>
+            <div class="two-column" style="font-size:0.82em;margin:0.3em 0 0;">
+              <div><strong>FSM Simulator</strong> <span class="sub-note">&mdash; Bank 기반 상태 머신</span></div>
+              <div><strong>Arg Checker</strong> <span class="sub-note">&mdash; DRAM 인자 유효성 검사</span></div>
+            </div>
+            <p class="sub-note" style="margin-top:0.3em;">&rarr; 느리고 무거운 EDA 툴의 iteration 루프를 효율화</p>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Slide 13: 검증 결과 -->
+      <section data-slide-id="slide-13">
+        <h2>검증 결과</h2>
+
+        <!-- Entry: 컨텍스트 분리 요약 -->
+        <p>Supervisor가 검색 &middot; 생성 컨텍스트를 분리 &rarr; <strong>간섭 제거</strong></p>
+
+        <!-- Click 1: 두 스킬 결과를 metric-highlight로 강조 -->
+        <div class="fragment two-column" data-fragment-index="1" style="margin-top:0.6em;">
+          <div class="metric-highlight">
+            <h3>Retrieval Skill</h3>
+            <p class="metric-big">Top-5 검색 정확도 91.2%</p>
+            <p class="sub-note">LLM 메타데이터 &middot; 모듈 &rarr; 파일 &rarr; 함수 계층 검색</p>
+          </div>
+          <div class="metric-highlight">
+            <h3>Generation Skill</h3>
+            <p class="metric-big">Syntax Pass Rate 99.7%</p>
+            <p class="sub-note">EDA 실행 &rarr; 에러 노출 &rarr; 자가 수정 루프</p>
+          </div>
+        </div>
+
+        <!-- Click 2: Ablation Study -->
+        <div class="fragment" data-fragment-index="2">
+          <h3>Ablation Study &mdash; 우리 시스템</h3>
+          <table class="fit-table results-table">
+            <tr>
+              <td>LLM Only</td>
+              <td class="metric-cell">약 60%</td>
+            </tr>
+            <tr class="highlight-row">
+              <td>Agentic Workflow 적용</td>
+              <td class="metric-cell accent"><strong>99.7%</strong></td>
+            </tr>
+          </table>
+          <p class="footnote">
+            ※ 유사한 성능 향상(Delta)이 외부 연구에서도 보고됨
+          </p>
+        </div>
+      </section>
+
+      <!-- Slide 14: 기존 에이전트의 한계 — 왜 지식 축적이 필요한가 -->
+      <section data-slide-id="slide-14">
+        <h2>왜 지식 축적이 필요한가?</h2>
+        <p class="slide-subtitle">Limitations of Stateless Agents</p>
+
+        <div class="two-column" style="margin-top:0.8em;">
+          <!-- Before -->
+          <div class="problem contrast-panel">
+            <h3 style="color:var(--color-fail);">Before &mdash; 기억 없는 에이전트</h3>
+            <div class="contrast-timeline">
+              <div class="contrast-row">
+                <span class="contrast-label">Day 1</span>
+                <span>오류 A 발생 &rarr; 시행착오 <strong>10분</strong> &rarr; 해결</span>
+              </div>
+              <div class="contrast-row">
+                <span class="contrast-label">Day 2</span>
+                <span>동일 오류 A &rarr; 시행착오 <strong>10분</strong> &rarr; 해결</span>
+              </div>
+              <div class="contrast-row contrast-row--dim">
+                <span class="contrast-label">Day N</span>
+                <span>&hellip; 동일 패턴 무한 반복</span>
+              </div>
+            </div>
+            <p class="contrast-verdict" style="color:var(--color-fail);">경험이 휘발된다 &rarr; 성장 없음</p>
+          </div>
+
+          <!-- After -->
+          <div class="fragment success-box contrast-panel" data-fragment-index="1">
+            <h3 style="color:var(--color-success);">After &mdash; 경험을 축적하는 에이전트</h3>
+            <div class="contrast-timeline">
+              <div class="contrast-row">
+                <span class="contrast-label">Day 1</span>
+                <span>오류 A 발생 &rarr; 시행착오 10분 &rarr; 해결 &amp; <strong>기록</strong></span>
+              </div>
+              <div class="contrast-row">
+                <span class="contrast-label">Day 2</span>
+                <span>동일 오류 A &rarr; 지식 참조 &rarr; <strong style="color:var(--color-success);">30초 해결</strong></span>
+              </div>
+              <div class="contrast-row">
+                <span class="contrast-label">Day N</span>
+                <span>축적된 지식으로 <strong style="color:var(--color-success);">즉시 대응</strong></span>
+              </div>
+            </div>
+            <p class="contrast-verdict" style="color:var(--color-success);">시행착오가 자산이 된다 &rarr; 지속 성장</p>
+          </div>
+        </div>
+
+        <!-- Click 2 -->
+        <p class="fragment takeaway" data-fragment-index="2" style="text-align:center; margin-top:1em; font-size:0.95em;">어제의 시행착오를 자산화하여, 내일은 더 나은 결과를 내는 시스템이 필요하다</p>
+
+        <p class="bridge">그래서 우리가 만든 시스템은 &mdash;</p>
+      </section>
+
+      <!-- Slide 15: 자기 주도적 AI 지식 축적 시스템 -->
+      <section data-slide-id="slide-15">
+        <h2>자기 주도적 AI 지식 축적 시스템</h2>
+        <p class="slide-subtitle">Self-Directed AI Knowledge Accumulation</p>
+
+        <!-- Click 1: Key Message Box -->
+        <div class="fragment" data-fragment-index="1">
+          <div class="key-message-box">
+            <p class="key-message-label">Core Objective</p>
+            <p class="key-message-text">AI 에이전트가 업무 중 겪은 <strong>시행착오와 학습 인사이트</strong>를 체계적으로 기록하고<br>주기적으로 정제하여 <strong>자동화된 지식 베이스</strong>를 구축 &middot; 유지</p>
+          </div>
+        </div>
+
+        <!-- 2-Step Process Diagram -->
+        <div class="process-diagram">
+          <!-- Click 2: Step 1 -->
+          <div class="fragment step-card" data-fragment-index="2">
+            <div class="step-card-header">
+              <span class="step-number">1</span>
+              <span class="step-title">실시간 초안(Draft) 기록</span>
+            </div>
+            <div class="step-card-body">
+              <p>검증 &middot; 문제 해결 과정의 인사이트를<br>대/중분류 폴더 내 실시간 저장</p>
+              <div class="step-card-visual">
+                <span class="code-tag">draft_01.md</span>
+                <span class="step-card-arrow">&rarr;</span>
+                <span class="code-tag">draft_02.md</span>
+                <span class="step-card-arrow">&rarr;</span>
+                <span class="code-tag">draft_xx.md</span>
+              </div>
+              <p class="step-card-note">파일 길이 임계치 초과 시 xx 인덱스 자동 증가</p>
+            </div>
+          </div>
+
+          <!-- Click 3: Connector + Step 2 -->
+          <div class="fragment process-connector" data-fragment-index="3">&rarr;</div>
+
+          <div class="fragment step-card" data-fragment-index="3">
+            <div class="step-card-header">
+              <span class="step-number">2</span>
+              <span class="step-title">동적 지식 구조 관리</span>
+            </div>
+            <div class="step-card-body">
+              <p>엔지니어가 신규 카테고리(폴더)를 생성하면</p>
+              <div class="step-card-visual">
+                <span class="step-card-tag">New Category</span>
+                <span class="step-card-arrow">&rarr;</span>
+                <span class="step-card-tag accent">Tool Description 실시간 반영</span>
+              </div>
+              <p class="step-card-note">지식 트리 변경을 에이전트가 즉시 인지</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Click 4: Tool Interface Examples -->
+        <div class="fragment tool-examples" data-fragment-index="4">
+          <div class="tool-example">
+            <span class="tool-example-label">지식 저장 툴</span>
+            <code class="tool-example-code">save_knowledge(category=<span class="code-str">"4_Debug"</span>, sub_category=<span class="code-str">"Timing_Error"</span>, content=<span class="code-str">"t_RCD parameter failed"</span>)</code>
+          </div>
+          <div class="tool-example">
+            <span class="tool-example-label">지식 조회 툴</span>
+            <code class="tool-example-code">read_knowledge(category=<span class="code-str">"1_Dram_Specs"</span>, sub_category=<span class="code-str">"DDR5"</span>, filename=<span class="code-str">"timing_constraints.txt"</span>)</code>
+          </div>
+        </div>
+
+        <p class="bridge">지식이 쌓인다면 &mdash; 정제는 어떻게?</p>
+      </section>
+
+      <!-- Slide 16: 자동 지식 정제 파이프라인 및 기대 효과 -->
+      <section data-slide-id="slide-16">
+        <h2>자동 지식 정제 파이프라인</h2>
+        <p class="slide-subtitle">Knowledge Refine Pipeline &amp; Expected Impact</p>
+
+        <div class="two-column">
+          <!-- Click 1: Left — Pipeline Flow -->
+          <div class="fragment" data-fragment-index="1">
+            <h3>Knowledge Refine Pipeline</h3>
+            <div class="pipeline-trigger">
+              <span class="pipeline-trigger-badge">CRON</span>
+              매일 정해진 시간에 Refine Agent 자동 구동
+            </div>
+            <div class="pipeline-steps">
+              <div class="pipeline-step">
+                <span class="pipeline-step-num">1</span>
+                <span><strong>탐색</strong> &mdash; 전체 지식 트리 내 <span class="code-tag">draft_*.md</span> 검색</span>
+              </div>
+              <div class="pipeline-step-arrow">&darr;</div>
+              <div class="pipeline-step">
+                <span class="pipeline-step-num">2</span>
+                <span><strong>가공</strong> &mdash; 기존 문서 병합 또는 신규 문서 작성<br><span class="sub-note">완료된 초안 파일은 삭제</span></span>
+              </div>
+              <div class="pipeline-step-arrow">&darr;</div>
+              <div class="pipeline-step">
+                <span class="pipeline-step-num">3</span>
+                <span><strong>동기화</strong> &mdash; 지식 트리 Readme(목차) 갱신<br><span class="sub-note">Git Push &rarr; 히스토리 추적 관리</span></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Click 2: Right — Value Blocks -->
+          <div class="fragment" data-fragment-index="2">
+            <h3>시스템 도입 가치(예정)</h3>
+            <div class="value-stack">
+              <div class="value-block">
+                <span class="value-block-label">성과 측정</span>
+                <p>시행착오 빈도 분석을 통해 지식 축적이<br>실제 성능 향상으로 이어지는지 <strong>정량적 측정</strong></p>
+              </div>
+              <div class="value-block">
+                <span class="value-block-label">고품질 데이터 확보</span>
+                <p>정제된 문서를 도메인 특화 LLM<br><strong>파인튜닝 &middot; 학습 데이터</strong>로 즉시 활용</p>
+              </div>
+              <div class="value-block value-block--accent">
+                <span class="value-block-label">선순환 사이클</span>
+                <div class="cycle-grid">
+                  <span class="cycle-node">에이전트 업무</span>
+                  <span class="cycle-arrow">&rarr;</span>
+                  <span class="cycle-node">지식 축적 &middot; 정제</span>
+                  <span class="cycle-arrow">&uarr;</span>
+                  <span></span>
+                  <span class="cycle-arrow">&darr;</span>
+                  <span class="cycle-node">에이전트 적용</span>
+                  <span class="cycle-arrow">&larr;</span>
+                  <span class="cycle-node">모델 업그레이드</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Click 3: Knowledge Base Result -->
+        <div class="fragment knowledge-result" data-fragment-index="3">
+          <div class="knowledge-tree-row">
+            <div class="tree-folder"><span class="tree-folder-icon"></span>1_Dram_Specs</div>
+            <div class="tree-folder"><span class="tree-folder-icon"></span>2_Test_Patterns</div>
+            <div class="tree-folder"><span class="tree-folder-icon"></span>3_Sim_Env</div>
+            <div class="tree-folder"><span class="tree-folder-icon"></span>4_Debug</div>
+          </div>
+          <div class="knowledge-stats">
+            총 생성 파일: <strong class="stats-num">272개</strong> &nbsp;&middot;&nbsp; 총 데이터: <strong class="stats-num">12,875 줄</strong>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 17: Closing -->
+      <section data-slide-id="slide-17">
+        <h1 style="font-size:2em; border-bottom: 3px solid var(--color-accent); display:inline-block; padding-bottom:0.2em; margin-bottom:0.8em;">Build Lean, Scale Deep</h1>
+        <p style="max-width:700px; margin:0 auto; font-size:0.85em; line-height:1.8; color:var(--color-muted); text-align:center;">
+          내가 먼저 확실한 &lsquo;쓸모&rsquo;를 느껴야<br>홍보하지 않아도 퍼져나가는 힘이 생긴다고 믿습니다.<br><br>
+          잡다한 군더더기는 걷어내고, 설계의 본질에 집중하여<br>지속 가능한 구조를 만듭니다.<br><br>
+          이러한 정제된 접근 방식이<br>어떤 도메인에서도 강력한 확장성이 될 것이라 생각합니다.
+        </p>
+      </section>
+
+    </div>
+
+    <!-- Custom Slide Navigation Controls -->
+    <div class="slide-nav" id="slideNav">
+      <button class="slide-nav__btn" id="navFirst" aria-label="첫 번째 슬라이드로 이동" title="첫 번째 슬라이드">&laquo;</button>
+      <button class="slide-nav__btn" id="navPrev" aria-label="이전 슬라이드" title="이전 슬라이드">&lsaquo;</button>
+      <button class="slide-nav__btn" id="navNext" aria-label="다음 슬라이드" title="다음 슬라이드">&rsaquo;</button>
+      <button class="slide-nav__btn" id="navLast" aria-label="마지막 슬라이드로 이동" title="마지막 슬라이드">&raquo;</button>
+      <span style="width:1px; height:20px; background:var(--color-border); opacity:0.5; margin:0 2px;"></span>
+      <button class="slide-nav__btn" id="qrBtn" aria-label="QR 코드 공유" title="QR 코드 공유" style="font-size:0.9em;">&#9783;</button>
+      <button class="slide-nav__btn" id="shortcutBtn" aria-label="키보드 단축키" title="키보드 단축키" style="font-weight:700; font-size:0.95em;">?</button>
+    </div>
+
+    <!-- Section Progress Bar -->
+    <div class="section-progress" id="sectionProgress">
+      <div class="section-progress__segment" data-section="intro">
+        <div class="section-progress__fill"></div>
+        <span class="section-progress__label">Intro</span>
+      </div>
+      <div class="section-progress__segment" data-section="chat">
+        <div class="section-progress__fill"></div>
+        <span class="section-progress__label">Chat</span>
+      </div>
+      <div class="section-progress__segment" data-section="reasoning">
+        <div class="section-progress__fill"></div>
+        <span class="section-progress__label">Reasoning</span>
+      </div>
+      <div class="section-progress__segment" data-section="tool-calling">
+        <div class="section-progress__fill"></div>
+        <span class="section-progress__label">Agentic Workflow with Tool-Integrated Reasoning</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- QR Code Modal -->
+  <div class="qr-modal" id="qrModal">
+    <div class="qr-modal__content">
+      <div class="qr-modal__title">슬라이드 공유</div>
+      <div class="qr-modal__qr" id="qrCode"></div>
+      <div class="qr-modal__url" id="qrUrl"></div>
+      <div class="qr-modal__actions">
+        <button class="qr-modal__btn qr-modal__btn--copy" id="qrCopy">URL 복사</button>
+        <a class="qr-modal__btn qr-modal__btn--pdf" href="latest.pdf">PDF</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcut Overlay -->
+  <div class="shortcut-overlay" id="shortcutOverlay">
+    <div class="shortcut-overlay__card">
+      <div class="shortcut-overlay__title">키보드 단축키</div>
+      <div class="shortcut-grid">
+        <div class="shortcut-item"><kbd>&larr;</kbd> <span>이전 슬라이드</span></div>
+        <div class="shortcut-item"><kbd>&rarr;</kbd> <span>다음 슬라이드</span></div>
+        <div class="shortcut-item"><kbd>Home</kbd> <span>첫 번째 슬라이드</span></div>
+        <div class="shortcut-item"><kbd>End</kbd> <span>마지막 슬라이드</span></div>
+        <div class="shortcut-item"><kbd>O</kbd> <span>슬라이드 개요</span></div>
+        <div class="shortcut-item"><kbd>F</kbd> <span>풀스크린</span></div>
+        <div class="shortcut-item"><kbd>Esc</kbd> <span>개요/풀스크린 종료</span></div>
+        <div class="shortcut-item"><kbd>?</kbd> <span>단축키 도움말</span></div>
+        <div class="shortcut-item"><kbd>L</kbd> <span>레이저 포인터</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      width: 1280,
+      height: 1080,
+      margin: 0.05,
+      transition: 'none',
+      pdfSeparateFragments: false,
+      pdfMaxPagesPerSlide: 1,
+      center: false,
+      slideNumber: 'c/t',
+      progress: false,
+      controls: false,
+    });
+
+    // Custom slide navigation controls
+    (function() {
+      var btnFirst = document.getElementById('navFirst');
+      var btnPrev  = document.getElementById('navPrev');
+      var btnNext  = document.getElementById('navNext');
+      var btnLast  = document.getElementById('navLast');
+
+      function getTotalSlides() {
+        return Reveal.getTotalSlides();
+      }
+
+      function updateNavState() {
+        var isFirst = Reveal.isFirstSlide();
+        var isLast  = Reveal.isLastSlide();
+        btnFirst.disabled = isFirst;
+        btnPrev.disabled  = isFirst;
+        btnNext.disabled  = isLast;
+        btnLast.disabled  = isLast;
+      }
+
+      btnFirst.addEventListener('click', function() { Reveal.slide(0); });
+      btnPrev.addEventListener('click', function() { Reveal.prev(); });
+      btnNext.addEventListener('click', function() { Reveal.next(); });
+      btnLast.addEventListener('click', function() {
+        var total = getTotalSlides();
+        Reveal.slide(total - 1);
+      });
+
+      Reveal.on('ready', updateNavState);
+      Reveal.on('slidechanged', updateNavState);
+    })();
+
+    // Theme toggle
+    (function() {
+      var btn = document.getElementById('themeToggle');
+      var root = document.documentElement;
+
+      function getSystemTheme() {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+
+      function applyTheme(theme) {
+        if (theme === 'system') {
+          root.removeAttribute('data-theme');
+        } else {
+          root.setAttribute('data-theme', theme);
+        }
+        btn.textContent = (theme === 'dark' || (theme === 'system' && getSystemTheme() === 'dark')) ? '\u2600' : '\u263E';
+      }
+
+      var saved = localStorage.getItem('theme');
+      applyTheme(saved || 'system');
+
+      btn.addEventListener('click', function() {
+        var current = root.getAttribute('data-theme');
+        var effective = current || getSystemTheme();
+        var next = effective === 'dark' ? 'light' : 'dark';
+        localStorage.setItem('theme', next);
+        applyTheme(next);
+      });
+
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
+        if (!localStorage.getItem('theme')) applyTheme('system');
+      });
+    })();
+  </script>
+
+  <script>
+    // Section progress bar
+    (function() {
+      var SECTIONS = [
+        { name: 'intro',        slides: ['slide-01', 'slide-02', 'slide-03', 'slide-04', 'slide-05'] },
+        { name: 'chat',         slides: ['slide-06'] },
+        { name: 'reasoning',    slides: ['slide-07', 'slide-08'] },
+        { name: 'tool-calling', slides: ['slide-09', 'slide-10', 'slide-11', 'slide-12', 'slide-14', 'slide-15', 'slide-16'] }
+      ];
+
+      var slideToSection = {};
+      SECTIONS.forEach(function(sec, idx) {
+        sec.slides.forEach(function(id) { slideToSection[id] = idx; });
+      });
+
+      var segments = document.querySelectorAll('.section-progress__segment');
+
+      function updateProgress(slideId) {
+        var currentIdx = slideToSection[slideId];
+        if (currentIdx === undefined) return;
+        segments.forEach(function(seg, i) {
+          seg.classList.remove('is-active', 'is-completed');
+          if (i === currentIdx) seg.classList.add('is-active');
+          else if (i < currentIdx) seg.classList.add('is-completed');
+        });
+      }
+
+      Reveal.on('ready', function(event) {
+        var id = event.currentSlide ? event.currentSlide.getAttribute('data-slide-id') : null;
+        if (id) updateProgress(id);
+      });
+
+      Reveal.on('slidechanged', function(event) {
+        var id = event.currentSlide.getAttribute('data-slide-id');
+        if (id) updateProgress(id);
+      });
+    })();
+  </script>
+
+  <script>
+    // QR Code sharing
+    (function() {
+      var modal = document.getElementById('qrModal');
+      var qrContainer = document.getElementById('qrCode');
+      var qrUrlEl = document.getElementById('qrUrl');
+      var qrBtn = document.getElementById('qrBtn');
+      var copyBtn = document.getElementById('qrCopy');
+      var qrInstance = null;
+      var currentUrl = '';
+
+      function getSlideUrl() {
+        var base = window.location.origin + window.location.pathname;
+        var idx = Reveal.getIndices();
+        return base + '#/' + idx.h;
+      }
+
+      function updateQR() {
+        var url = getSlideUrl();
+        if (url === currentUrl && qrInstance) return;
+        currentUrl = url;
+        qrUrlEl.textContent = url;
+        qrContainer.innerHTML = '';
+        qrInstance = new QRCode(qrContainer, {
+          text: url,
+          width: 200,
+          height: 200,
+          colorDark: '#1a1a2e',
+          colorLight: '#ffffff',
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      }
+
+      function openModal() {
+        updateQR();
+        modal.classList.add('is-open');
+      }
+
+      function closeModal() {
+        modal.classList.remove('is-open');
+      }
+
+      qrBtn.addEventListener('click', openModal);
+
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) closeModal();
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+          closeModal();
+          e.stopPropagation();
+        }
+      });
+
+      copyBtn.addEventListener('click', function() {
+        var url = getSlideUrl();
+        navigator.clipboard.writeText(url).then(function() {
+          var orig = copyBtn.textContent;
+          copyBtn.textContent = '복사됨!';
+          setTimeout(function() { copyBtn.textContent = orig; }, 1500);
+        });
+      });
+
+      Reveal.on('slidechanged', function() {
+        if (modal.classList.contains('is-open')) updateQR();
+      });
+    })();
+  </script>
+
+  <script>
+    // Keyboard shortcut overlay
+    (function() {
+      var overlay = document.getElementById('shortcutOverlay');
+      var shortcutBtn = document.getElementById('shortcutBtn');
+
+      function toggle() {
+        overlay.classList.toggle('is-open');
+      }
+
+      function close() {
+        overlay.classList.remove('is-open');
+      }
+
+      shortcutBtn.addEventListener('click', toggle);
+
+      overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) close();
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
+          close();
+          e.stopPropagation();
+          return;
+        }
+        if (e.key === '?' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+          e.preventDefault();
+          toggle();
+        }
+      });
+    })();
+  </script>
+
+  <!-- Laser Pointer -->
+  <div class="laser-pointer" id="laserPointer"></div>
+  <script>
+    // Laser pointer toggle (L key)
+    (function() {
+      var laser = document.getElementById('laserPointer');
+      var active = false;
+
+      function activate() {
+        active = true;
+        laser.classList.add('is-active');
+        document.body.classList.add('laser-active');
+      }
+
+      function deactivate() {
+        active = false;
+        laser.classList.remove('is-active');
+        document.body.classList.remove('laser-active');
+      }
+
+      document.addEventListener('mousemove', function(e) {
+        if (!active) return;
+        laser.style.left = e.clientX + 'px';
+        laser.style.top = e.clientY + 'px';
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'l' || e.key === 'L') {
+          if (e.ctrlKey || e.metaKey || e.altKey) return;
+          var overlay = document.getElementById('shortcutOverlay');
+          var modal = document.getElementById('qrModal');
+          if ((overlay && overlay.classList.contains('is-open')) ||
+              (modal && modal.classList.contains('is-open'))) return;
+          e.preventDefault();
+          if (active) { deactivate(); } else { activate(); }
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
