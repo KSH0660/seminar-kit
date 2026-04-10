@@ -1197,6 +1197,7 @@
           if ((overlay && overlay.classList.contains('is-open')) ||
               (modal && modal.classList.contains('is-open'))) return;
           e.preventDefault();
+          e.stopPropagation();
           if (active) { deactivate(); } else { activate(); }
         }
       });
