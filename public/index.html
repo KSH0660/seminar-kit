@@ -4,156 +4,27 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Seminar Kit</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap');
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: 'Noto Sans KR', sans-serif;
-      background: #f8f9fa;
-      color: #1a1a2e;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-
-    .container {
-      text-align: center;
-      max-width: 600px;
-      padding: 3em 2em;
-    }
-
-    h1 {
-      font-size: 2em;
-      font-weight: 700;
-      margin-bottom: 0.3em;
-    }
-
-    .subtitle {
-      font-size: 1em;
-      color: #6b7280;
-      margin-bottom: 2em;
-    }
-
-    .links {
-      display: flex;
-      gap: 1em;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .links a {
-      display: inline-block;
-      padding: 0.8em 2em;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1em;
-      transition: transform 0.15s, box-shadow 0.15s;
-    }
-
-    .links a:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-
-    .btn-primary {
-      background: #1428a0;
-      color: white;
-    }
-
-    .btn-secondary {
-      background: white;
-      color: #1428a0;
-      border: 2px solid #1428a0;
-    }
-
-    .theme-toggle {
-      position: fixed;
-      top: 1em;
-      right: 1em;
-      z-index: 100;
-      background: #e8ebf7;
-      border: 1px solid #d1d5db;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2em;
-      line-height: 1;
-      transition: background 0.2s;
-      padding: 0;
-    }
-    .theme-toggle:hover { background: #d1d5db; }
-
-    @media (prefers-color-scheme: dark) {
-      body:not(.light) {
-        background: #0f172a;
-        color: #e2e8f0;
-      }
-      body:not(.light) .subtitle { color: #94a3b8; }
-      body:not(.light) .btn-primary { background: #6b8cff; color: #0f172a; }
-      body:not(.light) .btn-secondary { background: #1e2a4a; color: #6b8cff; border-color: #6b8cff; }
-      body:not(.light) .theme-toggle { background: #1e2a4a; border-color: #374151; }
-      body:not(.light) .theme-toggle:hover { background: #374151; }
-    }
-
-    body.dark {
-      background: #0f172a;
-      color: #e2e8f0;
-    }
-    body.dark .subtitle { color: #94a3b8; }
-    body.dark .btn-primary { background: #6b8cff; color: #0f172a; }
-    body.dark .btn-secondary { background: #1e2a4a; color: #6b8cff; border-color: #6b8cff; }
-    body.dark .theme-toggle { background: #1e2a4a; border-color: #374151; }
-    body.dark .theme-toggle:hover { background: #374151; }
-  </style>
+  <link rel="stylesheet" href="landing.css">
 </head>
 <body>
   <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
-  <div class="container">
-    <h1>Generative AI에서 Agentic AI로</h1>
-    <p class="subtitle">세미나 발표 자료</p>
-    <div class="links">
-      <a href="latest.html" class="btn-primary">슬라이드 보기</a>
-      <a href="latest.pdf" class="btn-secondary">PDF 다운로드</a>
+
+  <header class="landing-header">
+    <h1 class="landing-title">Seminar Kit</h1>
+    <p class="landing-subtitle">세미나 발표 자료 아카이브</p>
+  </header>
+
+  <main class="landing-main">
+    <div class="seminar-grid" id="seminarGrid"></div>
+    <div class="seminar-empty" id="seminarEmpty" style="display:none;">
+      <p>등록된 세미나가 없습니다.</p>
     </div>
-  </div>
-  <script>
-    (function() {
-      var btn = document.getElementById('themeToggle');
-      var body = document.body;
+  </main>
 
-      function getSystemTheme() {
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      }
+  <footer class="landing-footer">
+    <p>&copy; 2026 Seminar Kit</p>
+  </footer>
 
-      function applyTheme(theme) {
-        body.classList.remove('dark', 'light');
-        if (theme !== 'system') body.classList.add(theme);
-        var effective = theme === 'system' ? getSystemTheme() : theme;
-        btn.textContent = effective === 'dark' ? '\u2600' : '\u263E';
-      }
-
-      var saved = localStorage.getItem('theme');
-      applyTheme(saved || 'system');
-
-      btn.addEventListener('click', function() {
-        var isDark = body.classList.contains('dark') || (!body.classList.contains('light') && getSystemTheme() === 'dark');
-        var next = isDark ? 'light' : 'dark';
-        localStorage.setItem('theme', next);
-        applyTheme(next);
-      });
-
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
-        if (!localStorage.getItem('theme')) applyTheme('system');
-      });
-    })();
-  </script>
+  <script src="landing.js"></script>
 </body>
 </html>

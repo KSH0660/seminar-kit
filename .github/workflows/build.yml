@@ -36,11 +36,11 @@ jobs:
           npm install playwright
           npx playwright install chromium --with-deps
 
-      - name: Generate PDF
+      - name: Generate PDFs for all seminars
         run: node scripts/generate-pdf.js
 
-      - name: Cache-bust PDF link
-        run: sed -i "s|latest.pdf|latest.pdf?v=$(git rev-parse --short HEAD)|" public/index.html
+      - name: Update latest.html redirect
+        run: node scripts/update-latest-redirect.js
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

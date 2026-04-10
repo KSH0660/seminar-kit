@@ -1616,7 +1616,8 @@
   .section-progress,
   .slide-nav,
   .qr-modal,
-  .shortcut-overlay {
+  .shortcut-overlay,
+  .back-to-archive {
     display: none;
   }
   .reveal .slides section {
@@ -1653,4 +1654,24 @@
 .laser-active,
 .laser-active * {
   cursor: none !important;
+}
+
+/* === Back to Archive Link === */
+.back-to-archive {
+  position: fixed;
+  top: 1em;
+  left: 1em;
+  z-index: 100;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 0.8em;
+  color: var(--color-muted);
+  text-decoration: none;
+  background: var(--color-accent-light);
+  padding: 0.3em 0.8em;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+}
+.back-to-archive:hover {
+  background: var(--color-border);
+  color: var(--color-text);
 }

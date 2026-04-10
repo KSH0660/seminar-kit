@@ -1,0 +1,241 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap');
+
+:root {
+  --color-text: #1a1a2e;
+  --color-accent: #1428a0;
+  --color-accent-light: #e8ebf7;
+  --color-muted: #6b7280;
+  --color-border: #d1d5db;
+  --color-bg: #f8f9fa;
+  --color-card-bg: #ffffff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+}
+
+/* === Header === */
+.landing-header {
+  text-align: center;
+  padding: 3em 2em 1.5em;
+}
+
+.landing-title {
+  font-size: 2em;
+  font-weight: 700;
+}
+
+.landing-subtitle {
+  font-size: 1em;
+  color: var(--color-muted);
+  margin-top: 0.3em;
+}
+
+/* === Main === */
+.landing-main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 2em 3em;
+}
+
+/* === Seminar Grid === */
+.seminar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5em;
+}
+
+/* === Card === */
+.seminar-card {
+  position: relative;
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 1.5em;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.seminar-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.seminar-card--latest {
+  border-color: var(--color-accent);
+  border-width: 2px;
+}
+
+.seminar-card__latest-badge {
+  position: absolute;
+  top: -0.6em;
+  right: 1em;
+  background: var(--color-accent);
+  color: #ffffff;
+  font-size: 0.7em;
+  font-weight: 700;
+  padding: 0.2em 0.7em;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+}
+
+.seminar-card__badge {
+  display: inline-block;
+  background: var(--color-accent-light);
+  color: var(--color-accent);
+  font-size: 0.8em;
+  font-weight: 700;
+  padding: 0.2em 0.6em;
+  border-radius: 4px;
+  margin-bottom: 0.6em;
+  align-self: flex-start;
+}
+
+.seminar-card__title {
+  font-size: 1.2em;
+  font-weight: 700;
+  margin-bottom: 0.4em;
+  line-height: 1.4;
+}
+
+.seminar-card__desc {
+  font-size: 0.9em;
+  color: var(--color-muted);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.seminar-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+  margin: 0.8em 0;
+}
+
+.seminar-card__tag {
+  font-size: 0.75em;
+  background: var(--color-accent-light);
+  color: var(--color-accent);
+  padding: 0.15em 0.5em;
+  border-radius: 4px;
+}
+
+.seminar-card__meta {
+  font-size: 0.8em;
+  color: var(--color-muted);
+  margin-bottom: 0.4em;
+}
+
+.seminar-card__actions {
+  display: flex;
+  gap: 0.8em;
+  margin-top: 0.8em;
+}
+
+.seminar-card__btn {
+  display: inline-block;
+  padding: 0.6em 1.2em;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9em;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.seminar-card__btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.seminar-card__btn--primary {
+  background: var(--color-accent);
+  color: #ffffff;
+}
+
+.seminar-card__btn--secondary {
+  background: var(--color-card-bg);
+  color: var(--color-accent);
+  border: 2px solid var(--color-accent);
+}
+
+/* === Empty State === */
+.seminar-empty {
+  text-align: center;
+  padding: 3em;
+  color: var(--color-muted);
+  font-size: 1em;
+}
+
+/* === Footer === */
+.landing-footer {
+  text-align: center;
+  padding: 2em;
+  color: var(--color-muted);
+  font-size: 0.85em;
+}
+
+/* === Theme Toggle === */
+.theme-toggle {
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  z-index: 100;
+  background: var(--color-accent-light);
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  line-height: 1;
+  transition: background 0.2s;
+  padding: 0;
+}
+.theme-toggle:hover { background: var(--color-border); }
+
+/* === Dark Mode: System Preference === */
+@media (prefers-color-scheme: dark) {
+  body:not(.light) {
+    --color-text: #e2e8f0;
+    --color-accent: #6b8cff;
+    --color-accent-light: #1e2a4a;
+    --color-muted: #94a3b8;
+    --color-border: #374151;
+    --color-bg: #0f172a;
+    --color-card-bg: #1e293b;
+  }
+  body:not(.light) .theme-toggle { background: #1e2a4a; border-color: #374151; }
+  body:not(.light) .theme-toggle:hover { background: #374151; }
+  body:not(.light) .seminar-card__latest-badge { color: #0f172a; }
+  body:not(.light) .seminar-card__btn--primary { color: #0f172a; }
+  body:not(.light) .seminar-card__btn--secondary {
+    background: var(--color-card-bg);
+  }
+}
+
+/* === Dark Mode: Manual Toggle === */
+body.dark {
+  --color-text: #e2e8f0;
+  --color-accent: #6b8cff;
+  --color-accent-light: #1e2a4a;
+  --color-muted: #94a3b8;
+  --color-border: #374151;
+  --color-bg: #0f172a;
+  --color-card-bg: #1e293b;
+}
+body.dark .theme-toggle { background: #1e2a4a; border-color: #374151; }
+body.dark .theme-toggle:hover { background: #374151; }
+body.dark .seminar-card__latest-badge { color: #0f172a; }
+body.dark .seminar-card__btn--primary { color: #0f172a; }
+body.dark .seminar-card__btn--secondary {
+  background: var(--color-card-bg);
+}
