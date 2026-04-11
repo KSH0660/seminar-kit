@@ -555,6 +555,30 @@
           </div>
         </div>
 
+        <!-- Click 3: 에이전트 역할 상세 -->
+        <div class="fragment" data-fragment-index="3">
+          <div class="three-column" style="font-size:0.78em; margin-top:0.5em; gap:0.7em;">
+            <div class="metric-highlight" style="text-align:left;">
+              <h4>Planner Agent</h4>
+              <p style="margin-bottom:0.2em;"><strong>실행 계획 수립</strong></p>
+              <p class="sub-note">사용자 요청을 분석하여 Worker Agent에게 어떤 스킬을 사용해 어떤 업무를 할당할지 <strong>전체 실행 계획을 한 번에 수립</strong></p>
+              <p class="sub-note" style="margin-top:0.3em;">&bull; 요청 의도 파악 &rarr; 필요 스킬 선정 &rarr; 실행 순서 결정</p>
+            </div>
+            <div class="metric-highlight" style="text-align:left;">
+              <h4>Supervisor Agent</h4>
+              <p style="margin-bottom:0.2em;"><strong>위임(Delegate) &middot; 검토(Review)</strong></p>
+              <p class="sub-note">Planner의 계획을 전달받아 Worker Agent들에게 <strong>세부 업무를 위임</strong>하고, 수행 결과를 <strong>검토</strong></p>
+              <p class="sub-note" style="margin-top:0.3em;">&bull; 계획 해석 &rarr; Worker 배정 &rarr; 결과 품질 검증</p>
+            </div>
+            <div class="metric-highlight" style="text-align:left;">
+              <h4>Worker Agent</h4>
+              <p style="margin-bottom:0.2em;"><strong>단위 업무 수행</strong></p>
+              <p class="sub-note">Supervisor에게 위임받은 단위 업무를 <strong>스킬 파이프라인에 따라 직접 수행</strong></p>
+              <p class="sub-note" style="margin-top:0.3em;">&bull; 검색(Retrieval) &middot; 생성(Generation) 등 특화 스킬 실행</p>
+            </div>
+          </div>
+        </div>
+
       </section>
 
       <!-- Slide 12: 스킬 파이프라인 상세 — 검색·생성 내부 동작 -->
