@@ -1143,7 +1143,7 @@
   opacity: 0.8;
 }
 
-/* Slide 14-15: Dark mode (system preference) */
+/* Slide 15-16: Dark mode (system preference) */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .key-message-box,
   :root:not([data-theme="light"]) .step-card-header,
@@ -1169,7 +1169,7 @@
   }
 }
 
-/* Slide 14-15: Dark mode (explicit toggle) */
+/* Slide 15-16: Dark mode (explicit toggle) */
 :root[data-theme="dark"] .key-message-box,
 :root[data-theme="dark"] .step-card-header,
 :root[data-theme="dark"] .pipeline-trigger {
@@ -1392,7 +1392,7 @@
   color: #86efac;
 }
 
-/* === Slide 16: Knowledge Base Result === */
+/* === Slide 17: Knowledge Base Result === */
 .knowledge-result {
   margin-top: 0.6em;
   text-align: center;
@@ -1435,6 +1435,64 @@
   font-size: 1.15em;
   color: var(--color-accent);
   font-weight: 700;
+}
+
+/* === Agent Role Cards (Slide 12) === */
+.agent-role-card {
+  border: 2px solid var(--color-accent);
+  border-radius: 8px;
+  padding: 0.7em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+}
+
+.agent-role-card--supervisor {
+  border-color: var(--color-success);
+}
+
+.agent-role-card--worker {
+  border-color: var(--color-muted);
+}
+
+.agent-role-badge {
+  display: inline-block;
+  background: var(--color-accent);
+  color: white;
+  font-size: 0.78em;
+  font-weight: 700;
+  padding: 0.1em 0.5em;
+  border-radius: 4px;
+  margin-bottom: 0.2em;
+}
+
+.agent-role-badge--design {
+  background: var(--color-success);
+}
+
+.agent-pydantic {
+  background: #1a1a2e;
+  color: #e2e8f0;
+  font-family: 'Noto Sans Mono', monospace;
+  font-size: 0.85em;
+  padding: 0.5em 0.6em;
+  border-radius: 6px;
+  line-height: 1.5;
+  margin-top: auto;
+}
+
+.agent-pydantic .py-kw { color: #c084fc; }
+.agent-pydantic .py-cls { color: #67e8f9; }
+.agent-pydantic .py-type { color: #86efac; }
+.agent-pydantic .py-comment { color: #6b7280; font-style: italic; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .agent-pydantic {
+    background: #0d1117;
+  }
+}
+:root[data-theme="dark"] .agent-pydantic {
+  background: #0d1117;
 }
 
 /* === QR Code Modal === */
