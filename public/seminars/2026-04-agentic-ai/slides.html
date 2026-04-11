@@ -524,7 +524,7 @@
         <!-- 컨텍스트 한도 문제 강조 -->
         <div style="margin-top:0.5em;">
           <p>단일 에이전트로는 방대한 레거시를 모두 참조하며 코드를 생성하기에 <strong>컨텍스트 한도</strong>가 부족했습니다.</p>
-          <p class="takeaway">&rarr; Orchestrator &amp; 동적 스킬 기반 Worker 구조로 전면 개편</p>
+          <p class="takeaway">&rarr; Orchestrator &amp; 동적 스킬 기반 Worker Agent 구조로 전면 개편</p>
         </div>
 
         <!-- Click 2: 오케스트레이터 및 전체 구조 -->
@@ -533,9 +533,9 @@
             <div class="arch-orchestrator">
               <div class="arch-orchestrator-label">Orchestrator</div>
               <div class="arch-orchestrator-inner">
-                <div class="arch-role">Planner<br><span style="font-size:0.8em;opacity:0.85">계획 수립</span></div>
+                <div class="arch-role">Planner Agent<br><span style="font-size:0.8em;opacity:0.85">계획 수립</span></div>
                 <span class="arch-role-arrow">&rarr;</span>
-                <div class="arch-role">Supervisor<br><span style="font-size:0.8em;opacity:0.85">위임 &middot; 검토</span></div>
+                <div class="arch-role">Supervisor Agent<br><span style="font-size:0.8em;opacity:0.85">위임 &middot; 검토</span></div>
               </div>
             </div>
             <div class="arch-flow-arrows">
@@ -544,11 +544,11 @@
             </div>
             <div class="arch-skills">
               <div class="arch-skill">
-                <h4>Worker 1: Retrieval</h4>
+                <h4>Worker Agent 1: Retrieval</h4>
                 <p>레거시 코드 검색<br>Hierarchical RAG</p>
               </div>
               <div class="arch-skill">
-                <h4>Worker 2: Generation</h4>
+                <h4>Worker Agent 2: Generation</h4>
                 <p>벡터 코드 생성<br>FSM Verifier &middot; Xcelium</p>
               </div>
             </div>
@@ -557,8 +557,74 @@
 
       </section>
 
-      <!-- Slide 12: 스킬 파이프라인 상세 — 검색·생성 내부 동작 -->
+      <!-- Slide 12: Multi-Agent 시스템의 상세 역할 및 설계 최적화 -->
       <section data-slide-id="slide-12">
+        <h2>Multi-Agent 역할 상세</h2>
+        <p class="slide-subtitle">각 에이전트의 핵심 역할 및 출력 인터페이스 설계</p>
+
+        <!-- Entry: Three agent role cards -->
+        <div class="three-column" style="font-size:0.75em; gap:0.8em; margin-top:0.3em;">
+
+          <!-- Click 1: Planner Agent -->
+          <div class="fragment agent-role-card" data-fragment-index="1">
+            <h3>Planner Agent</h3>
+            <div>
+              <span class="agent-role-badge">핵심 역할</span>
+              <p>사용자 요청을 심층 분석하여, Worker Agent에게 <strong>스킬 할당 및 실행 계획</strong>을 한 번에 수립</p>
+            </div>
+            <div>
+              <span class="agent-role-badge agent-role-badge--design">설계 주안점</span>
+              <p>단일&middot;순차&middot;병렬 등 모든 워크플로우를 유연하게 제어할 수 있도록 출력물을 <strong>Pydantic BaseModel</strong>로 구조화</p>
+            </div>
+            <div class="agent-pydantic">
+              <span class="py-kw">class</span> <span class="py-cls">TaskPlan</span>(BaseModel):<br>
+              &nbsp;&nbsp;order: <span class="py-type">int</span> <span class="py-comment"># 실행 순서&middot;흐름 제어</span><br>
+              &nbsp;&nbsp;skill: <span class="py-type">str</span> <span class="py-comment"># 핵심 도구&middot;기술</span><br>
+              &nbsp;&nbsp;description: <span class="py-type">str</span> <span class="py-comment"># 상세 업무 내역</span><br>
+              <br>
+              <span class="py-kw">class</span> <span class="py-cls">PlannerOutput</span>(BaseModel):<br>
+              &nbsp;&nbsp;plans: <span class="py-type">List[TaskPlan]</span>
+            </div>
+          </div>
+
+          <!-- Click 2: Supervisor Agent -->
+          <div class="fragment agent-role-card agent-role-card--supervisor" data-fragment-index="2">
+            <h3 style="color:var(--color-success);">Supervisor Agent</h3>
+            <div>
+              <span class="agent-role-badge">핵심 역할</span>
+              <p>Planner Agent의 계획을 전달받아 Worker Agent에게 <strong>업무를 위임(Delegate)</strong>하고, 전체 <strong>추론 과정을 모니터링</strong>하며 결과를 취합&middot;검토하여 <strong>품질을 통제</strong></p>
+            </div>
+            <div class="agent-pydantic">
+              <span class="py-kw">class</span> <span class="py-cls">SupervisorOutput</span>(BaseModel):<br>
+              &nbsp;&nbsp;success: <span class="py-type">bool</span> <span class="py-comment"># 작업 성공 여부</span><br>
+              &nbsp;&nbsp;summary: <span class="py-type">str</span> <span class="py-comment"># 수행 결과&middot;추론 요약</span><br>
+              &nbsp;&nbsp;artifacts: <span class="py-type">List[Any]</span> <span class="py-comment"># 결과물&middot;데이터</span>
+            </div>
+          </div>
+
+          <!-- Click 3: Worker Agent -->
+          <div class="fragment agent-role-card agent-role-card--worker" data-fragment-index="3">
+            <h3 style="color:var(--color-muted);">Worker Agent</h3>
+            <div>
+              <span class="agent-role-badge">핵심 역할</span>
+              <p>Supervisor Agent로부터 위임받은 <strong>개별 단위 업무</strong>를 할당된 스킬(skill)로 직접 수행</p>
+            </div>
+            <div>
+              <span class="agent-role-badge agent-role-badge--design">설계 주안점</span>
+              <p>예측 불가능한 작업을 유연하게 처리하도록 출력을 <strong>특정 모델로 제약하지 않음</strong> &rarr; 높은 자유도 보장</p>
+            </div>
+            <div class="agent-pydantic" style="text-align:center;">
+              <span class="py-comment"># 출력 스키마 미제약</span><br>
+              <span class="py-comment"># &rarr; 자유 형식 결과 + 추론 로그</span><br>
+              <span class="py-comment"># &rarr; Supervisor에게 그대로 전달</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Slide 13: 스킬 파이프라인 상세 — 검색·생성 내부 동작 -->
+      <section data-slide-id="slide-13">
         <h2>스킬 파이프라인 상세</h2>
         <p class="slide-subtitle">검색과 생성, 각 스킬의 내부 동작 흐름</p>
 
@@ -635,8 +701,8 @@
 
       </section>
 
-      <!-- Slide 13: 검증 결과 -->
-      <section data-slide-id="slide-13">
+      <!-- Slide 14: 검증 결과 -->
+      <section data-slide-id="slide-14">
         <h2>검증 결과</h2>
 
         <!-- Entry: 컨텍스트 분리 요약 -->
@@ -675,8 +741,8 @@
         </div>
       </section>
 
-      <!-- Slide 14: 기존 에이전트의 한계 — 왜 지식 축적이 필요한가 -->
-      <section data-slide-id="slide-14">
+      <!-- Slide 15: 기존 에이전트의 한계 — 왜 지식 축적이 필요한가 -->
+      <section data-slide-id="slide-15">
         <h2>왜 지식 축적이 필요한가?</h2>
         <p class="slide-subtitle">Limitations of Stateless Agents</p>
 
@@ -728,8 +794,8 @@
         <p class="bridge">그래서 우리가 만든 시스템은 &mdash;</p>
       </section>
 
-      <!-- Slide 15: 자기 주도적 AI 지식 축적 시스템 -->
-      <section data-slide-id="slide-15">
+      <!-- Slide 16: 자기 주도적 AI 지식 축적 시스템 -->
+      <section data-slide-id="slide-16">
         <h2>자기 주도적 AI 지식 축적 시스템</h2>
         <p class="slide-subtitle">Self-Directed AI Knowledge Accumulation</p>
 
@@ -797,8 +863,8 @@
         <p class="bridge">지식이 쌓인다면 &mdash; 정제는 어떻게?</p>
       </section>
 
-      <!-- Slide 16: 자동 지식 정제 파이프라인 및 기대 효과 -->
-      <section data-slide-id="slide-16">
+      <!-- Slide 17: 자동 지식 정제 파이프라인 및 기대 효과 -->
+      <section data-slide-id="slide-17">
         <h2>자동 지식 정제 파이프라인</h2>
         <p class="slide-subtitle">Knowledge Refine Pipeline &amp; Expected Impact</p>
 
@@ -872,8 +938,8 @@
         </div>
       </section>
 
-      <!-- Slide 17: Closing -->
-      <section data-slide-id="slide-17" class="closing-slide">
+      <!-- Slide 18: Closing -->
+      <section data-slide-id="slide-18" class="closing-slide">
         <div class="closing-content">
           <p class="closing-theme">Build Lean, Scale Deep</p>
           <h1 class="closing-title">End of Plan, Start of Making</h1>
@@ -890,8 +956,8 @@
         </div>
       </section>
 
-      <!-- Slide 18: Q&A -->
-      <section data-slide-id="slide-18" class="qa-slide">
+      <!-- Slide 19: Q&A -->
+      <section data-slide-id="slide-19" class="qa-slide">
         <div class="qa-content">
           <h1 class="qa-title">Q &amp; A</h1>
           <p class="qa-subtitle">Thank you for listening</p>
