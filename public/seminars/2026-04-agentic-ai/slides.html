@@ -466,8 +466,60 @@
         </div>
       </section>
 
-      <!-- Slide 11: 3대 허들 & 극복 -->
+      <!-- Slide 11: What is Agentic? -->
       <section data-slide-id="slide-11">
+        <h2>What is Agentic?</h2>
+
+        <div class="agentic-compare">
+          <!-- Click 1: Left — LLM Call (One-shot) -->
+          <div class="fragment fade-in" data-fragment-index="1">
+            <div class="agentic-box agentic-box--oneshot">
+              <h3>LLM Call <span class="sub-note">(One-shot)</span></h3>
+              <div class="flow-vertical">
+                <span class="agentic-step">Prompt</span>
+                <p class="flow-arrow">&darr;</p>
+                <span class="agentic-step">Response</span>
+              </div>
+              <p class="agentic-caption">끝. 자기 교정 없음</p>
+            </div>
+          </div>
+
+          <!-- Divider (appears with Click 1) -->
+          <div class="fragment fade-in agentic-divider" data-fragment-index="1">
+            <div class="agentic-divider-line">
+              <span class="agentic-vs">vs</span>
+            </div>
+          </div>
+
+          <!-- Click 2: Right — Agentic Workflow (Loop) -->
+          <div class="fragment fade-in" data-fragment-index="2">
+            <div class="agentic-box agentic-box--loop">
+              <h3>Agentic Workflow <span class="sub-note">(Loop)</span></h3>
+              <div class="flow-vertical agentic-loop-wrap">
+                <span class="agentic-step">Clear Context</span>
+                <p class="flow-arrow">&darr;</p>
+                <span class="agentic-step">Action</span>
+                <p class="flow-arrow">&darr;</p>
+                <span class="agentic-step accent">Verifier</span>
+                <p class="flow-arrow">&darr;</p>
+                <span class="agentic-step">Feedback Loop</span>
+                <div class="agentic-loop-return"></div>
+              </div>
+              <p class="agentic-caption">출력을 검증하고, 실패 시 스스로 교정하는 사이클</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Click 3: Bottom takeaway -->
+        <div class="fragment fade-up" data-fragment-index="3">
+          <p class="takeaway" style="margin-top:0.8em;">
+            LLM을 에이전트로 만드는 3가지 &mdash; <strong>Clear Context</strong> &middot; <strong>Verifier</strong> &middot; <strong>Feedback Loop</strong>
+          </p>
+        </div>
+      </section>
+
+      <!-- Slide 12: 3대 허들 & 극복 -->
+      <section data-slide-id="slide-12">
         <h2>3대 허들 &amp; 극복</h2>
 
         <!-- Entry: horizontal flow -->
@@ -518,8 +570,8 @@
 
       </section>
 
-      <!-- Slide 12: Multi-Agent 아키텍처: 스킬 단위 태스크 분해 & 작업 (1) -->
-      <section data-slide-id="slide-12">
+      <!-- Slide 13: Multi-Agent 아키텍처: 스킬 단위 태스크 분해 & 작업 (1) -->
+      <section data-slide-id="slide-13">
         <h2>Multi-Agent 아키텍처: 스킬 단위 태스크 분해 & 작업 (1)</h2>
 
         <!-- Entry: 단일 에이전트 방식 도식 (정상 작동 플로우) -->
@@ -574,8 +626,8 @@
 
       </section>
 
-      <!-- Slide 13: Multi-Agent 아키텍처: 스킬 단위 태스크 분해 & 작업 (2) -->
-      <section data-slide-id="slide-13">
+      <!-- Slide 14: Multi-Agent 아키텍처: 스킬 단위 태스크 분해 & 작업 (2) -->
+      <section data-slide-id="slide-14">
         <h2>Multi-Agent 아키텍처: 스킬 단위 태스크 분해 & 작업 (2)</h2>
         <p class="slide-subtitle">각 에이전트의 핵심 역할 및 출력 인터페이스 설계</p>
 
@@ -640,8 +692,8 @@
         </div>
       </section>
 
-      <!-- Slide 14: 스킬 파이프라인 상세 — 검색·생성 내부 동작 -->
-      <section data-slide-id="slide-14">
+      <!-- Slide 15: 스킬 파이프라인 상세 — 검색·생성 내부 동작 -->
+      <section data-slide-id="slide-15">
         <h2>스킬 파이프라인 상세</h2>
         <p class="slide-subtitle">검색과 생성, 각 스킬의 내부 동작 흐름</p>
 
@@ -718,8 +770,8 @@
 
       </section>
 
-      <!-- Slide 15: 검증 결과 -->
-      <section data-slide-id="slide-15">
+      <!-- Slide 16: 검증 결과 -->
+      <section data-slide-id="slide-16">
         <h2>검증 결과</h2>
 
         <!-- Entry: 컨텍스트 분리 요약 -->
@@ -758,8 +810,8 @@
         </div>
       </section>
 
-      <!-- Slide 16: Closing -->
-      <section data-slide-id="slide-16" class="closing-slide">
+      <!-- Slide 17: Closing -->
+      <section data-slide-id="slide-17" class="closing-slide">
         <div class="closing-content">
           <p class="closing-theme">Build Lean, Scale Deep</p>
           <h1 class="closing-title">End of Plan, Start of Making</h1>
@@ -776,8 +828,8 @@
         </div>
       </section>
 
-      <!-- Slide 17: 오늘의 답 -->
-      <section data-slide-id="slide-17">
+      <!-- Slide 18: 오늘의 답 -->
+      <section data-slide-id="slide-18">
         <h2>오늘의 답</h2>
         <div class="discussion-topics">
           <div class="discussion-topic-item">
@@ -807,24 +859,24 @@
         </div>
       </section>
 
-      <!-- Slide 18: Q&A -->
-      <section data-slide-id="slide-18" class="qa-slide">
+      <!-- Slide 19: Q&A -->
+      <section data-slide-id="slide-19" class="qa-slide">
         <div class="qa-content">
           <h1 class="qa-title">Q &amp; A</h1>
           <p class="qa-subtitle">Thank you for listening</p>
         </div>
       </section>
 
-      <!-- Slide 19: Appendix -->
-      <section data-slide-id="slide-19" class="appendix-slide">
+      <!-- Slide 20: Appendix -->
+      <section data-slide-id="slide-20" class="appendix-slide">
         <div class="appendix-content">
           <h1 class="appendix-title">Appendix</h1>
           <p class="appendix-subtitle">지식 축적 시스템</p>
         </div>
       </section>
 
-      <!-- Slide 20: 기존 에이전트의 한계 — 왜 지식 축적이 필요한가 -->
-      <section data-slide-id="slide-20">
+      <!-- Slide 21: 기존 에이전트의 한계 — 왜 지식 축적이 필요한가 -->
+      <section data-slide-id="slide-21">
         <h2>왜 지식 축적이 필요한가?</h2>
         <p class="slide-subtitle">Limitations of Stateless Agents</p>
 
@@ -876,8 +928,8 @@
         <p class="bridge">그래서 우리가 만든 시스템은 &mdash;</p>
       </section>
 
-      <!-- Slide 21: 자기 주도적 AI 지식 축적 시스템 -->
-      <section data-slide-id="slide-21">
+      <!-- Slide 22: 자기 주도적 AI 지식 축적 시스템 -->
+      <section data-slide-id="slide-22">
         <h2>자기 주도적 AI 지식 축적 시스템</h2>
         <p class="slide-subtitle">Self-Directed AI Knowledge Accumulation</p>
 
@@ -945,8 +997,8 @@
         <p class="bridge">지식이 쌓인다면 &mdash; 정제는 어떻게?</p>
       </section>
 
-      <!-- Slide 22: 자동 지식 정제 파이프라인 및 기대 효과 -->
-      <section data-slide-id="slide-22">
+      <!-- Slide 23: 자동 지식 정제 파이프라인 및 기대 효과 -->
+      <section data-slide-id="slide-23">
         <h2>자동 지식 정제 파이프라인</h2>
         <p class="slide-subtitle">Knowledge Refine Pipeline &amp; Expected Impact</p>
 
