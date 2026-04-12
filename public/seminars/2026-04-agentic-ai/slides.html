@@ -721,9 +721,9 @@
         </div>
       </section>
 
-      <!-- Slide 16: 스킬 파이프라인 상세 — 검색·생성 내부 동작 -->
+      <!-- Slide 16: Worker Agent - Skill Pipeline -->
       <section data-slide-id="slide-16">
-        <h2>스킬 파이프라인 상세</h2>
+        <h2>Worker Agent - Skill Pipeline</h2>
         <p class="slide-subtitle">검색과 생성, 각 스킬의 내부 동작 흐름</p>
 
         <!-- Entry: 두 스킬 파이프라인 비교 -->
@@ -755,7 +755,7 @@
 
           <div class="arch-skill" style="text-align:left;border-color:var(--color-success);">
             <h4 style="color:var(--color-success);">Generation Skill</h4>
-            <div class="pipeline-steps">
+            <div class="pipeline-steps pipeline-with-feedback">
               <div class="pipeline-step">
                 <span class="pipeline-step-num">1</span>
                 <div><strong>계획 수립</strong><br><span class="sub-note">관련 문서 심층 읽기 + 코드 작성 계획</span></div>
@@ -776,11 +776,17 @@
                 <div><strong>본문 구현</strong><br><span class="sub-note">실제 검증 로직 작성</span></div>
               </div>
               <div class="pipeline-step-arrow">&darr;</div>
-              <div class="pipeline-step">
+              <div class="pipeline-step pipeline-step--verifier">
                 <span class="pipeline-step-num">5</span>
-                <div><strong>검증 (Verify)</strong><br><span class="sub-note">경량 검증기 + EDA 툴 정합성 검증</span></div>
+                <div><strong>검증기 (Verifier)</strong><br><span class="sub-note">경량 검증기 + EDA 툴 정합성 검증</span></div>
               </div>
+              <div class="pipeline-verdict">
+                <span style="color:var(--color-success);">&darr; Pass &rarr; 다음 단계</span>
+              </div>
+              <!-- Feedback loop: Step 5 → Step 1 -->
+              <div class="pipeline-feedback-loop"></div>
             </div>
+            <p class="pipeline-feedback-note">&#x21BA; Fail: 통과할 때까지 반복 (Feedback Loop)</p>
           </div>
         </div>
 
