@@ -996,6 +996,71 @@
   line-height: 1;
 }
 
+/* === Pipeline Verifier & Feedback Loop === */
+.pipeline-step--verifier {
+  background: #fef2f2;
+  border: 2px solid var(--color-fail);
+}
+
+.pipeline-step--verifier .pipeline-step-num {
+  color: var(--color-fail);
+}
+
+.pipeline-with-feedback {
+  position: relative;
+  padding-right: 4.5em;
+}
+
+.pipeline-feedback-loop {
+  position: absolute;
+  right: 0.5em;
+  top: 0;
+  bottom: 1.8em;
+  width: 1.8em;
+  border: 2.5px solid var(--color-fail);
+  border-left: none;
+  border-radius: 0 8px 8px 0;
+}
+
+.pipeline-feedback-loop::before {
+  content: 'Fail';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  font-size: 0.6em;
+  color: var(--color-fail);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.pipeline-feedback-loop::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: -8px;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-right: 8px solid var(--color-fail);
+}
+
+.pipeline-verdict {
+  display: flex;
+  justify-content: center;
+  gap: 1.5em;
+  margin-top: 0.2em;
+  font-size: 0.82em;
+  font-weight: 700;
+}
+
+.pipeline-feedback-note {
+  text-align: center;
+  color: var(--color-fail);
+  font-size: 0.72em;
+  font-weight: 600;
+  margin-top: 0.15em;
+}
+
 /* === Key Message Box === */
 .key-message-box {
   background: var(--color-accent);
