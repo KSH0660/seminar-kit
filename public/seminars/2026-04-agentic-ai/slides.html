@@ -506,7 +506,7 @@
       <section data-slide-id="slide-11">
         <h2>Multi-Agent 아키텍처: 스킬 단위 태스크 분해 & 작업 (1)</h2>
 
-        <!-- Entry: 단일 에이전트 방식 도식 -->
+        <!-- Entry: 단일 에이전트 방식 도식 (정상 작동 플로우) -->
         <div class="single-agent-diagram">
           <div class="single-agent-label">Single Agent</div>
           <div class="single-agent-arrow">&darr;</div>
@@ -517,18 +517,19 @@
               <div class="single-context-divider">+</div>
               <div class="single-context-task">&ldquo;생성&rdquo;<br><strong>테스트 코드</strong><br><span style="font-size:0.9em;">작성 &middot; 검증</span></div>
             </div>
-            <p class="single-context-overflow">Context Limit Exceeded</p>
+            <!-- Click 1: 에러 표시 -->
+            <p class="single-context-overflow fragment" data-fragment-index="1">Context Limit Exceeded</p>
           </div>
         </div>
 
-        <!-- 컨텍스트 한도 문제 강조 -->
-        <div style="margin-top:0.5em;">
+        <!-- Click 1: 한계점 설명 -->
+        <div class="fragment" data-fragment-index="1" style="margin-top:0.5em;">
           <p>단일 에이전트로는 방대한 레거시를 모두 참조하며 코드를 생성하기에 <strong>컨텍스트 한도</strong>가 부족했습니다.</p>
-          <p class="takeaway">&rarr; Orchestrator &amp; 동적 스킬 기반 Worker Agent 구조로 전면 개편</p>
         </div>
 
-        <!-- Click 2: 오케스트레이터 및 전체 구조 -->
+        <!-- Click 2: 해결책 및 새로운 아키텍처 -->
         <div class="fragment" data-fragment-index="2">
+          <p class="takeaway">&rarr; Orchestrator &amp; 동적 스킬 기반 Worker Agent 구조로 전면 개편</p>
           <div class="architecture-diagram">
             <div class="arch-orchestrator">
               <div class="arch-orchestrator-label">Orchestrator</div>
