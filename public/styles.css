@@ -1562,6 +1562,162 @@
   background: #0d1117;
 }
 
+/* === Orchestration 3-Layer Diagram (Slide 14) === */
+.orch-diagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin: 1.2em auto 0.6em;
+  max-width: 1050px;
+}
+
+.orch-layer {
+  flex: 1;
+  text-align: center;
+  padding: 1em 0.8em;
+  border-radius: 10px;
+  opacity: 0;
+  transform: translateX(0) scale(0.92);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.orch-layer--planner  { transform: translateX(40px) scale(0.92); }
+.orch-layer--supervisor { transform: scale(0.92); }
+.orch-layer--worker   { transform: translateX(-40px) scale(0.92); }
+
+.fragment.visible .orch-layer,
+.orch-diagram.visible .orch-layer {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+.orch-layer--planner {
+  background: var(--color-accent);
+  color: white;
+  transition-delay: 0s;
+}
+
+.orch-layer--supervisor {
+  background: var(--color-success);
+  color: white;
+  transition-delay: 0.15s;
+}
+
+.orch-layer--worker {
+  background: var(--color-muted);
+  color: white;
+  transition-delay: 0.3s;
+}
+
+.orch-layer h3 {
+  margin: 0 0 0.3em;
+  font-size: 1.05em;
+}
+
+.orch-layer p {
+  margin: 0;
+  font-size: 0.78em;
+  opacity: 0.92;
+  line-height: 1.4;
+}
+
+.orch-arrow {
+  font-size: 1.6em;
+  color: var(--color-muted);
+  margin: 0 0.2em;
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease 0.4s;
+}
+
+.fragment.visible .orch-arrow,
+.orch-diagram.visible .orch-arrow {
+  opacity: 1;
+}
+
+.orch-key-message {
+  text-align: center;
+  font-size: 1.05em;
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-top: 0.8em;
+}
+
+/* === Planner & Supervisor Code Slide (Slide 15) === */
+.code-focus-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2em;
+  margin-top: 0.5em;
+}
+
+.code-focus-card {
+  border: 2px solid var(--color-accent);
+  border-radius: 8px;
+  padding: 0.8em;
+}
+
+.code-focus-card--supervisor {
+  border-color: var(--color-success);
+}
+
+.code-focus-card h3 {
+  margin: 0 0 0.5em;
+  font-size: 0.95em;
+}
+
+.agent-pydantic .py-focus {
+  background: rgba(255, 214, 0, 0.25);
+  padding: 0.05em 0.3em;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 214, 0, 0.5);
+  animation: focusPulse 2s ease-in-out infinite;
+}
+
+@keyframes focusPulse {
+  0%, 100% { background: rgba(255, 214, 0, 0.2); }
+  50% { background: rgba(255, 214, 0, 0.4); }
+}
+
+.design-intent {
+  margin-top: 0.6em;
+  background: var(--color-accent-light);
+  border-radius: 8px;
+  padding: 0.6em 0.8em;
+  font-size: 0.72em;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.design-intent strong {
+  color: var(--color-accent);
+}
+
+.design-intent-label {
+  display: inline-block;
+  background: var(--color-accent);
+  color: white;
+  font-size: 0.85em;
+  font-weight: 700;
+  padding: 0.1em 0.5em;
+  border-radius: 4px;
+  margin-bottom: 0.3em;
+}
+
+.design-intent-label--green {
+  background: var(--color-success);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .design-intent {
+    background: rgba(20, 40, 160, 0.15);
+  }
+}
+:root[data-theme="dark"] .design-intent {
+  background: rgba(20, 40, 160, 0.15);
+}
+
 /* === QR Code Modal === */
 .qr-modal {
   position: fixed;
