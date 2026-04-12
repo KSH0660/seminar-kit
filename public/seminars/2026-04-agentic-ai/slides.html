@@ -570,9 +570,9 @@
 
       </section>
 
-      <!-- Slide 13: Multi-Agent 아키텍처: 스킬 단위 태스크 분해 & 작업 (1) -->
+      <!-- Slide 13: 단일 에이전트 접근 및 한계 -->
       <section data-slide-id="slide-13">
-        <h2>Multi-Agent 아키텍처: 스킬 단위 태스크 분해 & 작업 (1)</h2>
+        <h2>단일 에이전트 접근 및 한계</h2>
 
         <!-- Entry: 단일 에이전트 방식 도식 (정상 작동 플로우) -->
         <div class="single-agent-diagram">
@@ -595,33 +595,9 @@
           <p>단일 에이전트로는 방대한 레거시를 모두 참조하며 코드를 생성하기에 <strong>컨텍스트 한도</strong>가 부족했습니다.</p>
         </div>
 
-        <!-- Click 2: 해결책 및 새로운 아키텍처 -->
+        <!-- Click 2: 해결책 -->
         <div class="fragment" data-fragment-index="2">
           <p class="takeaway">&rarr; Orchestrator &amp; 동적 스킬 기반 Worker Agent 구조로 전면 개편</p>
-          <div class="architecture-diagram">
-            <div class="arch-orchestrator">
-              <div class="arch-orchestrator-label">Orchestrator</div>
-              <div class="arch-orchestrator-inner">
-                <div class="arch-role">Planner Agent<br><span style="font-size:0.8em;opacity:0.85">계획 수립</span></div>
-                <span class="arch-role-arrow">&rarr;</span>
-                <div class="arch-role">Supervisor Agent<br><span style="font-size:0.8em;opacity:0.85">위임 &middot; 검토</span></div>
-              </div>
-            </div>
-            <div class="arch-flow-arrows">
-              <span>&darr; 위임</span>
-              <span>&uarr; 검토</span>
-            </div>
-            <div class="arch-skills">
-              <div class="arch-skill">
-                <h4>Worker Agent 1: Retrieval</h4>
-                <p>레거시 코드 검색<br>Hierarchical RAG</p>
-              </div>
-              <div class="arch-skill">
-                <h4>Worker Agent 2: Generation</h4>
-                <p>벡터 코드 생성<br>FSM Verifier &middot; Xcelium</p>
-              </div>
-            </div>
-          </div>
         </div>
 
       </section>
